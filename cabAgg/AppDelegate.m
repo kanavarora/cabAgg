@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 
 #import <GoogleMaps/GoogleMaps.h>
+#define MR_SHORTHAND
+#import "CoreData+MagicalRecord.h"
 
 #import "SidecarHttpClient.h"
 #import "MainViewController.h"
@@ -39,6 +41,9 @@
     globalStateInterface.mainVC = mainVC;
     
     [self setAppearance];
+    [MagicalRecord setupCoreDataStack];
+    //[MagicalRecord setupCoreDataStackWithStoreNamed:@"CabAgg"];
+    
     return YES;
 }
 

@@ -65,6 +65,20 @@
     [self clearOutDestination];
 }
 
+- (void)centerOnLocationAndClearOutDestination {
+    BOOL isAnimated = NO;
+    if (self.isPickup) {
+        isAnimated = [self.mainVC centerOnPickup];
+    }else {
+        isAnimated = [self.mainVC centerOnDestination];
+    }
+    if (isAnimated) {
+        [self performSelector:@selector(clearOutDestination) withObject:nil afterDelay:0.5f];
+    } else {
+        [self clearOutDestination];
+    }
+}
+
 - (void)clearOutDestination {
     self.state = DestinationViewStateEmpty;
     self.locationLabel.text = @"Add Location...";
@@ -98,13 +112,13 @@
         }
         case DestinationViewStatePin:
         {
-            [self clearOutDestination];
+            [self centerOnLocationAndClearOutDestination];
             break;
         }
             
         case DestinationViewStateAddress:
         {
-            [self clearOutDestination];
+            [self centerOnLocationAndClearOutDestination];
             break;
         }
             

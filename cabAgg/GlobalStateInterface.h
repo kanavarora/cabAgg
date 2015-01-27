@@ -21,6 +21,6 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
-#define USE_TEST_SERVER 0
+#define USE_TEST_SERVER 1
 
 extern GlobalStateInterface *globalStateInterface;

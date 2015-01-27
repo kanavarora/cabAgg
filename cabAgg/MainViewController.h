@@ -13,10 +13,15 @@
 @interface MainViewController : UIViewController<CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (nonatomic, readonly, strong) CabAggHttpClient *lyftClient;
+@property (nonatomic, readonly, assign) CLLocationCoordinate2D pickupLocation;
+@property (nonatomic, readonly, assign) CLLocationCoordinate2D destinationLocation;
 
 - (CLLocationCoordinate2D)currentMapLocation;
 - (void)clearPickupLocation;
 - (void)clearDestinationLocation;
+- (BOOL)centerOnPickup; // returns whether there is any need to center anywhere
+- (BOOL)centerOnDestination;
+- (void)centerMapOnLocation:(CLLocationCoordinate2D)loc;
 - (void)updatePickupLocation:(CLLocationCoordinate2D)pickupLocation
                      address:(NSString *)address
                   moveRegion:(BOOL)moveRegion;

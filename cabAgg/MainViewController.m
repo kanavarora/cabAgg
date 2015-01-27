@@ -15,7 +15,7 @@
 #import "GlobalStateInterface.h"
 #import "DisplayResultsCollectionView.h"
 
-#define kZoomFactor 2.0f
+#define kZoomFactor 1.5f
 #define METERS_PER_MILE 1609.344
 
 @interface MainViewController ()
@@ -65,9 +65,11 @@
     UIImage *image = [UIImage imageNamed:@"newLocation.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.clipsToBounds = YES;
+    //imageView.layer.borderColor = [[UIColor blackColor] CGColor];
+    //imageView.layer.borderWidth = 1.0f;
     CGRect screenRect = self.mapView.bounds;
     imageView.frame = CGRectMake(screenRect.size.width/2.0f-20,
-                                 screenRect.size.height/2.0f-20, 40, 40);
+                                 screenRect.size.height/2.0f, 40, 40);
     self.locatioSetterImageView = imageView;
     [self.mapView addSubview:imageView];
     
@@ -188,6 +190,19 @@
     [_mapView setRegion:viewRegion animated:YES];
 }
 
+- (void)centerMapToIncludeLocations:(CLLocationCoordinate2D)loc1 loc2:(CLLocationCoordinate2D)loc2 {
+    float midLat = (loc1.latitude+loc2.latitude)/2.0f;
+    float midLon = (loc1.longitude+loc2.longitude)/2.0f;
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(midLat, midLon);
+    
+    CLLocation *pointALocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+    CLLocation *pointBLocation = [[CLLocation alloc] initWithLatitude:loc2.latitude longitude:loc2.longitude];
+    CLLocationDistance d = [pointALocation distanceFromLocation:pointBLocation];
+    MKCoordinateRegion r = MKCoordinateRegionMakeWithDistance(center, 2*d, 2*d);
+    [_mapView setRegion:r animated:YES];
+    
+}
+
 - (void)setupLocationMarker {
     if (!self.isPickupSet) {
         //self.mapView.hidden = YES;
@@ -212,6 +227,7 @@
     self.endRadial = [MKCircle circleWithCenterCoordinate:self.destinationLocation radius:[self endRadialInMeters]];
     [self.mapView addOverlay:self.startRadial];
     [self.mapView addOverlay:self.endRadial];
+    [self centerMapToIncludeLocations:self.pickupLocation loc2:self.destinationLocation];
 }
 
 - (void)setupActionButton {
@@ -298,6 +314,22 @@
     self.isDestinationSet = NO;
     [self updateDestAnnotation];
     [self setupActionButton];
+}
+
+- (BOOL)centerOnPickup {
+    if (self.isPickupSet) {
+        [self centerMapOnLocation:self.pickupLocation];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)centerOnDestination {
+    if (self.isDestinationSet) {
+        [self centerMapOnLocation:self.destinationLocation];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)updatePickupLocation:(CLLocationCoordinate2D)pickupLocation

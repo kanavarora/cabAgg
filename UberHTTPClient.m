@@ -7,6 +7,7 @@
 //
 
 #import "UberHTTPClient.h"
+#import "GlobalStateInterface.h"
 
 @interface UberHTTPClient ()
 
@@ -16,7 +17,6 @@
 
 @implementation UberHTTPClient
 
-#define kUberApiKey @"EgQAboNipnPTvctxRzqNBmC_oHcdoDeP7UQ1MCYN"
 #define kUberClientID @"lHpulRd2-QygzWuKtYPjS2s-QU4N-YyU"
 #define kUberXProductId @"a1111c8c-c720-46c3-8534-2fcdd730040d"
 #define kUberPoolProductId @"26546650-e557-4a7b-86e7-6a3942445247"
@@ -28,7 +28,13 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedUberHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.uber.com/"]];
+        
+#if USE_TEST_SERVER
+        NSString *baseUrl = @"http://localhost:8080/";
+#else
+        NSString *baseUrl = @"http://golden-context-823.appspot.com/";
+#endif
+        _sharedUberHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     });
     
     return _sharedUberHTTPClient;
@@ -50,31 +56,26 @@
 }
 
 - (void)getPriceEstimateForStartLatitude:(float)startLatitude
-                           startLongitude:(float)startLongitude
+                          startLongitude:(float)startLongitude
                              endLatitude:(float)endLatitude
                             endLongitude:(float)endLongitude
                                  success:(void (^)(float, float, float))successBlock {
-    NSDictionary *params = @{@"server_token" : kUberApiKey,
-                             @"start_latitude" : @(startLatitude),
-                             @"start_longitude" : @(startLongitude),
-                             @"end_latitude" : @(endLatitude),
-                             @"end_longitude" : @(endLongitude)};
-    [self GET:@"v1/estimates/price" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSArray *products = responseObject[@"prices"];
-        for (NSDictionary *product in products) {
-            if ([product[@"display_name"] isEqualToString:@"uberX"]) {
-                float lowEstimate = [product[@"low_estimate"] floatValue];
-                float highEstimate = [product[@"high_estimate"] floatValue];
-                float surgeMultiplier = [product[@"surge_multiplier"] floatValue];
-                successBlock(lowEstimate, highEstimate, surgeMultiplier);
-                break;
-            }
+    NSDictionary *params = @{@"startLat" : @(startLatitude),
+                             @"startLon" : @(startLongitude),
+                             @"endLat" : @(endLatitude),
+                             @"endLon" : @(endLongitude)};
+    [self GET:@"api/v1/uber" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (!responseObject[@"error"]) {
+            float lowEstimate = [responseObject[@"lowEstimate"] floatValue];
+            float highEstimate = [responseObject[@"highEstimate"] floatValue];
+            float surgeMultiplier = [responseObject[@"surgeMultiplier"] floatValue];
+            successBlock(lowEstimate, highEstimate, surgeMultiplier);
+            return;
         }
-        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
-
+    
 }
 
 - (void)getPriceEstimatesForStart:(CLLocationCoordinate2D)start

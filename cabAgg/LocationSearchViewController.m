@@ -10,6 +10,9 @@
 
 #import "HTTPClient.h"
 
+#import "CoreData+MagicalRecord.h"
+#import "Search.h"
+
 #import "GlobalStateInterface.h"
 #import "MainViewController.h"
 #import "LocationSearchTableViewCell.h"
@@ -23,6 +26,9 @@
 @property (nonatomic, readwrite, strong) LocationSearchTableViewCell *prototypeCell;
 @property (nonatomic, readwrite, strong) NSArray *data;
 @property (nonatomic, readwrite, assign) BOOL isPickup;
+@property (nonatomic, readwrite, strong) NSMutableArray *savedSearches;
+@property (nonatomic, readwrite, assign) BOOL isShowingSavedResults;
+
 @end
 
 @implementation LocationSearchViewController
@@ -31,6 +37,17 @@
     self = [super initWithNibName:@"LocationSearchViewController" bundle:nil];
     if (self) {
         _isPickup = isPickup;
+        _isShowingSavedResults = YES;
+        NSArray *searchEntities = [Search MR_findAllSortedBy:@"times" ascending:NO];
+        //NSArray *searchEntities = @[];
+        _savedSearches = [NSMutableArray array];
+        for (Search *search in searchEntities) {
+            NSMutableDictionary *searchDict = [NSMutableDictionary dictionary];
+            searchDict[@"formattedAddress"] = search.address;
+            searchDict[@"latitude"] = search.lat;
+            searchDict[@"longitude"] = search.lon;
+            [_savedSearches addObject:searchDict];
+        }
     }
     return self;
 }
@@ -79,6 +96,7 @@
     if (searchText.length) {
         [[HTTPClient sharedInstance] getGeoCodeFor:searchText startLocation:globalStateInterface.mainVC.currentMapLocation  success:^(NSArray * results) {
             self.data = results;
+            self.isShowingSavedResults = NO;
             [self.tableView reloadData];
         }];
     }
@@ -91,18 +109,19 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.data.count;
+    return self.isShowingSavedResults ? self.savedSearches.count:self.data.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     //if (indexPath.row == 0) {
     //   return 0.0f;
     //}
+    NSArray *resultsData = self.isShowingSavedResults ? self.savedSearches : self.data;
     if (!self.prototypeCell)
     {
         self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     }
-    [self.prototypeCell setupWithAddress:self.data[indexPath.row] parentVC:self];
+    [self.prototypeCell setupWithAddress:resultsData[indexPath.row] parentVC:self];
     
     [self.prototypeCell setNeedsLayout];
     [self.prototypeCell layoutIfNeeded];
@@ -117,14 +136,29 @@
     //    return [UITableViewCell new];
     //}
     static NSString *cellIdentifier = @"cell";
+    NSArray *resultsData = self.isShowingSavedResults ? self.savedSearches : self.data;
     
     LocationSearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    [cell setupWithAddress:self.data[indexPath.row] parentVC:self];
+    [cell setupWithAddress:resultsData[indexPath.row] parentVC:self];
     
     return cell;
 }
 
 - (void)locationSelectedWith:(NSDictionary *)addressDict {
+    NSArray *results = [Search MR_findByAttribute:@"address" withValue:addressDict[@"formattedAddress"]];
+    Search *clickedEntity = nil;
+    if (!results.count) {
+        clickedEntity = [Search MR_createEntity];
+        clickedEntity.address = addressDict[@"formattedAddress"];
+        clickedEntity.lon = addressDict[@"longitude"];
+        clickedEntity.lat = addressDict[@"latitude"];
+        clickedEntity.times = @(0);
+    } else {
+        clickedEntity = results[0];
+    }
+    clickedEntity.times = @([clickedEntity.times intValue] + 1);
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([addressDict[@"latitude"] floatValue], [addressDict[@"longitude"] floatValue]);
         if (self.isPickup) {
