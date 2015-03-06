@@ -9,7 +9,9 @@
 #import "AFHTTPSessionManager.h"
 
 #import "HTTPClient.h"
+#import "GlobalStateInterface.h"
 
+#import "MainViewController.h"
 
 @implementation HTTPClient
 
@@ -68,7 +70,7 @@
                              @"swLon":@(swLon),
                              @"neLat":@(neLat),
                              @"neLon":@(neLon)};
-    [self GET:@"geocode" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self GET:@"api/v1/geocode" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *results = responseObject[@"results"];
         NSMutableArray *toSortResults = [NSMutableArray array];
         for (NSDictionary *result in results) {
@@ -98,6 +100,63 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"hurray");
     }];
+}
+
+/*
+ Directions
+ distanceMetres
+ durationSecs
+ */
+- (void)getDirectionsFromStart:(CLLocationCoordinate2D)startLocation
+                           end:(CLLocationCoordinate2D)endLocation
+                       success:(void (^)(NSDictionary *))successBlock
+                       failure:(void (^)())failureBlock {
+    NSDictionary *params = @{@"startLat": @(startLocation.latitude),
+                             @"startLon": @(startLocation.longitude),
+                             @"endLat": @(endLocation.latitude),
+                             @"endLon": @(endLocation.longitude)};
+    [self GET:@"api/v1/directions" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject[@"error"]) {
+            if (failureBlock) failureBlock();
+        } else {
+            if (successBlock) successBlock(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (failureBlock) failureBlock();
+    }];
+}
+
+- (void)startApp {
+    NSDictionary *params = @{@"udid": [[[UIDevice currentDevice] identifierForVendor] UUIDString]};
+    [self POST:@"api/v1/start" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject[@"error"]) {
+            NSString *errorString = responseObject[@"error"][@"string"];
+            if (!errorString) {
+                return;
+            }
+            
+            UIAlertController *alertController =
+            [UIAlertController alertControllerWithTitle:@"Message"
+                                                message:errorString
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* ok = [UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     //Do some thing here
+                                     [alertController dismissViewControllerAnimated:YES completion:nil];
+                                     
+                                 }];
+            [alertController addAction:ok]; // add action to uialertcontroller
+            
+            [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        // mhmmmm
+    }];
+    
 }
 
 @end

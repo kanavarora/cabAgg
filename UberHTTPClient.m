@@ -12,6 +12,10 @@
 @interface UberHTTPClient ()
 
 @property (nonatomic, readwrite, assign) int numRequests; // to keep track what id of bulk request we doing
+
+@property (nonatomic, readwrite, assign) int queuedRequests;
+@property (nonatomic, readwrite, assign) BOOL isDone;
+
 @end
 
 
@@ -55,11 +59,12 @@
     return self;
 }
 
-- (void)getPriceEstimateForStartLatitude:(float)startLatitude
-                          startLongitude:(float)startLongitude
-                             endLatitude:(float)endLatitude
-                            endLongitude:(float)endLongitude
-                                 success:(void (^)(float, float, float))successBlock {
+- (void)getPriceEstimateForStartLatitude:(double)startLatitude
+                          startLongitude:(double)startLongitude
+                             endLatitude:(double)endLatitude
+                            endLongitude:(double)endLongitude
+                                 success:(void (^)(float, float, float, float, float))successBlock
+                                 failure:(void (^)())failureBlock {
     NSDictionary *params = @{@"startLat" : @(startLatitude),
                              @"startLon" : @(startLongitude),
                              @"endLat" : @(endLatitude),
@@ -69,32 +74,53 @@
             float lowEstimate = [responseObject[@"lowEstimate"] floatValue];
             float highEstimate = [responseObject[@"highEstimate"] floatValue];
             float surgeMultiplier = [responseObject[@"surgeMultiplier"] floatValue];
-            successBlock(lowEstimate, highEstimate, surgeMultiplier);
+            float lowPoolEstimate = [responseObject[@"lowPoolEstimate"] floatValue];
+            float highPoolEstimate = [responseObject[@"highPoolEstimate"] floatValue];
+            BOOL uberPoolRouteValid = [responseObject[@"uberPoolRouteValid"] boolValue];
+            if (!uberPoolRouteValid) {
+                self.isPoolRouteInvalid = YES;
+            }
+            successBlock(lowEstimate, highEstimate, surgeMultiplier,
+                         lowPoolEstimate, highPoolEstimate);
             return;
+        } else {
+            return failureBlock();
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        if (failureBlock) failureBlock();
     }];
     
 }
 
 - (void)getPriceEstimatesForStart:(CLLocationCoordinate2D)start
                               end:(CLLocationCoordinate2D)end
-                 startDisNeighbor:(float)startDisNeighbor {
+                 startDisNeighbor:(double)startDisNeighbor {
+    self.isRouteInvalid = NO;
     self.actualEnd = end;
     self.actualStart = start;
     self.numRequests++;
     self.bestI = -1;
     self.bestJ = -1;
+    
     self.bestLowEstimate = 100000.0f;
     self.bestHighEstimate = 1000000.0f;
+    self.bestPoolLowEstimate = 100000.0f;
+    self.bestPoolHighEstimate = 1000000.0f;
+    
     self.bestSurgeMultiplier = 100.0f;
+    self.actualLowEstimate = self.actualHighEstimate = self.actualSurgeMultiplier = 0.0f;
+    self.actualPoolLowEstimate = self.actualPoolHighEstimate = 0.0f;
     
-    float metersPerLat = 111111.0f;
-    float metersPerLon = 111111* cosf(start.latitude);
+    self.bestLat = start.latitude;
+    self.bestLon = start.longitude;
+    self.queuedRequests = 0 ;
+    self.isDone = NO;
     
-    float latDegNeigh = startDisNeighbor/metersPerLat;
-    float lonDegNeigh = startDisNeighbor/metersPerLon;
+    double metersPerLat = 111111.0f;
+    double metersPerLon = 111111* cosf(start.latitude);
+    
+    double latDegNeigh = startDisNeighbor/metersPerLat;
+    double lonDegNeigh = startDisNeighbor/metersPerLon;
     
     BOOL calculateStart = startDisNeighbor > 40.0f;
     
@@ -103,22 +129,28 @@
     for (int i=(calculateStart?-1:0); i<=(calculateStart?1:0); i++) {
         for (int j=(calculateStart?-1:0); j<=(calculateStart?1:0); j++) {
             
-            float lat = start.latitude + (i*latDegNeigh);
-            float lon = start.longitude + (j*lonDegNeigh);
+            double lat = start.latitude + (i*latDegNeigh);
+            double lon = start.longitude + (j*lonDegNeigh);
             
             if (abs(i*j) == 1) {
                 lat = start.latitude + (i* sqrt(0.5) * latDegNeigh);
                 lon = start.longitude + (j*sqrt(0.5) * lonDegNeigh);
             }
             
-            [self getPriceEstimateForStartLatitude:lat startLongitude:lon endLatitude:end.latitude endLongitude:end.longitude success:^(float lowEstimate, float highEstimate, float surgeMultiplier) {
+            [self getPriceEstimateForStartLatitude:lat startLongitude:lon endLatitude:end.latitude endLongitude:end.longitude
+                                           success:^(float lowEstimate, float highEstimate, float surgeMultiplier,
+                                                     float lowPoolEstimate, float highPoolEstimate) {
                 if (currentRequest != self.numRequests)
                     return;
+                
+                self.queuedRequests++;
                 
                 if (i==0 && j==0) {
                     self.actualHighEstimate = highEstimate;
                     self.actualLowEstimate = lowEstimate;
                     self.actualSurgeMultiplier = surgeMultiplier;
+                    self.actualPoolHighEstimate = highPoolEstimate;
+                    self.actualPoolLowEstimate = lowPoolEstimate;
                 }
                 
                 if (surgeMultiplier < self.bestSurgeMultiplier ||
@@ -128,10 +160,25 @@
                     self.bestHighEstimate = highEstimate;
                     self.bestLat = lat;
                     self.bestLon = lon;
+                    self.bestPoolHighEstimate = highPoolEstimate;
+                    self.bestPoolLowEstimate = lowPoolEstimate;
                 }
+                [self checkIfDone];
                 
+            } failure:^{
+                self.queuedRequests++;
+                if (i==0 && j==0) {
+                    self.isRouteInvalid = YES;
+                }
+                [self checkIfDone];
             }];
         }
+    }
+}
+
+- (void)checkIfDone {
+    if (self.queuedRequests == 9) {
+        self.isDone = YES;
     }
 }
 
@@ -139,15 +186,11 @@
     return ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]);
 }
 
-- (NSString *)urlForPickupLatitude:(float)pickupLatitude
-                   pickupLongitude:(float)pickupLongitude
-                      dropLatitude:(float)dropLatitude
-                     dropLongitude:(float)dropLongitude
+- (NSString *)urlForPickupLatitude:(double)pickupLatitude
+                   pickupLongitude:(double)pickupLongitude
+                      dropLatitude:(double)dropLatitude
+                     dropLongitude:(double)dropLongitude
                            isUberX:(BOOL)isUberX {
-    BOOL canOpen = ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]);
-    if (!canOpen) {
-        return nil;
-    }
     NSString *url = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%.4f&pickup[longitude]=%.4f&dropoff[latitude]=%.4f&dropoff[longitude]=%.4f", kUberClientID, pickupLatitude, pickupLongitude, dropLatitude, dropLongitude];
     return [NSString stringWithFormat:@"%@&product_id=%@", url, isUberX ? kUberXProductId:kUberPoolProductId];
 }

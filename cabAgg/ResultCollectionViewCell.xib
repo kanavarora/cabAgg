@@ -7,68 +7,73 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ResultCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="90" height="125"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="90" height="125"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12-14" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ex-Cj-ygY" userLabel="Cost">
-                        <rect key="frame" x="0.0" y="60" width="150" height="41"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJx-FN-ta7">
-                        <rect key="frame" x="57" y="165" width="36" height="30"/>
-                        <state key="normal" title="Book">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="bookButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="32T-Yv-gZA"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lyft Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4c-8P-WoX" userLabel="Title" customClass="PaddingLabel">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="20"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="eDS-PR-gmT">
-                        <rect key="frame" x="55" y="105" width="40" height="40"/>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oeJ-LD-BTo">
+                        <rect key="frame" x="65" y="-2" width="20" height="21"/>
+                    </activityIndicatorView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mj6-32-e2g">
+                        <rect key="frame" x="29" y="47" width="32" height="32"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2.0x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUX-PX-ftn">
-                        <rect key="frame" x="54" y="113" width="42" height="21"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                        <color key="textColor" red="0.094197938586942476" green="0.84527108912447324" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check.png" translatesAutoresizingMaskIntoConstraints="NO" id="o7y-s3-2CW">
+                        <rect key="frame" x="37" y="57" width="16" height="12"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12-14" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ex-Cj-ygY" userLabel="Cost">
+                        <rect key="frame" x="0.0" y="84" width="90" height="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2.00 SAVINGS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tn3-af-5CZ">
+                        <rect key="frame" x="0.0" y="103" width="90" height="12"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="s4c-8P-WoX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2EX-ks-JMt"/>
+                <constraint firstItem="Tn3-af-5CZ" firstAttribute="top" secondItem="1Ex-Cj-ygY" secondAttribute="bottom" constant="2" id="3IE-XQ-DDG"/>
+                <constraint firstItem="o7y-s3-2CW" firstAttribute="centerY" secondItem="Mj6-32-e2g" secondAttribute="centerY" id="3p1-3I-7wf"/>
+                <constraint firstAttribute="centerY" secondItem="Mj6-32-e2g" secondAttribute="centerY" id="3yc-xq-BU0"/>
+                <constraint firstItem="Tn3-af-5CZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="De1-Yc-cVB"/>
+                <constraint firstAttribute="trailing" secondItem="oeJ-LD-BTo" secondAttribute="trailing" constant="5" id="MJu-v1-b4T"/>
+                <constraint firstAttribute="trailing" secondItem="Tn3-af-5CZ" secondAttribute="trailing" id="Thq-vA-yd3"/>
+                <constraint firstItem="oeJ-LD-BTo" firstAttribute="centerY" secondItem="s4c-8P-WoX" secondAttribute="centerY" id="XTr-3j-QG2"/>
                 <constraint firstAttribute="trailing" secondItem="s4c-8P-WoX" secondAttribute="trailing" id="ZMU-an-W7o"/>
+                <constraint firstAttribute="centerX" secondItem="Mj6-32-e2g" secondAttribute="centerX" id="aNr-Q6-XuN"/>
                 <constraint firstAttribute="trailing" secondItem="1Ex-Cj-ygY" secondAttribute="trailing" id="dbP-PT-V0w"/>
+                <constraint firstAttribute="bottom" secondItem="Tn3-af-5CZ" secondAttribute="bottom" constant="10" id="ejT-7V-3o0"/>
                 <constraint firstItem="1Ex-Cj-ygY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iAy-EF-Oxa"/>
-                <constraint firstAttribute="centerX" secondItem="AJx-FN-ta7" secondAttribute="centerX" id="iia-F2-6WO"/>
                 <constraint firstItem="s4c-8P-WoX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iyk-AA-MHs"/>
+                <constraint firstItem="o7y-s3-2CW" firstAttribute="centerX" secondItem="Mj6-32-e2g" secondAttribute="centerX" id="jrw-gs-03V"/>
                 <constraint firstAttribute="centerX" secondItem="1Ex-Cj-ygY" secondAttribute="centerX" id="kXK-Ts-HJr"/>
-                <constraint firstAttribute="centerY" secondItem="1Ex-Cj-ygY" secondAttribute="centerY" constant="20" id="mEw-hm-R89"/>
-                <constraint firstAttribute="bottom" secondItem="AJx-FN-ta7" secondAttribute="bottom" constant="5" id="zcV-aR-Ehw"/>
             </constraints>
             <size key="customSize" width="130" height="228"/>
             <connections>
-                <outlet property="bookButton" destination="AJx-FN-ta7" id="6Ym-7g-cg8"/>
+                <outlet property="checkMarkView" destination="o7y-s3-2CW" id="UpD-el-qtQ"/>
                 <outlet property="costLabel" destination="1Ex-Cj-ygY" id="gbn-Zl-85t"/>
-                <outlet property="surgeBg" destination="eDS-PR-gmT" id="CUc-Wj-Frn"/>
-                <outlet property="surgeLabel" destination="iUX-PX-ftn" id="2Nc-oD-KMc"/>
+                <outlet property="saveTextLabel" destination="Tn3-af-5CZ" id="nj4-gL-MC5"/>
+                <outlet property="spinnner" destination="oeJ-LD-BTo" id="x72-1w-YoD"/>
                 <outlet property="titleLabel" destination="s4c-8P-WoX" id="qKP-xB-veu"/>
             </connections>
             <point key="canvasLocation" x="237" y="488"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="blackCircle.png" width="1000" height="1000"/>
+        <image name="Check.png" width="16" height="12"/>
+        <image name="Circle.png" width="32" height="32"/>
     </resources>
 </document>

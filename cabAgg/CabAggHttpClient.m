@@ -9,33 +9,40 @@
 #import "CabAggHttpClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "GlobalStateInterface.h"
+#import "HTTPClient.h"
+#import "MainViewController.h"
 
-
-#define kLyftToken1 @"lyftToken eyJpZCI6IjU0YjM0ZTVhYzRjNWFhMDczZGQ4Mjk2MSIsInRzIjoiMjAxNS0wMS0xMiAwNjo0MDozOSIsInR2IjoxLCJzIjoiZDI4YjAyZmQ1N2RkZGU4NDYwYmNhMjIwYjhiNjUwZTgxY2I3YThhZGUwN2EwMzEyYTgxZWUxZGEwZDA1YjQ4NiJ9"
-
-#define kLyftToken2 @"lyftToken eyJpZCI6IjUxNTZiMzBjOTM4MDYxZTA0NDAwMDI1ZiIsInRzIjoiMjAxNS0wMS0xMiAwNDo1MDo0OSIsInR2IjoxLCJzIjoiY2I5OWFkYmVjMDE3NTQyMjI2ZDMyZDFkOWE2ZWRiNDQ4N2YyN2FiYjk0ZmQwZjJhMzBiNzZkNjliNmNiMTI3MSJ9"
 @interface CabAggHttpClient ()
+
+
+@property (nonatomic, readwrite, assign) double startDisNeigh;
+@property (nonatomic, readwrite, assign) double endDisNeigh;
+
+@property (nonatomic, readwrite, assign) double bestStartDisNeigh;
+@property (nonatomic, readwrite, assign) double bestEndDisNeigh;
+
+@property (nonatomic, readwrite, assign) double lyftBestStartDisNeigh;
+
+@property (nonatomic, readwrite, assign) int numStartRequests;
+@property (nonatomic, readwrite, assign) int numEndRequests;
+
+@property (nonatomic, readwrite, assign) BOOL isDone;
+
+@property (nonatomic, readwrite, assign) BOOL hasShownError;
 
 @property (nonatomic, readwrite, strong) AFHTTPRequestOperationManager *manager;
 @end
+
+#define kMilesForADollar 0.2
+#define METERS_PER_MILE 1609.344
+#define kMetresForADollar (kMilesForADollar * METERS_PER_MILE)
 
 @implementation CabAggHttpClient
 
 - (id)init {
     if (self = [super init]) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        //[manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        //[manager.operationQueue setMaxConcurrentOperationCount:1];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        //[manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        //[manager.requestSerializer setValue:kLyftToken1 forHTTPHeaderField:@"Authorization"];
-        /*
-        [manager.requestSerializer setValue:@"eyJkIjoiZDM5MDYyYzYzM2UyMzMyOTA5NmVhZGYyOGUwMjY0YjIiLCJiIjoiRUYzQUM0NDUtQkJBMS00MDI5LUE0RUItMTE1NEUwQjFCREFEIiwiZSI6IjlGMDYzQ0IyLThGOTctNDYxMS1BQ0IzLTA3MDIyMkZBNTdBMiIsImMiOiIzNTFkODIwOWE2YjMxNDMzNWRmNmViZDc5NzI0MGZkZSJ9" forHTTPHeaderField:@"X-session"];*/
-        //[manager.requestSerializer setValue:@"iPhone7,2" forHTTPHeaderField:@"User-Device"];
-        //[manager.requestSerializer setValue:@"AT&T" forHTTPHeaderField:@"X-Carrier"];
-        //[manager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
-        //[manager.requestSerializer setValue:@"application/vnd.lyft.app+json;version=23" forHTTPHeaderField:@"Accept"];
-       // [manager.requestSerializer setValue:@"api.lyft.com" forHTTPHeaderField:@"Host"];
         
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         self.manager = manager;
@@ -48,239 +55,367 @@
     return url;
 }
 
-- (void)getInfoForMarker2:(NSDictionary *)marker
-           andDestMarker:(NSDictionary *)destMarker
-            successBlock:(void (^)(float))successBlock
-{
-
-    NSDictionary *params = @{@"locations": [NSArray array],
-                             //@"appInfoRevision" : @"c1ae00892e051f1dc4beccc442b9441f",
-                             @"rideType" : @"courier",
-                             @"marker" : marker,
-                             @"markerDestination" : destMarker};
-    
-    [self.manager PUT:@"https://api.lyft.com/users/810610452/location" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        float toRtn = -1.0f;
-        NSDictionary *preRides = responseObject[@"preRideInfo"];
-        if (preRides) {
-            NSDictionary *recommendedMoney = preRides[@"fixedFare"][@"recommendedTotalMoney"];
-            if (recommendedMoney) {
-                id amount = recommendedMoney[@"amount"];
-                if (amount) {
-                    toRtn = [amount floatValue];
-                }
-            }
-        }
-        if (successBlock) {
-            successBlock(toRtn);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure");
-       // NSLog(@"%.2f,%.2f", [destMarker[@"lat"] floatValue], [destMarker[@"lng"] floatValue]);
-        successBlock(-1.0f);
-    }];
+- (NSDictionary *)markerForLocation:(CLLocationCoordinate2D)loc {
+    return @{@"lat" : @(loc.latitude),
+             @"lng" : @(loc.longitude)};
 }
 
+- (NSDictionary *)markerForLatitude:(double)latitude
+                          longitude:(double)longitude {
+    return @{@"lat" : @(latitude),
+             @"lng" : @(longitude)};
+}
+
+- (void)showErrorIfNeeded:(int)errorCode {
+    if (!self.hasShownError) {
+        self.hasShownError = YES;
+        if (errorCode == 1) {
+            UIAlertController *alertController =
+            [UIAlertController alertControllerWithTitle:@"Cabalot is busy right now."
+                                                message:@"Cabalot is pretty popular right now. We are working to meet our increasing popularity. For now, please try later."
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* ok = [UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     //Do some thing here
+                                     [alertController dismissViewControllerAnimated:YES completion:nil];
+                                     
+                                 }];
+            [alertController addAction:ok]; // add action to uialertcontroller
+            
+            [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
+        }
+    }
+}
+
+/*
+ Pricing -
+ dynamicPricing
+ minimum
+ perMile
+ perMinute
+ pickup
+ */
 - (void)getInfoForMarker:(NSDictionary *)marker
            andDestMarker:(NSDictionary *)destMarker
-            successBlock:(void (^)(float))successBlock
+            successBlock:(void (^)(float, BOOL, NSDictionary *, NSDictionary *))successBlock
+            failureBlock:(void (^)())failureBlock
 {
     NSDictionary *params = @{@"startLat" : marker[@"lat"],
                              @"startLon" : marker[@"lng"],
                              @"endLat" : destMarker[@"lat"],
-                             @"endLon" : destMarker[@"lng"]};
+                             @"endLon" : destMarker[@"lng"],
+                             @"bestDynPricing" : (self.lyftBestPrice[@"dynamicPricing"] ? self.lyftBestPrice[@"dynamicPricing"] : @(0.0f)),
+                             };
 #if USE_TEST_SERVER
-    NSString *baseUrl = @"http://localhost:8080/lyft";
+    NSString *baseUrl = @"http://localhost:8080/api/v1/lyft";
 #else
-    NSString *baseUrl = @"http://golden-context-823.appspot.com/lyft";
+    NSString *baseUrl = @"http://golden-context-823.appspot.com/api/v1/lyft";
 #endif
+    
     [self.manager GET:baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject[@"error"]) {
-            successBlock(-1.0f);
+            NSDictionary *errorDict = responseObject[@"error"];
+            int errorCode = [errorDict[@"code"] intValue];
+            [self showErrorIfNeeded:errorCode];
+            failureBlock();
         } else {
-            successBlock([responseObject[@"price"] floatValue]);
+            NSDictionary *directions = responseObject[@"directions"];
+            if (directions[@"error"]) {
+                directions = nil;
+            }
+            BOOL isLyftLineRouteValid = [responseObject[@"isLyftLineRouteValid"] boolValue];
+            successBlock([responseObject[@"price"] floatValue]/100.0,
+                         isLyftLineRouteValid,
+                         responseObject[@"standardRide"],
+                         directions);
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        successBlock(-1.0f);
+        failureBlock();
     }];
+}
+
+- (BOOL)isBetterDealPrice1:(float)price1
+                 distance1:(float)distance1
+                    price2:(float)price2
+                 distance2:(float)distance2 {
+    float discount1 = self.actPrice - price1;
+    float discount2 = self.actPrice - price2;
+    float normalizedDiscount1 = distance1==0.0f? 0 : (discount1/distance1);
+    float normalizedDiscount2 = distance2==0.0f? 0 : (discount2/distance2);
+    normalizedDiscount1 = MAX(normalizedDiscount1, 1.0f/kMetresForADollar);
+    normalizedDiscount2 = MAX(normalizedDiscount2, 1.0f/kMetresForADollar);
+    
+    if (normalizedDiscount2 > normalizedDiscount1) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isBetterDealPrice:(float)price
+                 distance:(float)distance {
+    return [self isBetterDealPrice1:self.bestPrice
+                          distance1:(self.bestStartDisNeigh+self.bestEndDisNeigh)
+                             price2:price distance2:distance];
+}
+
+- (BOOL)isBetterLyftDeal:(NSDictionary *)price1
+             directions1:(NSDictionary *)directions1
+               disNeigh1:(double)disNeigh1
+                  price2:(NSDictionary *)price2
+             directions2:(NSDictionary *)directions2
+               disNeigh2:(double)disNeigh2 {
+    float lyftPrice1 = [self getStandardPriceForDirections:directions1 pricing:price1];
+    float lyftPrice2 = [self getStandardPriceForDirections:directions2 pricing:price2];
+    float dynPricing1 = price1[@"dynamicPricing"] ? [price1[@"dynamicPricing"] floatValue] : 0.0f;
+    float dynPricing2 = price2[@"dynamicPricing"] ? [price2[@"dynamicPricing"] floatValue] : 0.0f;
+    
+    if (disNeigh1 == 0) {
+        return dynPricing2 < dynPricing1;
+    } else {
+        return lyftPrice2 < lyftPrice1;
+    }
 }
 
 - (void)optimizeForStart:(CLLocationCoordinate2D)start
                      end:(CLLocationCoordinate2D)end
         startDisNeighbor:(float)startDisNeighbor
           endDisNeighbor:(float)endDisNeighbor {
-    float metersPerLat = 111111.0f;
-    float metersPerLon = 111111* cosf(start.latitude);
+    self.start = start;
+    self.end = end;
+    self.startDisNeigh = startDisNeighbor;
+    self.endDisNeigh = endDisNeighbor;
     
-    float latDegNeigh = startDisNeighbor/metersPerLat;
-    float lonDegNeigh = startDisNeighbor/metersPerLon;
-    
-    float latDegEndNeigh = endDisNeighbor/metersPerLat;
-    float lonDegEndNeigh = endDisNeighbor/metersPerLon;
-    
-    self.bestI = -1;
-    self.bestJ = -1;
-    self.bestK = -1;
-    self.bestL = -1;
-    self.bestPrice = 100000.0f;
+    self.actPrice = -1.0f;
+    self.bestPrice = -1.0f;
     self.bestLon = start.longitude;
     self.bestLat = start.latitude;
     self.bestEndLon = end.longitude;
     self.bestEndLat = end.latitude;
+
+    self.lyftActPrice = self.lyftBestPrice = nil;
+    self.lyftBestLat = start.latitude;
+    self.lyftBestLon = start.longitude;
+    self.bestStartDisNeigh = self.bestEndDisNeigh = 0.0f;
     
-    BOOL calculateStart = startDisNeighbor >40.0f;
-    BOOL calculateEnd = endDisNeighbor > 40.0f;
+    self.lyftActDirections = self.lyftBestDirections = nil;
+    self.isLyftLineRouteValid = YES;
+    self.hasShownError = NO;
     
-    for (int i=(calculateStart?-1:0); i<=(calculateStart?1:0) ; i++) {
-        for (int j=(calculateStart?-1:0); j<=(calculateStart?1:0) ; j++) {
-            
-            
-            float lat = start.latitude + (i*latDegNeigh);
-            float lon = start.longitude + (j*lonDegNeigh);
-            
-            if (abs(i*j) == 1) {
-                lat = start.latitude + (i* sqrt(0.5) * latDegNeigh);
-                lon = start.longitude + (j*sqrt(0.5) * lonDegNeigh);
-            }
-            
-            //  float endLat = end.latitude + (k*latDegEndNeigh);
-            // float endLon = end.longitude + (l*lonDegEndNeigh);
-            float endLat = end.latitude;
-            float endLon = end.longitude;
-            
-            NSDictionary *startLocation = @{@"lat" : @(lat),
-                                            @"lng" : @(lon)};
-            NSDictionary *endLocation = @{@"lat" : @(endLat),
-                                          @"lng" : @(endLon)};
-            
-            [self getInfoForMarker:startLocation andDestMarker:endLocation successBlock:^(float dollars) {
-                if (dollars == -1.0f) {
-                    return;
-                }
-                if (i==0 && j==0) {
-                    self.actPrice = dollars;
-                }
-                if (dollars < self.bestPrice || ((dollars == self.bestPrice) && (i==0 && j==0))) {
-                    self.bestPrice = dollars;
-                    self.bestI = i;
-                    self.bestJ = j;
-                    
-                    self.bestLat = lat;
-                    self.bestLon = lon;
-                }
-            }];
-        }
-    }
-    
-    
-    for (int k=(calculateEnd?-1:0); k<=(calculateEnd?1:0) ; k++) {
-        for (int l=(calculateEnd?-1:0); l<=(calculateEnd?1:0) ; l++) {
-            
-            float lat = start.latitude;
-            float lon = start.longitude;
-            
-            float endLat = end.latitude + (k*latDegEndNeigh);
-            float endLon = end.longitude + (l*lonDegEndNeigh);
-            
-            if (abs(k*l)==1) {
-                endLat = end.latitude + (k* sqrt(0.5) *latDegEndNeigh);
-                endLon = end.longitude + (l*sqrt(0.5)*lonDegEndNeigh);
-            }
-            
-            NSDictionary *startLocation = @{@"lat" : @(lat),
-                                            @"lng" : @(lon)};
-            NSDictionary *endLocation = @{@"lat" : @(endLat),
-                                          @"lng" : @(endLon)};
-            
-            [self getInfoForMarker:startLocation andDestMarker:endLocation successBlock:^(float dollars) {
-                if (dollars == -1.0f) {
-                    return;
-                }
-                
-                if (dollars < self.bestPrice || ((dollars == self.bestPrice) && (k==0 && l==0))) {
-                    self.bestPrice = dollars;
-                    self.bestK = k;
-                    self.bestL = l;
-                    
-                    self.bestEndLat = endLat;
-                    self.bestEndLon = endLon;
-                }
-            }];
-        }
-    }
+    [self getActual];
 }
 
+- (void)getActual {
+    [self getInfoForMarker:[self markerForLocation:self.start]
+             andDestMarker:[self markerForLocation:self.end]
+              successBlock:^(float price,
+                             BOOL isLyftLineValid,
+                             NSDictionary *standardPricing,
+                             NSDictionary *directions) {
+                  self.isLyftLineRouteValid = isLyftLineValid;
+                  self.actPrice = price;
+                  self.bestPrice = price;
+                  self.lyftActDirections = directions;
+                  self.lyftBestDirections = directions;
+                  self.lyftActPrice = standardPricing;
+                  self.lyftBestPrice = standardPricing;
+                  self.lyftBestStartDisNeigh = 0.0f;
+                  [self optimizeForStart];
+              }
+              failureBlock:^{
+                  self.isDone = YES;
+              }];
+}
 
-/*
-- (void)optimize2ForStart:(CLLocationCoordinate2D)start
-                     end:(CLLocationCoordinate2D)end
-        startDisNeighbor:(float)startDisNeighbor
-          endDisNeighbor:(float)endDisNeighbor {
-    self.totalReq = 0;
+- (void)optimizeForStart {
+    if (self.startDisNeigh < 40.0f) {
+        [self optimizeForEnd];
+        return;
+    }
     
-    float metersPerLat = 111111.0f;
-    float metersPerLon = 111111* cosf(start.latitude);
+    double startDisNeighbor = self.startDisNeigh;
+    double metersPerLat = 111111.0;
+    double metersPerLon = 111111* cosf(self.start.latitude);
     
-    float latDegNeigh = startDisNeighbor/metersPerLat;
-    float lonDegNeigh = startDisNeighbor/metersPerLon;
-    
-    float latDegEndNeigh = endDisNeighbor/metersPerLat;
-    float lonDegEndNeigh = endDisNeighbor/metersPerLon;
-    
-    self.bestI = -1;
-    self.bestJ = -1;
-    self.bestK = -1;
-    self.bestL = -1;
-    self.bestPrice = 100000.0f;
-    self.bestLon = start.longitude;
-    self.bestLat = start.latitude;
-    self.bestEndLon = end.longitude;
-    self.bestEndLat = end.latitude;
+    double latDegNeigh = startDisNeighbor/metersPerLat;
+    double lonDegNeigh = startDisNeighbor/metersPerLon;
     
     for (int i=-1; i<=1 ; i++) {
         for (int j=-1; j<=1 ; j++) {
-            for (int k = -1; k <=1; k++) {
-                for (int l = -1; l<=1; l++) {
-                    
-                    float lat = start.latitude + (i*latDegNeigh);
-                    float lon = start.longitude + (j*lonDegNeigh);
-                    
-                    float endLat = end.latitude + (k*latDegEndNeigh);
-                    float endLon = end.longitude + (l*lonDegEndNeigh);
-                    
-                    NSDictionary *startLocation = @{@"lat" : @(lat),
-                                                    @"lng" : @(lon)};
-                    NSDictionary *endLocation = @{@"lat" : @(endLat),
-                                                  @"lng" : @(endLon)};
-                    
-                    [self getInfoForMarker:startLocation andDestMarker:endLocation successBlock:^(float dollars) {
-                        self.tot++;
-                        if (dollars == -1.0f) {
-                            NSLog(@"%d", self.tot);
-                            return;
-                        }
-                        NSLog(@"%d", self.tot);
-                        if (i==0 && j==0 && k==0 && l==0) {
-                            self.actPrice = dollars;
-                        }
-                        if (dollars < self.bestPrice || ((dollars == self.bestPrice) && (i==0 && j==0))) {
-                            self.bestPrice = dollars;
-                            self.bestI = i;
-                            self.bestJ = j;
-                            self.bestK = k;
-                            self.bestL = l;
-                            
-                            self.bestLat = lat;
-                            self.bestLon = lon;
-                            self.bestEndLon = endLon;
-                            self.bestEndLat = endLat;
-                        }
-                    }];
-                }
+            
+            if (i==0 && j== 0) {
+                continue;
             }
+            
+            double lat = self.start.latitude + (i*latDegNeigh);
+            double lon = self.start.longitude + (j*lonDegNeigh);
+            
+            if (abs(i*j) == 1) {
+                lat = self.start.latitude + (i* sqrt(0.5) * latDegNeigh);
+                lon = self.start.longitude + (j*sqrt(0.5) * lonDegNeigh);
+            }
+            
+            double endLat = self.end.latitude;
+            double endLon = self.end.longitude;
+            
+            NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
+            NSDictionary *endMarker = [self markerForLatitude:endLat longitude:endLon];
+            
+            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+                
+                self.numStartRequests++;
+                
+                if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
+                    self.bestPrice = dollars;
+                    self.bestStartDisNeigh = startDisNeighbor;
+                    self.bestLat = lat;
+                    self.bestLon = lon;
+                }
+                //float currentDynPricing = standardPricing[@"dynamicPricing"] ? [standardPricing[@"dynamicPricing"] floatValue] : 0.0;
+                //float bestDynPricing = self.lyftBestPrice[@"dynamicPricing"] ? [self.lyftBestPrice[@"dynamicPricing"] floatValue] : 0.0f;
+                
+                if ([self isBetterLyftDeal:self.lyftBestPrice
+                               directions1:self.lyftBestDirections
+                                 disNeigh1:self.lyftBestStartDisNeigh
+                                    price2:standardPricing
+                               directions2:directions
+                                 disNeigh2:startDisNeighbor]) {
+                    self.lyftBestDirections = directions;
+                    self.lyftBestPrice = standardPricing;
+                    self.lyftBestLat = lat;
+                    self.lyftBestLon = lon;
+                    self.lyftBestStartDisNeigh = startDisNeighbor;
+                }
+                
+                [self checkToOptimizeForEnd];
+            } failureBlock:^{
+                self.numStartRequests++;
+                
+                [self checkToOptimizeForEnd];
+            }];
         }
     }
 }
-*/
+
+- (void)checkToOptimizeForEnd {
+    if (self.numStartRequests == 8) {
+        [self optimizeForEnd];
+    }
+}
+
+- (void)optimizeForEnd {
+    if (self.endDisNeigh < 40.0f) {
+        self.isDone = YES;
+        return;
+    }
+    
+    double endDisNeighbor = self.endDisNeigh;
+    double metersPerLat = 111111.0f;
+    double metersPerLon = 111111* cosf(self.start.latitude);
+    
+    double latDegEndNeigh = endDisNeighbor/metersPerLat;
+    double lonDegEndNeigh = endDisNeighbor/metersPerLon;
+    
+    for (int i=-1; i<=1 ; i++) {
+        for (int j=-1; j<=1 ; j++) {
+            
+            double lat = self.end.latitude + (i*latDegEndNeigh);
+            double lon = self.end.longitude + (j*lonDegEndNeigh);
+            
+            if (abs(i*j) == 1) {
+                lat = self.end.latitude + (i* sqrt(0.5) * latDegEndNeigh);
+                lon = self.end.longitude + (j*sqrt(0.5) * lonDegEndNeigh);
+            }
+            
+            double startLat = self.bestLat;
+            double startLon = self.bestLon;
+            
+            NSDictionary *startMarker = [self markerForLatitude:startLat longitude:startLon];
+            NSDictionary *endMarker = [self markerForLatitude:lat longitude:lon];
+            
+            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+                
+                self.numEndRequests++;
+                
+                if (dollars > 0 && [self isBetterDealPrice:dollars distance:self.bestStartDisNeigh+endDisNeighbor]) {
+                    self.bestPrice = dollars;
+                    self.bestEndDisNeigh = endDisNeighbor;
+                    self.bestEndLat = lat;
+                    self.bestEndLon = lon;
+                }
+                
+                [self checkForEnd];
+            } failureBlock:^{
+                self.numEndRequests++;
+                
+                [self checkForEnd];
+            }];
+        }
+    }
+}
+
+- (void)checkForEnd {
+    if (self.numEndRequests == 9) {
+        self.isDone = YES;
+    }
+}
+
+- (void)setIsDone:(BOOL)isDone {
+    _isDone = isDone;
+    /*if (isDone && self.lyftBestLat!=0.0 && self.lyftBestLon != 0.0) {
+        CLLocationCoordinate2D s = CLLocationCoordinate2DMake(self.lyftBestLat, self.lyftBestLon);
+        [[HTTPClient sharedInstance] getDirectionsFromStart:s end:self.end success:^(NSDictionary *directions) {
+            self.lyftBestDirections = directions;
+        } failure:^{
+        }];
+    }
+     */
+}
+
+// Helper methods for Normal lyft
+- (float)getBestDyncPricing {
+    return self.lyftBestPrice[@"dynamicPricing"] ? [self.lyftBestPrice[@"dynamicPricing"] floatValue] : 0.0f;
+}
+
+- (float)getActDyncPricing {
+    return self.lyftActPrice[@"dynamicPricing"] ? [self.lyftActPrice[@"dynamicPricing"] floatValue] : 0.0f;
+}
+
+#define METERS_PER_MILE 1609.344
+- (float)getStandardPriceForDirections:(NSDictionary *)directions
+                               pricing:(NSDictionary *)pricing {
+    if (directions && pricing) {
+        float distanceMetres = [directions[@"distanceMetres"] floatValue];
+        float timeSecs = [directions[@"durationSecs"] floatValue];
+        
+        float dyncPricingPercentage = [pricing[@"dynamicPricing"] floatValue];
+        float minimum = [[pricing[@"minimum"] substringFromIndex:1] floatValue];
+        float perMile = [[pricing[@"perMile"] substringFromIndex:1] floatValue];
+        float perMinute = [[pricing[@"perMinute"] substringFromIndex:1] floatValue];
+        float pickup = [[pricing[@"pickup"] substringFromIndex:1] floatValue];
+        float insurance = 1.50f;
+        
+        float cost = pickup + (perMile * (distanceMetres/METERS_PER_MILE))
+                    + (perMinute * (timeSecs/60.0f));
+        cost = MAX(minimum, cost);
+        cost  = cost + (cost * (dyncPricingPercentage/100.0f));
+        cost += insurance;
+        return cost;
+    }
+    return -1.0f;
+}
+
+- (float)getBestPrice {
+    return [self getStandardPriceForDirections:self.lyftBestDirections
+                                       pricing:self.lyftBestPrice];
+}
+
+- (float)getActPrice {
+    return [self getStandardPriceForDirections:self.lyftActDirections
+                                       pricing:self.lyftActPrice];
+}
 @end

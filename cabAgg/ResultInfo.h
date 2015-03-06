@@ -11,27 +11,33 @@
 #import <MapKit/MapKit.h>
 
 typedef enum {
-    CabTypeLyftLineWalk = 0,
-    CabTypeLyftLineActual,
-    CabTypeUberPoolWalk,
-    CabTypeUberPoolActual,
-    CabTypeUberWalk,
-    CabTypeUberActual,
+    CabTypeLyftLine =0,
+    CabTypeLyft,
+    CabTypeUberPool,
+    CabTypeUberX,
 } CabType;
 
 @interface ResultInfo : NSObject
 
 @property (nonatomic, readwrite, assign) CabType cabType;
+@property (nonatomic, readwrite, assign) float actLowEstimate;
+@property (nonatomic, readwrite, assign) float actHighEstimate;
+@property (nonatomic, readwrite, assign) float actSurgeMultiplier;
+
 @property (nonatomic, readwrite, assign) float lowEstimate;
 @property (nonatomic, readwrite, assign) float highEstimate;
 @property (nonatomic, readwrite, assign) float surgeMultiplier;
+
+@property (nonatomic, readwrite, assign) BOOL isRouteInvalid;
+
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D start;
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D end;
 
 
-+(UIColor *)backgroundColorForCabType:(CabType)cabType;
++ (UIColor *)backgroundColorForCabType:(CabType)cabType;
 + (NSString *)titleForCabType:(CabType)cabType;
-- (NSString *)deepLinkUrl;
+- (NSString *)deepLinkUrl:(BOOL)isBestRoute;
 - (void)update;
+- (BOOL)isDone;
 
 @end

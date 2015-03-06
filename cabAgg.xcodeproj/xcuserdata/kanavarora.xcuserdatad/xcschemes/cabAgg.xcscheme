@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4AE6D26B1A59ECD2008B9221"
-               BuildableName = "cabAgg.app"
+               BuildableName = "CABALOT.app"
                BlueprintName = "cabAgg"
                ReferencedContainer = "container:cabAgg.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AE6D26B1A59ECD2008B9221"
-            BuildableName = "cabAgg.app"
+            BuildableName = "CABALOT.app"
             BlueprintName = "cabAgg"
             ReferencedContainer = "container:cabAgg.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AE6D26B1A59ECD2008B9221"
-            BuildableName = "cabAgg.app"
+            BuildableName = "CABALOT.app"
             BlueprintName = "cabAgg"
             ReferencedContainer = "container:cabAgg.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AE6D26B1A59ECD2008B9221"
-            BuildableName = "cabAgg.app"
+            BuildableName = "CABALOT.app"
             BlueprintName = "cabAgg"
             ReferencedContainer = "container:cabAgg.xcodeproj">
          </BuildableReference>

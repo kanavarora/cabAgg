@@ -18,71 +18,69 @@
 
 +(UIColor *)backgroundColorForCabType:(CabType)cabType {
     switch (cabType) {
-        case CabTypeLyftLineWalk:
-            return UIColorFromRGB(0xFF3399);
+        case CabTypeLyftLine:
+            return UIColorFromRGB(0xEA0B8C);
             
-        case CabTypeLyftLineActual:
-            return UIColorFromRGB(0xFF3399);
+        case CabTypeLyft:
+            return UIColorFromRGB(0xEA0B8C);
             
-        case CabTypeUberPoolWalk:
+        case CabTypeUberPool:
             return [UIColor blackColor];
             
-        case CabTypeUberPoolActual:
-            return [UIColor blackColor];
-            
-        case CabTypeUberActual:
-            return [UIColor blackColor];
-            
-        case CabTypeUberWalk:
+        case CabTypeUberX:
             return [UIColor blackColor];
     }
 }
 
 + (NSString *)titleForCabType:(CabType)cabType {
     switch (cabType) {
-        case CabTypeLyftLineWalk:
+        case CabTypeLyftLine:
             return @"LyftLine";
             
-        case CabTypeLyftLineActual:
-            return @"LyftLine";
+        case CabTypeLyft:
+            return @"Lyft";
             
-        case CabTypeUberPoolWalk:
+        case CabTypeUberPool:
             return @"UberPool";
             
-        case CabTypeUberPoolActual:
-            return @"UberPool";
-            
-        case CabTypeUberActual:
-            return @"UberX";
-            
-        case CabTypeUberWalk:
+        case CabTypeUberX:
             return @"UberX";
     }
 }
 
-- (NSString *)deepLinkUrl {
+- (NSString *)deepLinkUrl:(BOOL)isBestRoute {
     UberHTTPClient *uberClient = [UberHTTPClient sharedInstance];
     switch (self.cabType) {
-        case CabTypeLyftLineActual:
-        case CabTypeLyftLineWalk:
+        case CabTypeLyftLine:
+        case CabTypeLyft:
             return [CabAggHttpClient deepLinkUrl];
             
             
-        case CabTypeUberPoolWalk:
-        case CabTypeUberPoolActual:
-            return [uberClient urlForPickupLatitude:self.start.latitude
-                                    pickupLongitude:self.start.longitude
+        case CabTypeUberPool:
+        {
+            CLLocationCoordinate2D start = globalStateInterface.mainVC.pickupLocation;
+            if (isBestRoute) {
+                start = self.start;
+            }
+            return [uberClient urlForPickupLatitude:start.latitude
+                                    pickupLongitude:start.longitude
                                        dropLatitude:self.end.latitude
                                       dropLongitude:self.end.longitude
                                             isUberX:NO];
+        }
             
-        case CabTypeUberActual:
-        case CabTypeUberWalk:
-            return [uberClient urlForPickupLatitude:self.start.latitude
-                                    pickupLongitude:self.start.longitude
+        case CabTypeUberX:
+        {
+            CLLocationCoordinate2D start = globalStateInterface.mainVC.pickupLocation;
+            if (isBestRoute) {
+                start = self.start;
+            }
+            return [uberClient urlForPickupLatitude:start.latitude
+                                    pickupLongitude:start.longitude
                                        dropLatitude:self.end.latitude
                                       dropLongitude:self.end.longitude
                                             isUberX:YES];
+        }
             
     }
     return nil;
@@ -92,57 +90,75 @@
     CabAggHttpClient *lyftClient = globalStateInterface.mainVC.lyftClient;
     UberHTTPClient *uberClient = [UberHTTPClient sharedInstance];
     switch (self.cabType) {
-        case CabTypeLyftLineWalk:
+        case CabTypeLyftLine:
         {
-            self.lowEstimate = self.highEstimate = lyftClient.bestPrice/100.0f;
+            self.lowEstimate = self.highEstimate = lyftClient.bestPrice;
+            self.actLowEstimate = self.actHighEstimate = lyftClient.actPrice;
+            
+            self.start = CLLocationCoordinate2DMake(lyftClient.bestLat, lyftClient.bestLon);
+            self.end = CLLocationCoordinate2DMake(lyftClient.bestEndLat, lyftClient.bestEndLon);
+            self.isRouteInvalid = !lyftClient.isLyftLineRouteValid;
+            break;
+        }
+        case CabTypeLyft:
+        {
+            self.lowEstimate = self.highEstimate = [lyftClient getBestPrice];
+            self.actLowEstimate = self.actHighEstimate = [lyftClient getActPrice];
+            
+            self.surgeMultiplier = [lyftClient getBestDyncPricing];
+            self.actSurgeMultiplier = [lyftClient getActDyncPricing];
+            
+            self.start = CLLocationCoordinate2DMake(lyftClient.lyftBestLat, lyftClient.lyftBestLon);
+            self.end = lyftClient.end;
             break;
         }
             
-        case CabTypeLyftLineActual:
+        case CabTypeUberPool:
         {
-            self.lowEstimate = self.highEstimate = lyftClient.actPrice/100.0f;
-            break;
-        }
-            
-        case CabTypeUberPoolWalk:
-        {
-            self.lowEstimate = uberClient.bestLowEstimate *0.8f;
-            self.highEstimate = uberClient.bestHighEstimate*0.8f;
+            self.lowEstimate = uberClient.bestPoolLowEstimate;
+            self.highEstimate = uberClient.bestPoolHighEstimate;
             self.surgeMultiplier = uberClient.bestSurgeMultiplier;
+            
+            self.actLowEstimate = uberClient.actualPoolLowEstimate;
+            self.actHighEstimate = uberClient.actualPoolHighEstimate;
+            self.actSurgeMultiplier = uberClient.actualSurgeMultiplier;
+            
             self.start = CLLocationCoordinate2DMake(uberClient.bestLat, uberClient.bestLon);
             self.end = uberClient.actualEnd;
+            self.isRouteInvalid = uberClient.isPoolRouteInvalid || uberClient.isRouteInvalid;
             break;
         }
             
-        case CabTypeUberPoolActual:
-        {
-            self.lowEstimate = uberClient.actualLowEstimate*0.8f;
-            self.highEstimate = uberClient.actualHighEstimate*0.8f;
-            self.surgeMultiplier = uberClient.actualSurgeMultiplier;
-            self.start = uberClient.actualStart;
-            self.end = uberClient.actualEnd;
-            break;
-        }
-            
-        case CabTypeUberWalk:
+        case CabTypeUberX:
         {
             self.lowEstimate = uberClient.bestLowEstimate;
             self.highEstimate = uberClient.bestHighEstimate;
-            self.surgeMultiplier = uberClient.bestSurgeMultiplier;
+            self.surgeMultiplier = (uberClient.bestSurgeMultiplier - 1)*100;
+            
+            self.actLowEstimate = uberClient.actualLowEstimate;
+            self.actHighEstimate = uberClient.actualHighEstimate;
+            self.actSurgeMultiplier = (uberClient.actualSurgeMultiplier - 1)*100;
+            
             self.start = CLLocationCoordinate2DMake(uberClient.bestLat, uberClient.bestLon);
             self.end = uberClient.actualEnd;
+            self.isRouteInvalid = uberClient.isRouteInvalid;
             break;
         }
+    }
+}
+
+- (BOOL)isDone {
+    CabAggHttpClient *lyftClient = globalStateInterface.mainVC.lyftClient;
+    UberHTTPClient *uberClient = [UberHTTPClient sharedInstance];
+    switch (self.cabType) {
+        case CabTypeLyftLine:
+        case CabTypeLyft:
+            return lyftClient.isDone;
             
-        case CabTypeUberActual:
-        {
-            self.lowEstimate = uberClient.actualLowEstimate;
-            self.highEstimate = uberClient.actualHighEstimate;
-            self.surgeMultiplier = uberClient.actualSurgeMultiplier;
-            self.start = uberClient.actualStart;
-            self.end = uberClient.actualEnd;
-            break;
-        }
+        case CabTypeUberPool:
+        case CabTypeUberX:
+            return uberClient.isDone;
+            
     }
 }
 

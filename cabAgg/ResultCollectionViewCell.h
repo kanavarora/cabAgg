@@ -13,5 +13,7 @@
 
 - (void)setupWithResultInfo:(ResultInfo *)resultInfo;
 - (void)updateCost;
+- (void)selectCell;
+- (void)deselectCell;
 
 @end

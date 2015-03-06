@@ -10,10 +10,13 @@
 
 #import "ResultCollectionViewCell.h"
 #import "ResultInfo.h"
+#import "ResultsView.h"
 
 @interface DisplayResultsCollectionView ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray *resultData;
+@property (nonatomic, readwrite, assign) NSInteger selectedIndex;
+
 
 @property (nonatomic, readwrite, strong) UICollectionViewFlowLayout *flowLayout;
 
@@ -33,36 +36,39 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     self = [super initWithFrame:frame collectionViewLayout:flowLayout];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.bounces = NO;
         _flowLayout = flowLayout;
     }
     return self;
 }
 
+- (ResultInfo *)selectedResultInfo {
+    if (self.selectedIndex > -1) {
+        return self.resultData[self.selectedIndex];
+    } else {
+        return nil;
+    }
+}
+
 - (void)setupResults {
     _resultData = [NSMutableArray array];
     ResultInfo *info1 = [[ResultInfo alloc] init];
-    info1.cabType = CabTypeLyftLineWalk;
+    info1.cabType = CabTypeLyftLine;
     [_resultData addObject:info1];
     
     ResultInfo *info2 = [[ResultInfo alloc] init];
-    info2.cabType = CabTypeLyftLineActual;
+    info2.cabType = CabTypeLyft;
     [_resultData addObject:info2];
     
     ResultInfo *info3 = [[ResultInfo alloc] init];
-    info3.cabType = CabTypeUberPoolWalk;
+    info3.cabType = CabTypeUberPool;
     [_resultData addObject:info3];
     
     ResultInfo *info4 = [[ResultInfo alloc] init];
-    info4.cabType = CabTypeUberPoolActual;
+    info4.cabType = CabTypeUberX;
     [_resultData addObject:info4];
-    
-    ResultInfo *info5 = [[ResultInfo alloc] init];
-    info5.cabType = CabTypeUberWalk;
-    [_resultData addObject:info5];
-    
-    ResultInfo *info6 = [[ResultInfo alloc] init];
-    info6.cabType = CabTypeUberActual;
-    [_resultData addObject:info6];
+
 }
 
 - (void)setupCollectionView {
@@ -71,12 +77,15 @@
     [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [self.flowLayout setMinimumInteritemSpacing:0.0f];
     [self.flowLayout setMinimumLineSpacing:0.0f];
+    self.showsHorizontalScrollIndicator = NO;
     //[self setPagingEnabled:YES];
     [self setCollectionViewLayout:self.flowLayout];
     self.delegate = self;
     self.dataSource = self;
     [self setupResults];
     [self reloadData];
+    [self selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self.resultsView didChangeSelectionOfResult];
 }
 
 - (void)updateResults {
@@ -96,6 +105,18 @@
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedIndex = indexPath.row;
+    ResultCollectionViewCell *cell = (ResultCollectionViewCell *)[self cellForItemAtIndexPath:indexPath];
+    [cell selectCell];
+    [self.resultsView didChangeSelectionOfResult];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ResultCollectionViewCell *cell = (ResultCollectionViewCell *)[self cellForItemAtIndexPath:indexPath];
+    [cell deselectCell];
+}
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -108,10 +129,15 @@
     ResultCollectionViewCell * cell = (ResultCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"resultCell" forIndexPath:indexPath];
     
     [cell setupWithResultInfo:self.resultData[indexPath.row]];
+    if (indexPath.row == self.selectedIndex) {
+        [cell selectCell];
+    }
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(150, 200);
+    float width = [UIScreen mainScreen].bounds.size.width/4.0f;
+    width = MAX(90, width);
+    return CGSizeMake(width, kHeightOfCell);
 }
 
 

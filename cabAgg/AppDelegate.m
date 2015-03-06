@@ -16,6 +16,7 @@
 #import "SidecarHttpClient.h"
 #import "MainViewController.h"
 #import "GlobalStateInterface.h"
+#import "iRate.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,13 @@
 
 @implementation AppDelegate
 
++ (void)initialize
+{
+    //configure iRate
+    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].usesUntilPrompt = 10;
+    //[iRate sharedInstance].previewMode = YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -49,7 +57,7 @@
 
 - (void)setAppearance {
     //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xF36969)];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor blackColor], NSForegroundColorAttributeName,

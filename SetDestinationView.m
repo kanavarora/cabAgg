@@ -24,7 +24,6 @@
 
 @end
 
-#define kWidthOfPinIcon 40.0f
 @implementation SetDestinationView
 
 /*
@@ -45,17 +44,28 @@
     CGSize size = frame.size;
     
     
-    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(kWidthOfPinIcon, 0, size.width - kWidthOfPinIcon, size.height)];
-    locationLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil
+                                                               reuseIdentifier:@"tmp3"];
+    pin.pinColor = MKPinAnnotationColorGreen;
+    UIImage *greenImage = pin.image;
+    pin.pinColor = MKPinAnnotationColorRed;
+    UIImage *redImage = pin.image;
+    
+    UIImage *image = isPickup?greenImage:redImage;
+    
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(image.size.width, 0,
+                                                                       size.width - image.size.width, size.height)];
+    locationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
     locationLabel.textColor = [UIColor blackColor];
     locationLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped)];
     [locationLabel addGestureRecognizer:tapRecog];
     
-    UIImage *image = [UIImage imageNamed:isPickup?@"greenMapIcon.png":@"redMapIcon.png"];
+
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.clipsToBounds = YES;
-    imageView.frame = CGRectMake(0, 0, kWidthOfPinIcon, size.height);
+    imageView.frame = CGRectMake(0, ((size.height-image.size.height)/2.0f), image.size.width, image.size.height);
+    //imageView.clipsToBounds = YES;
+    //imageView.frame = CGRectMake(0, ((size.height-kHeightOfPinIcon)/2.0f), kWidthOfPinIcon, kHeightOfPinIcon);
     
     [self addSubview:locationLabel];
     [self addSubview:imageView];
@@ -81,10 +91,11 @@
 
 - (void)clearOutDestination {
     self.state = DestinationViewStateEmpty;
-    self.locationLabel.text = @"Add Location...";
     if (self.isPickup) {
+        self.locationLabel.text = @"Add Pickup";
         [self.mainVC clearPickupLocation];
     } else {
+        self.locationLabel.text = @"Add Destination";
         [self.mainVC clearDestinationLocation];
     }
     

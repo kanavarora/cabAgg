@@ -8,6 +8,7 @@
 
 #import "GlobalStateInterface.h"
 
+#import <MapKit/MapKit.h>
 
 GlobalStateInterface *globalStateInterface;
 
@@ -19,4 +20,9 @@ GlobalStateInterface *globalStateInterface;
     return self;
 }
 
+#define fequal(a,b) (fabs((a) - (b)) < 0.00001)
+
++ (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1 andloc2:(CLLocationCoordinate2D)loc2 {
+    return fequal(loc1.latitude, loc2.latitude) && fequal(loc1.longitude, loc2.longitude);
+}
 @end

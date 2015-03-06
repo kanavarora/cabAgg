@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @class  MainViewController;
 @interface GlobalStateInterface : NSObject
 
 @property (nonatomic, readwrite, weak) MainViewController *mainVC;
++ (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1
+                  andloc2:(CLLocationCoordinate2D)loc2;
 
 @end
 
@@ -21,6 +24,6 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
-#define USE_TEST_SERVER 1
+#define USE_TEST_SERVER 0
 
 extern GlobalStateInterface *globalStateInterface;

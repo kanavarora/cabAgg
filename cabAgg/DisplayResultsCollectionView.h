@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class ResultInfo;
+@class ResultsView;
+#define kHeightOfCell 125
 @interface DisplayResultsCollectionView : UICollectionView<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic, readwrite, weak) ResultsView *resultsView;
+
+- (ResultInfo *)selectedResultInfo;
 - (void)setupCollectionView;
 - (void)updateResults;
 
