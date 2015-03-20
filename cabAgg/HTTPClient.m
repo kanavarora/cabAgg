@@ -153,6 +153,9 @@
             [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
             
         }
+        if (responseObject[@"optimizeDestination"]) {
+            globalStateInterface.shouldOptimizeDestination = [responseObject[@"optimizeDestination"] boolValue];
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         // mhmmmm
     }];

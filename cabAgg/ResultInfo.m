@@ -85,6 +85,7 @@
     }
     return nil;
 }
+static BOOL isTesting = NO;
 
 - (void)update {
     CabAggHttpClient *lyftClient = globalStateInterface.mainVC.lyftClient;
@@ -109,6 +110,16 @@
             self.actSurgeMultiplier = [lyftClient getActDyncPricing];
             
             self.start = CLLocationCoordinate2DMake(lyftClient.lyftBestLat, lyftClient.lyftBestLon);
+            
+            if (isTesting) {
+                self.lowEstimate = self.highEstimate = 13.78f;
+                self.actLowEstimate = self.actHighEstimate = 19.45f;
+                self.surgeMultiplier = 0;
+                self.actSurgeMultiplier = 50;
+                self.start = CLLocationCoordinate2DMake(37.795756524245448, -122.43302515419013);
+                lyftClient.lyftBestLat = 37.795756524245448;
+                lyftClient.lyftBestLon = -122.43302515419013;
+            }
             self.end = lyftClient.end;
             break;
         }
@@ -123,9 +134,18 @@
             self.actHighEstimate = uberClient.actualPoolHighEstimate;
             self.actSurgeMultiplier = uberClient.actualSurgeMultiplier;
             
-            self.start = CLLocationCoordinate2DMake(uberClient.bestLat, uberClient.bestLon);
+            self.start = CLLocationCoordinate2DMake(uberClient.poolBestLat, uberClient.poolBestLon);
             self.end = uberClient.actualEnd;
             self.isRouteInvalid = uberClient.isPoolRouteInvalid || uberClient.isRouteInvalid;
+            if (isTesting) {
+                self.lowEstimate = 10;
+                self.highEstimate = 12;
+                self.actLowEstimate = 18;
+                self.actHighEstimate = 20;
+                self.start = CLLocationCoordinate2DMake(37.800030524094396, -122.43302515419013);
+                uberClient.poolBestLat = 37.800030524094396;
+                uberClient.poolBestLon = -122.43302515419013;
+            }
             break;
         }
             
@@ -142,7 +162,48 @@
             self.start = CLLocationCoordinate2DMake(uberClient.bestLat, uberClient.bestLon);
             self.end = uberClient.actualEnd;
             self.isRouteInvalid = uberClient.isRouteInvalid;
+            if (isTesting) {
+                self.lowEstimate = 16;
+                self.highEstimate = 18;
+                self.actLowEstimate = 16;
+                self.actHighEstimate = 18;
+                self.start = CLLocationCoordinate2DMake(37.800030524094396, -122.43302515419013);
+                uberClient.bestLat = 37.800030524094396;
+                uberClient.bestLon = -122.43302515419013;
+            }
             break;
+        }
+    }
+}
+
+- (float)differenceSurgePricing {
+    switch (self.cabType) {
+        case CabTypeLyftLine:
+            return 0.0f;
+        case CabTypeUberPool:
+        {
+            float diff = self.actSurgeMultiplier - self.surgeMultiplier;
+            float discount = self.actHighEstimate - self.highEstimate;
+            
+            if (discount <= 0 || (self.highEstimate < 0 || self.highEstimate > 1000)) {
+                return 0;
+            } else if (diff > 0 && discount > 0) {
+                return diff;
+            }
+            return 0;
+        }
+        case CabTypeLyft:
+        case CabTypeUberX:
+        {
+            float diff = self.actSurgeMultiplier - self.surgeMultiplier;
+            float discount = self.actHighEstimate - self.highEstimate;
+            
+            if (discount <= 0 || (self.highEstimate < 0 || self.highEstimate > 1000)) {
+                return 0;
+            } else if (diff > 0) {
+                return diff;
+            }
+            return 0;
         }
     }
 }

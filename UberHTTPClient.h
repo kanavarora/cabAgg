@@ -26,10 +26,12 @@
 @property (nonatomic, readwrite, assign) float bestHighEstimate;
 @property (nonatomic, readwrite, assign) float bestPoolLowEstimate;
 @property (nonatomic, readwrite, assign) float bestPoolHighEstimate;
-@property (nonatomic, readwrite, assign) int bestI;
-@property (nonatomic, readwrite, assign) int bestJ;
 @property (nonatomic, readwrite, assign) double bestLon;
 @property (nonatomic, readwrite, assign) double bestLat;
+@property (nonatomic, readwrite, assign) double bestDis;
+@property (nonatomic, readwrite, assign) double poolBestLon;
+@property (nonatomic, readwrite, assign) double poolBestLat;
+@property (nonatomic, readwrite, assign) double poolBestDis;
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D actualStart;
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D actualEnd;
 

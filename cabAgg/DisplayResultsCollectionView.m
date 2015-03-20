@@ -17,7 +17,6 @@
 @property (nonatomic, readwrite, strong) NSMutableArray *resultData;
 @property (nonatomic, readwrite, assign) NSInteger selectedIndex;
 
-
 @property (nonatomic, readwrite, strong) UICollectionViewFlowLayout *flowLayout;
 
 @end

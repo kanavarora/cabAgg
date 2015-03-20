@@ -13,6 +13,8 @@
 @interface GlobalStateInterface : NSObject
 
 @property (nonatomic, readwrite, weak) MainViewController *mainVC;
+@property (nonatomic, readwrite, assign) BOOL shouldOptimizeDestination;
+
 + (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1
                   andloc2:(CLLocationCoordinate2D)loc2;
 

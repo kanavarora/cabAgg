@@ -45,7 +45,7 @@
         [button setBackgroundImage:greenBgImg forState:UIControlStateNormal];
         button.frame = CGRectMake((frame.size.width - kWidthofBookButton)/2.0f, 0, kWidthofBookButton, kHeightOfBookButton);
         [button addTarget:self action:@selector(didTapBookButton) forControlEvents:UIControlEventTouchUpInside];
-        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:16];
+        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setTitle:@"Book" forState:UIControlStateNormal];
 

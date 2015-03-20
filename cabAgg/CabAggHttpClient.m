@@ -174,8 +174,10 @@
     float dynPricing1 = price1[@"dynamicPricing"] ? [price1[@"dynamicPricing"] floatValue] : 0.0f;
     float dynPricing2 = price2[@"dynamicPricing"] ? [price2[@"dynamicPricing"] floatValue] : 0.0f;
     
-    if (disNeigh1 == 0) {
+    if (disNeigh1 < disNeigh2) {
         return dynPricing2 < dynPricing1;
+    } else if (disNeigh2 < disNeigh1) {
+        return dynPricing2 <= dynPricing1;
     } else {
         return lyftPrice2 < lyftPrice1;
     }
@@ -275,8 +277,6 @@
                     self.bestLat = lat;
                     self.bestLon = lon;
                 }
-                //float currentDynPricing = standardPricing[@"dynamicPricing"] ? [standardPricing[@"dynamicPricing"] floatValue] : 0.0;
-                //float bestDynPricing = self.lyftBestPrice[@"dynamicPricing"] ? [self.lyftBestPrice[@"dynamicPricing"] floatValue] : 0.0f;
                 
                 if ([self isBetterLyftDeal:self.lyftBestPrice
                                directions1:self.lyftBestDirections
@@ -303,12 +303,97 @@
 
 - (void)checkToOptimizeForEnd {
     if (self.numStartRequests == 8) {
+        [self furtherOptimizeStartForLyftLine];
+    }
+}
+
+- (void)furtherOptimizeStartForLyftLine {
+    CLLocationCoordinate2D bestLyftLineStart = CLLocationCoordinate2DMake(self.bestLat, self.bestLon);
+    if ([GlobalStateInterface areEqualLocations:bestLyftLineStart andloc2:self.start]) {
+        [self furtherOptimizeStartForLyft];
+    } else {
+        float lat = (self.bestLat + self.start.latitude)/2.0f;
+        float lon = (self.bestLon + self.start.longitude)/2.0f;
+        
+        float startDisNeighbor = self.bestStartDisNeigh/2.0f;
+        NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
+        NSDictionary *endMarker = [self markerForLatitude:self.end.latitude longitude:self.end.longitude];
+        
+        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+            
+            if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
+                self.bestPrice = dollars;
+                self.bestStartDisNeigh = startDisNeighbor;
+                self.bestLat = lat;
+                self.bestLon = lon;
+            }
+            
+            if ([self isBetterLyftDeal:self.lyftBestPrice
+                           directions1:self.lyftBestDirections
+                             disNeigh1:self.lyftBestStartDisNeigh
+                                price2:standardPricing
+                           directions2:directions
+                             disNeigh2:startDisNeighbor]) {
+                self.lyftBestDirections = directions;
+                self.lyftBestPrice = standardPricing;
+                self.lyftBestLat = lat;
+                self.lyftBestLon = lon;
+                self.lyftBestStartDisNeigh = startDisNeighbor;
+            }
+            
+            [self furtherOptimizeStartForLyft];
+        } failureBlock:^{
+            [self furtherOptimizeStartForLyft];
+        }];
+
+    }
+    
+}
+
+- (void)furtherOptimizeStartForLyft {
+    CLLocationCoordinate2D bestLyftStart = CLLocationCoordinate2DMake(self.lyftBestLat, self.lyftBestLon);
+    if ([GlobalStateInterface areEqualLocations:bestLyftStart andloc2:self.start]) {
         [self optimizeForEnd];
+    } else {
+        float lat = (self.lyftBestLat + self.start.latitude)/2.0f;
+        float lon = (self.lyftBestLon + self.start.longitude)/2.0f;
+        
+        float startDisNeighbor = self.lyftBestStartDisNeigh/2.0f;
+        NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
+        NSDictionary *endMarker = [self markerForLatitude:self.end.latitude longitude:self.end.longitude];
+        
+        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+            
+            if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
+                self.bestPrice = dollars;
+                self.bestStartDisNeigh = startDisNeighbor;
+                self.bestLat = lat;
+                self.bestLon = lon;
+            }
+            
+            if ([self isBetterLyftDeal:self.lyftBestPrice
+                           directions1:self.lyftBestDirections
+                             disNeigh1:self.lyftBestStartDisNeigh
+                                price2:standardPricing
+                           directions2:directions
+                             disNeigh2:startDisNeighbor]) {
+                self.lyftBestDirections = directions;
+                self.lyftBestPrice = standardPricing;
+                self.lyftBestLat = lat;
+                self.lyftBestLon = lon;
+                self.lyftBestStartDisNeigh = startDisNeighbor;
+            }
+            
+            [self optimizeForEnd];
+        } failureBlock:^{
+            [self optimizeForEnd];
+        }];
+
     }
 }
 
 - (void)optimizeForEnd {
-    if (self.endDisNeigh < 40.0f) {
+    if (self.endDisNeigh < 40.0f || !globalStateInterface.shouldOptimizeDestination) {
         self.isDone = YES;
         return;
     }
@@ -388,6 +473,12 @@
 #define METERS_PER_MILE 1609.344
 - (float)getStandardPriceForDirections:(NSDictionary *)directions
                                pricing:(NSDictionary *)pricing {
+    if (pricing[@"lyftPrice"]) {
+        float lyftPrice = [pricing[@"lyftPrice"] floatValue]/100.0f;
+        if (lyftPrice > 0) {
+            return lyftPrice;
+        }
+    }
     if (directions && pricing) {
         float distanceMetres = [directions[@"distanceMetres"] floatValue];
         float timeSecs = [directions[@"durationSecs"] floatValue];

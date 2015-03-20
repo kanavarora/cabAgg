@@ -39,5 +39,6 @@ typedef enum {
 - (NSString *)deepLinkUrl:(BOOL)isBestRoute;
 - (void)update;
 - (BOOL)isDone;
+- (float)differenceSurgePricing;
 
 @end

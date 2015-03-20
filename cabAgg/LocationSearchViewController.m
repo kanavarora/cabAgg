@@ -9,6 +9,7 @@
 #import "LocationSearchViewController.h"
 
 #import "HTTPClient.h"
+#import "UIView+LoadingSpinner.h"
 
 #import "CoreData+MagicalRecord.h"
 #import "Search.h"
@@ -56,6 +57,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search for address or place...";
     [self setupTableView];
 }
 
@@ -92,11 +94,13 @@
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
     
+    [self.tableView showConstrainedSpinner];
     NSString *searchText =  searchBar.text;
     if (searchText.length) {
         [[HTTPClient sharedInstance] getGeoCodeFor:searchText startLocation:globalStateInterface.mainVC.currentMapLocation  success:^(NSArray * results) {
             self.data = results;
             self.isShowingSavedResults = NO;
+            [self.tableView removeSpinner];
             [self.tableView reloadData];
         }];
     }

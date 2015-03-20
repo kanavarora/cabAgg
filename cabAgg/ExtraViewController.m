@@ -10,6 +10,7 @@
 
 @interface ExtraViewController ()
 
+@property (nonatomic, readwrite, weak) IBOutlet UIButton *adminButton;
 @end
 
 @implementation ExtraViewController
@@ -17,7 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.title = @"FAQ";
+    if ([[[[UIDevice currentDevice] identifierForVendor] UUIDString] isEqualToString:@"AFC344C3-7DFF-4C1D-A69F-7066BA4A83D5"]) {
+        self.adminButton.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,8 +43,12 @@
 - (IBAction)closeButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [[UIApplication sharedApplication] setStatusBarHidden:NO];
+                                 //[[UIApplication sharedApplication] setStatusBarHidden:NO];
                              }];
+}
+
+- (IBAction)tapAdminButton:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setObject:@(NO) forKey:@"hasOnboarded"];
 }
 
 @end

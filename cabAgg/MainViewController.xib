@@ -10,8 +10,6 @@
                 <outlet property="actionButton" destination="8Ps-2Y-hPU" id="oNP-fz-jvN"/>
                 <outlet property="bottomBarView" destination="E1C-v2-dVK" id="5aT-pR-31y"/>
                 <outlet property="destinationView" destination="QLP-AK-Lpv" id="MoG-Q5-ZD0"/>
-                <outlet property="endDistanceLabel" destination="8dv-bv-s7f" id="OQh-rF-bYc"/>
-                <outlet property="endSlider" destination="8uq-tG-PgW" id="xCk-IO-TZJ"/>
                 <outlet property="mapView" destination="3NR-6s-FEo" id="3D8-Oc-O1d"/>
                 <outlet property="myLocationButton" destination="s0E-ht-zb2" id="inR-mk-tT6"/>
                 <outlet property="myLocationConstraint" destination="Zxk-nn-B9R" id="F3r-zf-hba"/>
@@ -19,6 +17,7 @@
                 <outlet property="sliderParentView" destination="R9m-M4-90e" id="r0E-0H-VvG"/>
                 <outlet property="startDistanceLabel" destination="qu2-DI-FNQ" id="aIL-bW-WVj"/>
                 <outlet property="startSlider" destination="3Lu-t4-Hfs" id="wMa-YB-dzT"/>
+                <outlet property="surgePricingLabel" destination="z03-1O-1yJ" id="DX4-Pe-lf2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,6 +29,12 @@
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3NR-6s-FEo">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </mapView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25% less Surge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z03-1O-1yJ" customClass="PaddingLabel">
+                    <rect key="frame" x="247" y="74" width="106" height="18"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1C-v2-dVK">
                     <rect key="frame" x="0.0" y="490" width="600" height="110"/>
                     <subviews>
@@ -48,7 +53,6 @@
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
                             <state key="normal" title="Set Pickup"/>
-                            <variation key="widthClass=compact"/>
                             <connections>
                                 <action selector="actionButtonTapped:" destination="-1" eventType="touchUpInside" id="RLn-p0-I4G"/>
                             </connections>
@@ -71,62 +75,40 @@
                         <constraint firstItem="hgS-lh-MOM" firstAttribute="top" secondItem="E1C-v2-dVK" secondAttribute="top" id="wB6-yg-mMI"/>
                         <constraint firstAttribute="trailing" secondItem="8Ps-2Y-hPU" secondAttribute="trailing" id="ysc-Rr-vsq"/>
                     </constraints>
-                    <variation key="widthClass=compact"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9m-M4-90e" userLabel="slider view">
                     <rect key="frame" x="0.0" y="430" width="600" height="60"/>
                     <subviews>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="3Lu-t4-Hfs" userLabel="startSlider">
-                            <rect key="frame" x="-2" y="25" width="277" height="31"/>
+                            <rect key="frame" x="178" y="25" width="244" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="2h7-ht-RcN"/>
+                            </constraints>
                             <connections>
                                 <action selector="startSliderValueChanged:" destination="-1" eventType="valueChanged" id="UGW-1S-ctZ"/>
                             </connections>
                         </slider>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="8uq-tG-PgW" userLabel="endSlider">
-                            <rect key="frame" x="315" y="25" width="277" height="31"/>
-                            <connections>
-                                <action selector="endSliderValueChanged:" destination="-1" eventType="valueChanged" id="Uwn-1Q-NaN"/>
-                            </connections>
-                        </slider>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dv-bv-s7f" userLabel="endDistance">
-                            <rect key="frame" x="317" y="5" width="47" height="14"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-DI-FNQ" userLabel="startDistance">
-                            <rect key="frame" x="0.0" y="5" width="47" height="14"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How far are you willing to walk? 0.30miles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-DI-FNQ" userLabel="startDistance">
+                            <rect key="frame" x="180" y="5" width="240" height="15"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="3Lu-t4-Hfs" firstAttribute="leading" secondItem="qu2-DI-FNQ" secondAttribute="leading" id="93G-vP-bcQ"/>
-                        <constraint firstItem="8dv-bv-s7f" firstAttribute="centerY" secondItem="qu2-DI-FNQ" secondAttribute="centerY" id="IOm-4O-Nx6"/>
                         <constraint firstAttribute="bottom" secondItem="3Lu-t4-Hfs" secondAttribute="bottom" constant="5" id="Ovr-jD-Kqi"/>
                         <constraint firstItem="qu2-DI-FNQ" firstAttribute="top" secondItem="R9m-M4-90e" secondAttribute="top" constant="5" id="U4H-nz-Kva"/>
-                        <constraint firstItem="3Lu-t4-Hfs" firstAttribute="width" secondItem="8uq-tG-PgW" secondAttribute="width" id="X4f-M0-tf8"/>
-                        <constraint firstItem="8uq-tG-PgW" firstAttribute="leading" secondItem="8dv-bv-s7f" secondAttribute="leading" id="eOb-as-vsv"/>
-                        <constraint firstAttribute="width" secondItem="3Lu-t4-Hfs" secondAttribute="width" multiplier="2.2" id="gmQ-wv-LYF"/>
                         <constraint firstAttribute="height" constant="60" id="hg8-I2-lB1"/>
-                        <constraint firstItem="3Lu-t4-Hfs" firstAttribute="leading" secondItem="R9m-M4-90e" secondAttribute="leading" id="k4P-a6-dsd"/>
-                        <constraint firstItem="3Lu-t4-Hfs" firstAttribute="centerY" secondItem="8uq-tG-PgW" secondAttribute="centerY" id="ujU-C1-u0Y"/>
-                        <constraint firstAttribute="trailing" secondItem="8uq-tG-PgW" secondAttribute="trailing" constant="10" id="wLZ-L8-6NS"/>
+                        <constraint firstAttribute="centerX" secondItem="qu2-DI-FNQ" secondAttribute="centerX" id="luZ-CV-Mkq"/>
+                        <constraint firstAttribute="centerX" secondItem="3Lu-t4-Hfs" secondAttribute="centerX" id="uST-6l-xK3"/>
                     </constraints>
-                    <variation key="widthClass=compact"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0E-ht-zb2">
-                    <rect key="frame" x="540" y="430" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="RRj-t8-Vx8"/>
-                        <constraint firstAttribute="width" constant="40" id="udS-u2-CI8"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="goMyLocation.png">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0E-ht-zb2">
+                    <rect key="frame" x="568" y="458" width="26" height="26"/>
+                    <state key="normal" image="myLocation.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <variation key="widthClass=compact"/>
                     <connections>
                         <action selector="myLocationButtonTapped:" destination="-1" eventType="touchUpInside" id="3lG-pU-vMm"/>
                     </connections>
@@ -134,23 +116,24 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="z03-1O-1yJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="5oK-il-KKm"/>
                 <constraint firstItem="3NR-6s-FEo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="H14-K4-aT9"/>
                 <constraint firstItem="R9m-M4-90e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HQj-bs-Dgu"/>
                 <constraint firstItem="3NR-6s-FEo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JfO-bx-laD"/>
                 <constraint firstItem="E1C-v2-dVK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mjd-eW-kPh"/>
                 <constraint firstAttribute="bottom" secondItem="3NR-6s-FEo" secondAttribute="bottom" id="Yty-5r-12z"/>
-                <constraint firstItem="E1C-v2-dVK" firstAttribute="top" secondItem="s0E-ht-zb2" secondAttribute="bottom" constant="20" id="Zxk-nn-B9R"/>
+                <constraint firstItem="E1C-v2-dVK" firstAttribute="top" secondItem="s0E-ht-zb2" secondAttribute="bottom" constant="6" id="Zxk-nn-B9R"/>
                 <constraint firstItem="E1C-v2-dVK" firstAttribute="top" secondItem="R9m-M4-90e" secondAttribute="bottom" id="aH0-eZ-k29"/>
-                <constraint firstAttribute="trailing" secondItem="s0E-ht-zb2" secondAttribute="trailing" constant="20" id="cQ8-kP-kB4"/>
+                <constraint firstAttribute="trailing" secondItem="s0E-ht-zb2" secondAttribute="trailing" constant="6" id="cQ8-kP-kB4"/>
+                <constraint firstAttribute="centerX" secondItem="z03-1O-1yJ" secondAttribute="centerX" id="dy0-ca-cDs"/>
                 <constraint firstAttribute="trailing" secondItem="R9m-M4-90e" secondAttribute="trailing" id="jeE-Xs-fEO"/>
                 <constraint firstAttribute="trailing" secondItem="3NR-6s-FEo" secondAttribute="trailing" id="kcT-cS-6Vv"/>
                 <constraint firstAttribute="trailing" secondItem="E1C-v2-dVK" secondAttribute="trailing" id="pt4-FJ-luI"/>
                 <constraint firstAttribute="bottom" secondItem="E1C-v2-dVK" secondAttribute="bottom" id="wWK-mZ-DCf"/>
             </constraints>
-            <variation key="widthClass=compact"/>
         </view>
     </objects>
     <resources>
-        <image name="goMyLocation.png" width="512" height="512"/>
+        <image name="myLocation.png" width="26" height="26"/>
     </resources>
 </document>

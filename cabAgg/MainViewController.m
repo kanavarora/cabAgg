@@ -19,6 +19,10 @@
 #import "CachedPolyline.h"
 #import "ExtraViewController.h"
 #import "HTTPClient.h"
+#import "OnboardingContentViewController.h"
+#import "OnboardingViewController.h"
+#import "PaddingLabel.h"
+
 
 #define kZoomFactor 2.5f
 #define METERS_PER_MILE 1609.344
@@ -34,10 +38,9 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *actionButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIView *sliderParentView;
 @property (nonatomic, readwrite, weak) IBOutlet UISlider *startSlider;
-@property (nonatomic, readwrite, weak) IBOutlet UISlider *endSlider;
 @property (nonatomic, readwrite, weak) IBOutlet UILabel *startDistanceLabel;
-@property (nonatomic, readwrite, weak) IBOutlet UILabel *endDistanceLabel;
 @property (nonatomic, readwrite, weak) IBOutlet NSLayoutConstraint *myLocationConstraint;
+@property (nonatomic, readwrite, weak) IBOutlet PaddingLabel *surgePricingLabel;
 
 @property (nonatomic, readwrite, strong) UIImageView *locatioSetterImageView;
 
@@ -62,6 +65,8 @@
 @property (nonatomic, readwrite, strong) MKCircle *startRadial;
 @property (nonatomic, readwrite, strong) MKCircle *endRadial;
 
+@property (nonatomic, readwrite, strong) UIBarButtonItem *faqButton;
+
 @end
 
 @implementation MainViewController
@@ -76,8 +81,8 @@
     //imageView.layer.borderColor = [[UIColor blackColor] CGColor];
     //imageView.layer.borderWidth = 1.0f;
     CGRect screenRect = self.mapView.bounds;
-    imageView.frame = CGRectMake(screenRect.size.width/2.0f-16,
-                                 screenRect.size.height/2.0f, 32, 39);
+    imageView.frame = CGRectMake(screenRect.size.width/2.0f-8,
+                                 screenRect.size.height/2.0f - 1, 32, 39);
     self.locatioSetterImageView = imageView;
     [self.mapView addSubview:imageView];
     
@@ -93,6 +98,13 @@
     [dr setupCollectionView];
     [self.view addSubview:dr];
     self.resultsView = dr;
+    
+    self.surgePricingLabel.layer.cornerRadius = self.surgePricingLabel.frame.size.height/2.0f;
+    self.surgePricingLabel.layer.masksToBounds = YES;
+    self.surgePricingLabel.hidden = YES;
+    self.surgePricingLabel.textColor = [UIColor whiteColor];
+    self.surgePricingLabel.backgroundColor = UIColorFromRGB(0x7ED321);
+    self.surgePricingLabel.insets = UIEdgeInsetsMake(5, 10, 5, 10);
 }
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -119,19 +131,18 @@
 
 - (IBAction)startSliderValueChanged:(id)sender {
     [self.mapView removeOverlay:self.startRadial];
+    [self.mapView removeOverlay:self.endRadial];
     float currentValue = self.startSlider.value;
-    self.startDistanceLabel.text = [NSString stringWithFormat:@"Walking distance from start:%.2fmiles", currentValue];
+    //NSString *text = [NSString stringWithFormat:@"How far will you walk? %.2fmiles", currentValue];
+    //NSMutableAttributedString *mtString = [[NSMutableAttributedString alloc] initWithString:text
+      //                                                                           attributes:@{NSFore}];
+    self.startDistanceLabel.text = [NSString stringWithFormat:@"How far are you willing to walk? %.2fmiles", currentValue];
     self.startRadial = [MKCircle circleWithCenterCoordinate:self.pickupLocation radius:[self startRadialInMeters]];
     [self.mapView addOverlay:self.startRadial];
-    
-}
-
-- (IBAction)endSliderValueChanged:(id)sender {
-    [self.mapView removeOverlay:self.endRadial];
-    float currentValue = self.endSlider.value;
-    self.endDistanceLabel.text = [NSString stringWithFormat:@"Walking distance from end:%.2fmiles", currentValue];
     self.endRadial = [MKCircle circleWithCenterCoordinate:self.destinationLocation radius:[self endRadialInMeters]];
-    [self.mapView addOverlay:self.endRadial];
+    if (globalStateInterface.shouldOptimizeDestination) {
+        [self.mapView addOverlay:self.endRadial];
+    }
 }
 
 - (float)startRadialInMeters {
@@ -139,7 +150,7 @@
 }
 
 - (float)endRadialInMeters {
-    return self.endSlider.value * METERS_PER_MILE;
+    return self.startSlider.value * METERS_PER_MILE;
 }
 
 - (void)setupLocationMarkerForPickup {
@@ -164,7 +175,7 @@
     self.locatioSetterImageView.hidden = YES;
 }
 
-- (void)setupMapView {
+- (void)setupMapView:(BOOL)hasOnboarded {
     self.mapView.delegate = self;
     /*
     CLLocationCoordinate2D zoomLocation;
@@ -177,14 +188,16 @@
     // 3
     [_mapView setRegion:viewRegion animated:YES];
      */
-    
-    [self enableMyLocation];
-    [self listenForMyLocationChangedProperty];
+    if (hasOnboarded) {
+        [self enableMyLocation];
+        [self listenForMyLocationChangedProperty];
+    }
 }
 
 - (void)showExtraView {
     ExtraViewController *extraVC = [[ExtraViewController alloc] initWithNibName:@"ExtraViewController" bundle:nil];
-    [self presentViewController:extraVC animated:YES completion:nil];
+    [self.navigationController pushViewController:extraVC animated:YES];
+    //[self presentViewController:extraVC animated:YES completion:nil];
 }
 
 - (void)setupNavBar {
@@ -194,7 +207,8 @@
     self.navigationItem.titleView = v;
     UIBarButtonItem *redoButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(reoptimize)];
     self.redoButton = redoButton;
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(showExtraView)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"FAQ" style:UIBarButtonItemStylePlain target:self action:@selector(showExtraView)];
+    self.faqButton = leftButton;
     self.navigationItem.leftBarButtonItem = leftButton;
     
 }
@@ -203,19 +217,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    BOOL hasOnboarded = [[[NSUserDefaults standardUserDefaults] objectForKey:@"hasOnboarded"] boolValue];
     [[HTTPClient sharedInstance] startApp];
     [self setupNavBar];
     [self setupActionButton];
     [self setupLocationMarker];
-    [self setupMapView];
-    float currentValue = self.startSlider.value;
-    self.startDistanceLabel.text = [NSString stringWithFormat:@"Max walk from start:%.2f", currentValue];
-    currentValue = self.endSlider.value;
-    self.endDistanceLabel.text = [NSString stringWithFormat:@"Max walk from end:%.2f", currentValue];
+    [self setupMapView:hasOnboarded];
     [self startSliderValueChanged:self.startSlider];
-    [self endSliderValueChanged:self.endSlider];
-    
-    
+    if (!hasOnboarded) {
+        [self showOnboarding];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -252,6 +263,7 @@
     CLLocation *pointALocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
     CLLocation *pointBLocation = [[CLLocation alloc] initWithLatitude:loc2.latitude longitude:loc2.longitude];
     CLLocationDistance d = [pointALocation distanceFromLocation:pointBLocation];
+    d = d*1.2;
     MKCoordinateRegion r = MKCoordinateRegionMakeWithDistance(center, 2*d, 2*d);
     [_mapView setRegion:r animated:YES];
     
@@ -269,7 +281,7 @@
 }
 
 - (void)hideRadialSettings {
-    self.myLocationConstraint.constant = 20;
+    self.myLocationConstraint.constant = 6;
     self.sliderParentView.hidden = YES;
     [self.mapView removeOverlay:self.startRadial];
     [self.mapView removeOverlay:self.endRadial];
@@ -277,12 +289,14 @@
 }
 
 - (void)showRadialSettings {
-    self.myLocationConstraint.constant = 20 + self.sliderParentView.frame.size.height;
+    self.myLocationConstraint.constant = 6 + self.sliderParentView.frame.size.height;
     self.sliderParentView.hidden = NO;
     self.startRadial = [MKCircle circleWithCenterCoordinate:self.pickupLocation radius:[self startRadialInMeters]];
     self.endRadial = [MKCircle circleWithCenterCoordinate:self.destinationLocation radius:[self endRadialInMeters]];
     [self.mapView addOverlay:self.startRadial];
-    [self.mapView addOverlay:self.endRadial];
+    if (globalStateInterface.shouldOptimizeDestination) {
+        [self.mapView addOverlay:self.endRadial];
+    }
     [self centerMapToIncludeLocations:self.pickupLocation loc2:self.destinationLocation];
 }
 
@@ -338,12 +352,15 @@
         self.resultsView.hidden = NO;
         [self startUpdatingDisplayResults];
         self.navigationItem.rightBarButtonItem =  self.redoButton;
+        self.navigationItem.leftBarButtonItem = nil;
         [self hideRadialSettings];
+        self.myLocationConstraint.constant = 20;
     }
 }
 
 - (void)reoptimize {
     self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.leftBarButtonItem = self.faqButton;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startUpdatingDisplayResults) object:nil];
     self.resultsView.hidden = YES;
     self.bottomBarView.hidden = NO;
@@ -354,6 +371,7 @@
     [self.mapView removeOverlay:self.endWalkLine.polyline];
     self.lyftLinePickupAnno = self.lyftLineDestAnno = self.uberPickupAnno = nil;
     self.startWalkLine = self.endWalkLine = nil;
+    self.surgePricingLabel.hidden = YES;
     [self setupActionButton];
 }
 
@@ -454,8 +472,6 @@
 
 - (void)updateAnnoForResults {
     ResultInfo *ri = [self.resultsView selectedResultInfo];
-    CabAggHttpClient *lyftClient = self.lyftClient;
-    UberHTTPClient *uberClient = [UberHTTPClient sharedInstance];
     switch (ri.cabType) {
         case CabTypeLyftLine:
         {
@@ -473,7 +489,7 @@
                 [self.mapView removeAnnotation:self.uberPickupAnno];
                 self.uberPickupAnno = nil;
             }
-            CLLocationCoordinate2D lyftBestPickupLoc = CLLocationCoordinate2DMake(lyftClient.bestLat, lyftClient.bestLon);
+            CLLocationCoordinate2D lyftBestPickupLoc = ri.start;
             if ([GlobalStateInterface areEqualLocations:lyftBestPickupLoc andloc2:self.pickupLocation]) {
                 [self.mapView removeAnnotation:self.lyftLinePickupAnno];
                 self.lyftLinePickupAnno = nil;
@@ -481,7 +497,7 @@
                 [self.lyftLinePickupAnno setCoordinate:lyftBestPickupLoc];
             }
             
-            CLLocationCoordinate2D lyftBestDropLoc = CLLocationCoordinate2DMake(lyftClient.bestEndLat, lyftClient.bestEndLon);
+            CLLocationCoordinate2D lyftBestDropLoc = ri.end;
             
             if ([GlobalStateInterface areEqualLocations:lyftBestDropLoc andloc2:self.destinationLocation]) {
                 [self.mapView removeAnnotation:self.lyftLineDestAnno];
@@ -508,7 +524,7 @@
                 [self.mapView removeAnnotation:self.uberPickupAnno];
                 self.uberPickupAnno = nil;
             }
-            CLLocationCoordinate2D lyftBestPickupLoc = CLLocationCoordinate2DMake(lyftClient.lyftBestLat, lyftClient.lyftBestLon);
+            CLLocationCoordinate2D lyftBestPickupLoc = ri.start;
             if ([GlobalStateInterface areEqualLocations:lyftBestPickupLoc andloc2:self.pickupLocation]) {
                 [self.mapView removeAnnotation:self.lyftLinePickupAnno];
                 self.lyftLinePickupAnno = nil;
@@ -537,7 +553,7 @@
                 [self.mapView addAnnotation:self.uberPickupAnno];
             }
             
-            CLLocationCoordinate2D uberBestLoc = CLLocationCoordinate2DMake(uberClient.bestLat, uberClient.bestLon);
+            CLLocationCoordinate2D uberBestLoc = ri.start;
             if ([GlobalStateInterface areEqualLocations:uberBestLoc andloc2:self.pickupLocation]) {
                 [self.mapView removeAnnotation:self.uberPickupAnno];
                 self.uberPickupAnno = nil;
@@ -573,6 +589,15 @@
         if (self.endWalkLine.polyline) {
             [self.mapView addOverlay:self.endWalkLine.polyline];
         }
+    }
+    
+    // surge pricing label
+    float diff = ri.differenceSurgePricing;
+    if (diff > 0) {
+        self.surgePricingLabel.hidden = NO;
+        self.surgePricingLabel.text = [NSString stringWithFormat:@"%d%% less Surge", (int)diff];
+    } else {
+        self.surgePricingLabel.hidden = YES;
     }
 }
 
@@ -700,7 +725,43 @@
     }
 }
 
+- (void)showOnboarding {
+    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Welcome" body:@"Cabalot helps you find the cheapest cab among a variety of options. Just set your pickup and dropoff points and let the app work the magic." image:[UIImage imageNamed:@"logo-big.png"] buttonText:nil action:^{
+    }];
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    BOOL showLocationPage = (status ==kCLAuthorizationStatusNotDetermined);
+    
+    OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"It is smart" body:@"Cabalot is smart. If it finds that you are in a surge zone, cabalot helps you find places at walking distances, so that you can escape the deadly surge pricing." image:[UIImage imageNamed:@"onboarding1.png"] buttonText:nil    action:^{
+    }];
+    
+    OnboardingContentViewController *thirdPage = [OnboardingContentViewController contentWithTitle:@"It is smart" body:@"Cabalot is smart. If it finds that you are in a surge zone, cabalot helps you find places at walking distances, so that you can escape the deadly surge pricing." image:[UIImage imageNamed:@"logo-big.png"] buttonText:@"Done"    action:^{
+        [self enableMyLocation];
+    }];
+    
+    
+    OnboardingContentViewController *fourthPage= [OnboardingContentViewController contentWithTitle:@"Easy booking" body:@"Once you have selected the most convenient option, you can book that ride from within the app itself." image:[UIImage imageNamed:@"logo-big.png"] buttonText:nil    action:^{
+    }];
+    
+    OnboardingContentViewController *fifthPage= [OnboardingContentViewController contentWithTitle:@"Ready" body:@"That's all there is to Cabalot! Happy savings and may the choice be forever with you!" image:[UIImage imageNamed:@"logo-big.png"] buttonText:@"Done"    action:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self enableMyLocation];
+        [self listenForMyLocationChangedProperty];
+    }];
 
+    // Image
+    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"stock-photo.jpeg"] contents:@[firstPage, secondPage, fourthPage, fifthPage]];
+    onboardingVC.fontName = @"Helvetica-Light";
+    onboardingVC.titleFontSize = 26;
+    onboardingVC.bodyFontSize = 18;
+    onboardingVC.topPadding = 40;
+    onboardingVC.underIconPadding = 20;
+    onboardingVC.underTitlePadding = 25;
+    onboardingVC.bottomPadding = 10;
+    [self presentViewController:onboardingVC animated:NO completion:nil];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"hasOnboarded"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 
 

@@ -11,14 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stock-photo.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="7V1-FO-7hr">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-big.png" translatesAutoresizingMaskIntoConstraints="NO" id="JP9-HU-m3q">
-                    <rect key="frame" x="140" y="129" width="200" height="64"/>
+                    <rect key="frame" x="140" y="84" width="200" height="64"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="JP9-HU-m3q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="4m8-nA-ZEp"/>
+                <constraint firstItem="JP9-HU-m3q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="-44" id="4m8-nA-ZEp"/>
+                <constraint firstAttribute="trailing" secondItem="7V1-FO-7hr" secondAttribute="trailing" id="9Mh-wf-L1T"/>
+                <constraint firstItem="7V1-FO-7hr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ivg-yj-DZW"/>
                 <constraint firstAttribute="centerX" secondItem="JP9-HU-m3q" secondAttribute="centerX" id="bDA-WS-BJW"/>
+                <constraint firstAttribute="bottom" secondItem="7V1-FO-7hr" secondAttribute="bottom" id="sWl-3O-m7j"/>
+                <constraint firstItem="7V1-FO-7hr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zau-2F-h3D"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -27,5 +34,6 @@
     </objects>
     <resources>
         <image name="logo-big.png" width="200" height="64"/>
+        <image name="stock-photo.jpeg" width="2164" height="1440"/>
     </resources>
 </document>

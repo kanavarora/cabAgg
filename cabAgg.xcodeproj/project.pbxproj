@@ -61,6 +61,12 @@
 		4A64833E1A93437600746A16 /* PinkMustacheLyft.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A64833C1A93437600746A16 /* PinkMustacheLyft.png */; };
 		4A64833F1A93437600746A16 /* UberPinDropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A64833D1A93437600746A16 /* UberPinDropShadow.png */; };
 		4A6483411A9364B500746A16 /* cabalot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6483401A9364B500746A16 /* cabalot.png */; };
+		4A780FCC1AB6BE9500E9898C /* myLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */; };
+		4A780FCD1AB6BE9500E9898C /* myLocation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */; };
+		4A780FD31AB6F3F300E9898C /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD01AB6F3F300E9898C /* OnboardingContentViewController.m */; };
+		4A780FD41AB6F3F300E9898C /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD21AB6F3F300E9898C /* OnboardingViewController.m */; };
+		4A780FD61AB82E0B00E9898C /* onboarding1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FD51AB82E0B00E9898C /* onboarding1.png */; };
+		4A780FD91ABC0AE500E9898C /* UIView+LoadingSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */; };
 		4ACD61761AA048E8009DD5D6 /* RequestBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */; };
 		4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61771AA050D2009DD5D6 /* Check@2x.png */; };
 		4ACD617A1AA050D2009DD5D6 /* Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61781AA050D2009DD5D6 /* Circle@2x.png */; };
@@ -111,6 +117,7 @@
 		4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE6D2CD1A5A201F008B9221 /* SystemConfiguration.framework */; };
 		4AE6D2D11A5A2385008B9221 /* CabAggHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */; };
 		4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D71A5A7F89008B9221 /* newLocation.png */; };
+		4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +232,15 @@
 		4A64833C1A93437600746A16 /* PinkMustacheLyft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinkMustacheLyft.png; sourceTree = "<group>"; };
 		4A64833D1A93437600746A16 /* UberPinDropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UberPinDropShadow.png; sourceTree = "<group>"; };
 		4A6483401A9364B500746A16 /* cabalot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabalot.png; sourceTree = "<group>"; };
+		4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myLocation@2x.png"; sourceTree = "<group>"; };
+		4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myLocation@3x.png"; sourceTree = "<group>"; };
+		4A780FCF1AB6F3F300E9898C /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
+		4A780FD01AB6F3F300E9898C /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
+		4A780FD11AB6F3F300E9898C /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		4A780FD21AB6F3F300E9898C /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
+		4A780FD51AB82E0B00E9898C /* onboarding1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding1.png; sourceTree = "<group>"; };
+		4A780FD71ABC0AE500E9898C /* UIView+LoadingSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LoadingSpinner.h"; sourceTree = "<group>"; };
+		4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LoadingSpinner.m"; sourceTree = "<group>"; };
 		4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBox@2x.png"; sourceTree = "<group>"; };
 		4ACD61771AA050D2009DD5D6 /* Check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check@2x.png"; sourceTree = "<group>"; };
 		4ACD61781AA050D2009DD5D6 /* Circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle@2x.png"; sourceTree = "<group>"; };
@@ -247,7 +263,7 @@
 		4ACD619F1AA9D689009DD5D6 /* greenMapIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenMapIcon@3x.png"; sourceTree = "<group>"; };
 		4ACD61A21AA9D690009DD5D6 /* redMapIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redMapIcon@2x.png"; sourceTree = "<group>"; };
 		4ACD61A31AA9D690009DD5D6 /* redMapIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redMapIcon@3x.png"; sourceTree = "<group>"; };
-		4AE6D26C1A59ECD2008B9221 /* CABALOT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CABALOT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AE6D26C1A59ECD2008B9221 /* Cabalot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cabalot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE6D2701A59ECD2008B9221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AE6D2711A59ECD2008B9221 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4AE6D2731A59ECD2008B9221 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -293,6 +309,7 @@
 		4AE6D2CF1A5A2385008B9221 /* CabAggHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CabAggHttpClient.h; sourceTree = "<group>"; };
 		4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CabAggHttpClient.m; sourceTree = "<group>"; };
 		4AE6D2D71A5A7F89008B9221 /* newLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newLocation.png; path = ../../../kanav/newLocation.png; sourceTree = "<group>"; };
+		4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "stock-photo.jpeg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +346,10 @@
 		4A6482A81A667DA000746A16 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A780FD51AB82E0B00E9898C /* onboarding1.png */,
+				4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */,
+				4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */,
+				4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */,
 				4ACD61A21AA9D690009DD5D6 /* redMapIcon@2x.png */,
 				4ACD61A31AA9D690009DD5D6 /* redMapIcon@3x.png */,
 				4ACD619E1AA9D689009DD5D6 /* greenMapIcon@2x.png */,
@@ -469,6 +490,17 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		4A780FCE1AB6F3E000E9898C /* onboard */ = {
+			isa = PBXGroup;
+			children = (
+				4A780FCF1AB6F3F300E9898C /* OnboardingContentViewController.h */,
+				4A780FD01AB6F3F300E9898C /* OnboardingContentViewController.m */,
+				4A780FD11AB6F3F300E9898C /* OnboardingViewController.h */,
+				4A780FD21AB6F3F300E9898C /* OnboardingViewController.m */,
+			);
+			name = onboard;
+			sourceTree = "<group>";
+		};
 		4ACD617B1AA337CE009DD5D6 /* iRate */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,7 +541,7 @@
 		4AE6D26D1A59ECD2008B9221 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4AE6D26C1A59ECD2008B9221 /* CABALOT.app */,
+				4AE6D26C1A59ECD2008B9221 /* Cabalot.app */,
 				4AE6D2851A59ECD2008B9221 /* cabAggTests.xctest */,
 			);
 			name = Products;
@@ -547,6 +579,8 @@
 				4A6482C71A67BE2900746A16 /* ResultInfo.h */,
 				4A6482C81A67BE2900746A16 /* ResultInfo.m */,
 				4A6483311A7A579A00746A16 /* CachedPolyline.h */,
+				4A780FD71ABC0AE500E9898C /* UIView+LoadingSpinner.h */,
+				4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */,
 				4A6483321A7A579A00746A16 /* CachedPolyline.m */,
 				4A6483341A7B7DAA00746A16 /* MoreInfoViewController.h */,
 				4A6483351A7B7DAA00746A16 /* MoreInfoViewController.m */,
@@ -596,6 +630,7 @@
 		4AE6D2951A59ED25008B9221 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A780FCE1AB6F3E000E9898C /* onboard */,
 				4ACD617B1AA337CE009DD5D6 /* iRate */,
 				4A6482CF1A7322D700746A16 /* MagicalRecord */,
 				4AE6D2961A59ED31008B9221 /* AFNetworking */,
@@ -646,7 +681,7 @@
 			);
 			name = cabAgg;
 			productName = cabAgg;
-			productReference = 4AE6D26C1A59ECD2008B9221 /* CABALOT.app */;
+			productReference = 4AE6D26C1A59ECD2008B9221 /* Cabalot.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AE6D2841A59ECD2008B9221 /* cabAggTests */ = {
@@ -732,12 +767,16 @@
 				4A64833F1A93437600746A16 /* UberPinDropShadow.png in Resources */,
 				4ACD61931AA8497D009DD5D6 /* uber-pin@2x.png in Resources */,
 				4ACD61981AA9CE4C009DD5D6 /* logo@2x.png in Resources */,
+				4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */,
 				4ACD618D1AA45C44009DD5D6 /* close-icon.png in Resources */,
 				4ACD61951AA8497D009DD5D6 /* lyft-pin@2x.png in Resources */,
 				4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */,
 				4ACD617F1AA337CE009DD5D6 /* iRate.bundle in Resources */,
 				4AE6D2801A59ECD2008B9221 /* LaunchScreen.xib in Resources */,
+				4A780FCD1AB6BE9500E9898C /* myLocation@3x.png in Resources */,
 				4ACD617A1AA050D2009DD5D6 /* Circle@2x.png in Resources */,
+				4A780FD61AB82E0B00E9898C /* onboarding1.png in Resources */,
+				4A780FCC1AB6BE9500E9898C /* myLocation@2x.png in Resources */,
 				4AE6D27D1A59ECD2008B9221 /* Images.xcassets in Resources */,
 				4A6482C61A67B99F00746A16 /* ResultCollectionViewCell.xib in Resources */,
 				4ACD61991AA9CE4C009DD5D6 /* logo@3x.png in Resources */,
@@ -762,6 +801,7 @@
 				4A6482A71A666CA400746A16 /* SetDestinationView.m in Sources */,
 				4AE6D2AA1A59ED31008B9221 /* AFHTTPRequestOperation.m in Sources */,
 				4A6483111A7322D700746A16 /* NSEntityDescription+MagicalDataImport.m in Sources */,
+				4A780FD41AB6F3F300E9898C /* OnboardingViewController.m in Sources */,
 				4A64831E1A7322D700746A16 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				4AE6D2D11A5A2385008B9221 /* CabAggHttpClient.m in Sources */,
 				4A6482C91A67BE2900746A16 /* ResultInfo.m in Sources */,
@@ -775,6 +815,7 @@
 				4A64829C1A5D291B00746A16 /* UberHTTPClient.m in Sources */,
 				4A64831A1A7322D700746A16 /* NSManagedObject+MagicalRequests.m in Sources */,
 				4ACD618A1AA4532F009DD5D6 /* ExtraViewController.m in Sources */,
+				4A780FD31AB6F3F300E9898C /* OnboardingContentViewController.m in Sources */,
 				4A6483161A7322D700746A16 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				4AE6D2B11A59ED31008B9221 /* AFURLResponseSerialization.m in Sources */,
 				4A64832C1A73237800746A16 /* CabAgg.xcdatamodeld in Sources */,
@@ -802,6 +843,7 @@
 				4A6482AE1A667F5400746A16 /* LocationSearchViewController.m in Sources */,
 				4AE6D2AE1A59ED31008B9221 /* AFSecurityPolicy.m in Sources */,
 				4A6483101A7322D700746A16 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				4A780FD91ABC0AE500E9898C /* UIView+LoadingSpinner.m in Sources */,
 				4A6483331A7A579A00746A16 /* CachedPolyline.m in Sources */,
 				4AE6D2AC1A59ED31008B9221 /* AFHTTPSessionManager.m in Sources */,
 				4A6482C11A67B7A400746A16 /* DisplayResultsCollectionView.m in Sources */,
@@ -942,7 +984,7 @@
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = CABALOT;
+				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -959,7 +1001,7 @@
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = CABALOT;
+				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExtraViewController">
             <connections>
+                <outlet property="adminButton" destination="7Mn-Ts-2eT" id="PsZ-Pc-WKK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,115 +15,41 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIf-CG-nZX">
-                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Mj-sa-mG9">
-                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="256" id="Rpg-4M-7Ux">
-                            <variation key="widthClass=compact" constant="40"/>
-                        </constraint>
-                        <constraint firstAttribute="width" constant="256" id="tIL-mL-ccV">
-                            <variation key="widthClass=compact" constant="40"/>
-                        </constraint>
-                    </constraints>
-                    <state key="normal" image="close-icon.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Rpg-4M-7Ux"/>
-                            <exclude reference="tIL-mL-ccV"/>
-                        </mask>
-                    </variation>
-                    <variation key="widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="Rpg-4M-7Ux"/>
-                            <include reference="tIL-mL-ccV"/>
-                        </mask>
-                    </variation>
-                    <connections>
-                        <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="P6L-4a-yIL"/>
-                    </connections>
-                </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gb-PA-uEG">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <mutableString key="text">Q. What is this app about? A. This app compares the prices for different ride sharing options (right now, UberX, UberPool, LyftLine and Lyft). If you are willing to walk a bit, it tries to figure out places where you can walk to, to find a cheaper price for your ride. It does so by trying to find surge free zones around you.  Q. How does it work? A. When you start the app, you can select pickup and dropoff locations. You can either set the pin manually or enter an address manually (sorry, no autocomplete for it yet :-(). After this you can set the maximum distance you are willing to walk from pickup and dropoff location. Once all of this is done, press the Optimize button, and let the app do the magic.  Q. What do the results and savings mean? A. If the app manages to find a place you can walk to find cheaper fares, that will be indicated for that ride sharing option. The places for the new pickup and dropoff points are marked on the map. The app shows estimated savings you are making if you were to book a cab from these new locations as opposed to the original pickup/destination.  Q. How accurate are the price estimates for different services? A. For the most part, the fares here should be either accurate (for Lyft Line), or pretty close to the estimates provided by Lyft/Uber. Furthermore, the estimates take into account any surge price, so you can easily choose the best option.  Q. What does the book cab button do? A. If you have the app for Lyft or Uber installed, the app will try to launch the app, with the locations already set.   Q. Why does the book lyft option not set the locations automatically? A. Sadly, the Lyft app does not support deeplinking right now. So at best, the app can open up the Lyft app for you.    Q. I have suggestions or feedback. Where do I leave them? A. Drop me a line on kanavarora@gmail.com </mutableString>
+                    <mutableString key="text">Q. What is this app about? A. This app compares the prices for different ride sharing options (right now, UberX, UberPool, LyftLine and Lyft). If you are willing to walk a bit, it tries to figure out places where you can walk to, to find a cheaper price for your ride. It does so by trying to find surge free zones around you.  Q. How does it work? A. When you start the app, you can select pickup and dropoff locations. You can either set the pin manually or enter an address manually (sorry, no autocomplete for it yet :-(). After this you can set the maximum distance you are willing to walk from pickup location. Once all of this is done, press the Optimize button, and let the app do the magic.  Q. What do the results and savings mean? A. If the app manages to find a place you can walk to find cheaper fares, that will be indicated for that ride sharing option. The places for the new pickup points are marked on the map. The app shows estimated savings you are making if you were to book a cab from these new locations as opposed to the original pickup/destination.  Q. How accurate are the price estimates for different services? A. For the most part, the fares here should be either accurate (for Lyft Line), or pretty close to the estimates provided by Lyft/Uber. Furthermore, the estimates take into account any surge price, so you can easily choose the best option at that time.  Q. What does the book cab button do? A. If you have the app for Lyft or Uber installed, the app will try to launch the app, with the locations already set.   Q. Why does the book lyft option not set the locations automatically? A. Sadly, the Lyft app does not support deeplinking right now. So at best, the app can open up the Lyft app for you.    Q. I have suggestions or feedback. Where do I leave them? A. Drop me a line on cabalot.help@gmail.com </mutableString>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="0.0" y="51" width="400" height="601"/>
-                    </variation>
                 </textView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Mn-Ts-2eT">
+                    <rect key="frame" x="550" y="550" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="EmS-tF-f5b"/>
+                        <constraint firstAttribute="width" constant="40" id="nIb-gV-FoE"/>
+                    </constraints>
+                    <state key="normal" image="blackCircle.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tapAdminButton:" destination="-1" eventType="touchUpInside" id="Bko-xh-MOG"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="8gb-PA-uEG" secondAttribute="bottom" id="0ha-Yr-CHf"/>
-                <constraint firstItem="eIf-CG-nZX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2K7-nM-UQC"/>
-                <constraint firstItem="8gb-PA-uEG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="Cd4-dn-eOG">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="1Mj-sa-mG9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="Eeq-bq-zD3">
-                    <variation key="widthClass=compact" constant="7"/>
-                </constraint>
-                <constraint firstItem="eIf-CG-nZX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JzL-u7-epG">
-                    <variation key="widthClass=compact" constant="7"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="8gb-PA-uEG" secondAttribute="trailing" constant="80" id="Ns2-Q3-lwi">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="1Mj-sa-mG9" secondAttribute="trailing" constant="10" id="VOx-f1-TTg"/>
-                <constraint firstAttribute="trailing" secondItem="eIf-CG-nZX" secondAttribute="trailing" id="eH6-5U-1fb"/>
-                <constraint firstItem="8gb-PA-uEG" firstAttribute="top" secondItem="eIf-CG-nZX" secondAttribute="bottom" constant="23" id="iv7-09-wv4">
-                    <variation key="widthClass=compact" constant="20"/>
-                </constraint>
+                <constraint firstItem="8gb-PA-uEG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="59b-JB-xCV"/>
+                <constraint firstAttribute="bottom" secondItem="7Mn-Ts-2eT" secondAttribute="bottom" constant="10" id="AZQ-D8-qG4"/>
+                <constraint firstItem="8gb-PA-uEG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Cd4-dn-eOG"/>
+                <constraint firstAttribute="trailing" secondItem="8gb-PA-uEG" secondAttribute="trailing" id="Ns2-Q3-lwi"/>
+                <constraint firstAttribute="trailing" secondItem="7Mn-Ts-2eT" secondAttribute="trailing" constant="10" id="Tsf-3K-Xfn"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="eIf-CG-nZX"/>
-                    <exclude reference="1Mj-sa-mG9"/>
-                    <exclude reference="8gb-PA-uEG"/>
-                </mask>
-                <mask key="constraints">
-                    <exclude reference="2K7-nM-UQC"/>
-                    <exclude reference="JzL-u7-epG"/>
-                    <exclude reference="eH6-5U-1fb"/>
-                    <exclude reference="0ha-Yr-CHf"/>
-                    <exclude reference="Cd4-dn-eOG"/>
-                    <exclude reference="Ns2-Q3-lwi"/>
-                    <exclude reference="iv7-09-wv4"/>
-                    <exclude reference="Eeq-bq-zD3"/>
-                    <exclude reference="VOx-f1-TTg"/>
-                </mask>
-            </variation>
-            <variation key="widthClass=compact">
-                <mask key="subviews">
-                    <include reference="eIf-CG-nZX"/>
-                    <include reference="1Mj-sa-mG9"/>
-                    <include reference="8gb-PA-uEG"/>
-                </mask>
-                <mask key="constraints">
-                    <include reference="2K7-nM-UQC"/>
-                    <include reference="JzL-u7-epG"/>
-                    <include reference="eH6-5U-1fb"/>
-                    <include reference="0ha-Yr-CHf"/>
-                    <include reference="Cd4-dn-eOG"/>
-                    <include reference="Ns2-Q3-lwi"/>
-                    <include reference="iv7-09-wv4"/>
-                    <include reference="Eeq-bq-zD3"/>
-                    <include reference="VOx-f1-TTg"/>
-                </mask>
-            </variation>
         </view>
     </objects>
     <resources>
-        <image name="close-icon.png" width="256" height="256"/>
+        <image name="blackCircle.png" width="1000" height="1000"/>
     </resources>
 </document>
