@@ -309,7 +309,7 @@
         [self hideRadialSettings];
         
     } else if (!self.isDestinationSet) {
-        [self.actionButton setBackgroundColor:UIColorFromRGB(0xD0021B)];
+        [self.actionButton setBackgroundColor:UIColorFromRGB(0xDD4658)];
         [self.actionButton setTitle:@"Set Destination" forState:UIControlStateNormal];
         [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self setupLocationMarkerForDestination];
@@ -726,18 +726,11 @@
 }
 
 - (void)showOnboarding {
-    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Welcome" body:@"Cabalot helps you find the cheapest cab among a variety of options. Just set your pickup and dropoff points and let the app work the magic." image:[UIImage imageNamed:@"logo-big.png"] buttonText:nil action:^{
-    }];
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    BOOL showLocationPage = (status ==kCLAuthorizationStatusNotDetermined);
-    
-    OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"It is smart" body:@"Cabalot is smart. If it finds that you are in a surge zone, cabalot helps you find places at walking distances, so that you can escape the deadly surge pricing." image:[UIImage imageNamed:@"onboarding1.png"] buttonText:nil    action:^{
+    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Welcome" body:@"Cabalot helps you find fares for different car services. Just set your pickup and dropoff points and let the app show you your options" image:[UIImage imageNamed:@"logo-big.png"] buttonText:nil action:^{
     }];
     
-    OnboardingContentViewController *thirdPage = [OnboardingContentViewController contentWithTitle:@"It is smart" body:@"Cabalot is smart. If it finds that you are in a surge zone, cabalot helps you find places at walking distances, so that you can escape the deadly surge pricing." image:[UIImage imageNamed:@"logo-big.png"] buttonText:@"Done"    action:^{
-        [self enableMyLocation];
+    OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"Escape Surge" body:@"Cabalot is smart. It helps you find places nearby which have lesser surge pricing than where you currently are. So you can walk to nearby places and save even more money" image:[UIImage imageNamed:@"onboarding1.png"] buttonText:nil    action:^{
     }];
-    
     
     OnboardingContentViewController *fourthPage= [OnboardingContentViewController contentWithTitle:@"Easy booking" body:@"Once you have selected the most convenient option, you can book that ride from within the app itself." image:[UIImage imageNamed:@"logo-big.png"] buttonText:nil    action:^{
     }];
