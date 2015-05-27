@@ -50,18 +50,31 @@
 
 - (NSString *)deepLinkUrl:(BOOL)isBestRoute {
     UberHTTPClient *uberClient = [UberHTTPClient sharedInstance];
+    CLLocationCoordinate2D start = globalStateInterface.mainVC.pickupLocation;
+    if (isBestRoute) {
+        start = self.start;
+    }
     switch (self.cabType) {
         case CabTypeLyftLine:
+        {
+            return [CabAggHttpClient urlForPickupLatitude:start.latitude
+                                          pickupLongitude:start.longitude
+                                             dropLatitude:self.end.latitude
+                                            dropLongitude:self.end.longitude
+                                               isLyftLine:YES];
+        }
         case CabTypeLyft:
-            return [CabAggHttpClient deepLinkUrl];
+        {
+            return [CabAggHttpClient urlForPickupLatitude:start.latitude
+                                          pickupLongitude:start.longitude
+                                             dropLatitude:self.end.latitude
+                                            dropLongitude:self.end.longitude
+                                               isLyftLine:NO];
+        }
             
             
         case CabTypeUberPool:
         {
-            CLLocationCoordinate2D start = globalStateInterface.mainVC.pickupLocation;
-            if (isBestRoute) {
-                start = self.start;
-            }
             return [uberClient urlForPickupLatitude:start.latitude
                                     pickupLongitude:start.longitude
                                        dropLatitude:self.end.latitude
@@ -71,10 +84,6 @@
             
         case CabTypeUberX:
         {
-            CLLocationCoordinate2D start = globalStateInterface.mainVC.pickupLocation;
-            if (isBestRoute) {
-                start = self.start;
-            }
             return [uberClient urlForPickupLatitude:start.latitude
                                     pickupLongitude:start.longitude
                                        dropLatitude:self.end.latitude

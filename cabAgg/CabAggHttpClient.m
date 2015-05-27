@@ -57,6 +57,15 @@
     return url;
 }
 
++ (NSString *)urlForPickupLatitude:(double)pickupLatitude
+                   pickupLongitude:(double)pickupLongitude
+                      dropLatitude:(double)dropLatitude
+                     dropLongitude:(double)dropLongitude
+                        isLyftLine:(BOOL)isLyftLine {
+    NSString *url = [NSString stringWithFormat:@"lyft://ridetype?id=%@&pickup[latitude]=%.4f&pickup[longitude]=%.4f&destination[latitude]=%.4f&destination[longitude]=%.4f", isLyftLine ? @"courier" : @"standard", pickupLatitude, pickupLongitude, dropLatitude, dropLongitude];
+    return url;
+}
+
 - (NSDictionary *)markerForLocation:(CLLocationCoordinate2D)loc {
     return @{@"lat" : @(loc.latitude),
              @"lng" : @(loc.longitude)};

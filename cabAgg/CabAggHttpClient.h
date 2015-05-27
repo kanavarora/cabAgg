@@ -40,6 +40,12 @@
         startDisNeighbor:(float)startDisNeighbor
           endDisNeighbor:(float)endDisNeighbor;
 
++ (NSString *)urlForPickupLatitude:(double)pickupLatitude
+                   pickupLongitude:(double)pickupLongitude
+                      dropLatitude:(double)dropLatitude
+                     dropLongitude:(double)dropLongitude
+                        isLyftLine:(BOOL)isLyftLine;
+
 - (float)getBestDyncPricing;
 - (float)getActDyncPricing;
 - (float)getBestPrice;

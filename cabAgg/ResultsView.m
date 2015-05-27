@@ -95,16 +95,12 @@
 }
 
 - (void)didTapBookButton {
-    if (self.selectedResultInfo.cabType ==  CabTypeUberPool || self.selectedResultInfo.cabType == CabTypeUberX) {
-        if ([GlobalStateInterface areEqualLocations:self.selectedResultInfo.start andloc2:globalStateInterface.mainVC.pickupLocation]) {
-            [self openDeepUrl:YES];
-        } else {
-            [self presentAlertViewWithOptions];
-        }
-    } else {
+    if ([GlobalStateInterface areEqualLocations:self.selectedResultInfo.start
+                                        andloc2:globalStateInterface.mainVC.pickupLocation]) {
         [self openDeepUrl:YES];
+    } else {
+        [self presentAlertViewWithOptions];
     }
-    
 }
 
 - (void)presentAlertViewWithOptions {
