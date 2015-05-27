@@ -28,4 +28,6 @@ alpha:1.0]
 
 #define USE_TEST_SERVER 0
 
+#define USE_DEV_SERVER 0
+
 extern GlobalStateInterface *globalStateInterface;

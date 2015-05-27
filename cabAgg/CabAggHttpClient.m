@@ -26,6 +26,8 @@
 @property (nonatomic, readwrite, assign) int numStartRequests;
 @property (nonatomic, readwrite, assign) int numEndRequests;
 
+@property (nonatomic, readwrite, strong) NSArray *hotspotLocations;
+
 @property (nonatomic, readwrite, assign) BOOL isDone;
 
 @property (nonatomic, readwrite, assign) BOOL hasShownError;
@@ -66,6 +68,10 @@
              @"lng" : @(longitude)};
 }
 
+- (CLLocationCoordinate2D)locationForMarker:(NSDictionary *)locDict {
+    return CLLocationCoordinate2DMake([locDict[@"lat"] floatValue], [locDict[@"lng"] floatValue]);
+}
+
 - (void)showErrorIfNeeded:(int)errorCode {
     if (!self.hasShownError) {
         self.hasShownError = YES;
@@ -98,9 +104,23 @@
  perMinute
  pickup
  */
+
+- (NSArray *)parseHotspots:(NSArray *)hotspotDicts {
+    NSMutableArray *toRtn = [NSMutableArray array];
+    for (NSDictionary *hotspotDict in hotspotDicts) {
+        if (hotspotDict[@"lat"] && hotspotDict[@"lng"]) {
+            double lat = [hotspotDict[@"lat"] doubleValue];
+            double lng = [hotspotDict[@"lng"] doubleValue];
+            CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+            [toRtn addObject:loc];
+        }
+    }
+    return toRtn;
+}
+
 - (void)getInfoForMarker:(NSDictionary *)marker
            andDestMarker:(NSDictionary *)destMarker
-            successBlock:(void (^)(float, BOOL, NSDictionary *, NSDictionary *))successBlock
+            successBlock:(void (^)(float, BOOL, NSDictionary *, NSDictionary *, NSArray *))successBlock
             failureBlock:(void (^)())failureBlock
 {
     NSDictionary *params = @{@"startLat" : marker[@"lat"],
@@ -111,6 +131,8 @@
                              };
 #if USE_TEST_SERVER
     NSString *baseUrl = @"http://localhost:8080/api/v1/lyft";
+#elif USE_DEV_SERVER
+    NSString *baseUrl = @"http://golden-context-82.appspot.com/api/v1/lyft";
 #else
     NSString *baseUrl = @"http://golden-context-823.appspot.com/api/v1/lyft";
 #endif
@@ -127,10 +149,14 @@
                 directions = nil;
             }
             BOOL isLyftLineRouteValid = [responseObject[@"isLyftLineRouteValid"] boolValue];
+            
+            NSArray *hotspots = [self parseHotspots:responseObject[@"hotspotLocations"]];
+            
             successBlock([responseObject[@"price"] floatValue]/100.0,
                          isLyftLineRouteValid,
                          responseObject[@"standardRide"],
-                         directions);
+                         directions,
+                         hotspots);
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -217,7 +243,8 @@
               successBlock:^(float price,
                              BOOL isLyftLineValid,
                              NSDictionary *standardPricing,
-                             NSDictionary *directions) {
+                             NSDictionary *directions,
+                             NSArray *hotspots) {
                   self.isLyftLineRouteValid = isLyftLineValid;
                   self.actPrice = price;
                   self.bestPrice = price;
@@ -226,6 +253,7 @@
                   self.lyftActPrice = standardPricing;
                   self.lyftBestPrice = standardPricing;
                   self.lyftBestStartDisNeigh = 0.0f;
+                  self.hotspotLocations = hotspots;
                   [self optimizeForStart];
               }
               failureBlock:^{
@@ -267,7 +295,7 @@
             NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
             NSDictionary *endMarker = [self markerForLatitude:endLat longitude:endLon];
             
-            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions, NSArray *hotspots) {
                 
                 self.numStartRequests++;
                 
@@ -291,17 +319,17 @@
                     self.lyftBestStartDisNeigh = startDisNeighbor;
                 }
                 
-                [self checkToOptimizeForEnd];
+                [self checkToOptimizeForStart];
             } failureBlock:^{
                 self.numStartRequests++;
                 
-                [self checkToOptimizeForEnd];
+                [self checkToOptimizeForStart];
             }];
         }
     }
 }
 
-- (void)checkToOptimizeForEnd {
+- (void)checkToOptimizeForStart {
     if (self.numStartRequests == 8) {
         [self furtherOptimizeStartForLyftLine];
     }
@@ -319,7 +347,7 @@
         NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
         NSDictionary *endMarker = [self markerForLatitude:self.end.latitude longitude:self.end.longitude];
         
-        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions, NSArray *hotspots) {
             
             if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
                 self.bestPrice = dollars;
@@ -353,7 +381,7 @@
 - (void)furtherOptimizeStartForLyft {
     CLLocationCoordinate2D bestLyftStart = CLLocationCoordinate2DMake(self.lyftBestLat, self.lyftBestLon);
     if ([GlobalStateInterface areEqualLocations:bestLyftStart andloc2:self.start]) {
-        [self optimizeForEnd];
+        [self optimizeForHotspots];
     } else {
         float lat = (self.lyftBestLat + self.start.latitude)/2.0f;
         float lon = (self.lyftBestLon + self.start.longitude)/2.0f;
@@ -362,7 +390,7 @@
         NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
         NSDictionary *endMarker = [self markerForLatitude:self.end.latitude longitude:self.end.longitude];
         
-        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+        [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions, NSArray *hotspots) {
             
             if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
                 self.bestPrice = dollars;
@@ -384,12 +412,65 @@
                 self.lyftBestStartDisNeigh = startDisNeighbor;
             }
             
-            [self optimizeForEnd];
+            [self optimizeForHotspots];
         } failureBlock:^{
-            [self optimizeForEnd];
+            [self optimizeForHotspots];
         }];
 
     }
+}
+
+- (void)optimizeForHotspots {
+    CLLocation *startLoc = [[CLLocation alloc] initWithLatitude:self.start.latitude longitude:self.start.longitude];
+    double bestDist = 10000000;
+    CLLocation *closestHotspot = nil;
+    for (CLLocation *loc in self.hotspotLocations) {
+        double currDist = [startLoc distanceFromLocation:loc];
+        if (currDist < bestDist) {
+            bestDist = currDist;
+            closestHotspot = loc;
+        }
+    }
+    
+    if (!closestHotspot) {
+        return [self optimizeForEnd];
+    }
+    
+    float startDisNeighbor = bestDist;
+    float lat = closestHotspot.coordinate.latitude;
+    float lon = closestHotspot.coordinate.longitude;
+    
+    NSDictionary *startMarker = [self markerForLatitude:lat longitude:lon];
+    NSDictionary *endMarker = [self markerForLatitude:self.end.latitude longitude:self.end.longitude];
+    
+    [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions, NSArray *hotspots) {
+        
+        if (dollars > 0 && [self isBetterDealPrice:dollars distance:startDisNeighbor]) {
+            self.bestPrice = dollars;
+            self.bestStartDisNeigh = startDisNeighbor;
+            self.bestLat = lat;
+            self.bestLon = lon;
+        }
+        
+        if ([self isBetterLyftDeal:self.lyftBestPrice
+                       directions1:self.lyftBestDirections
+                         disNeigh1:self.lyftBestStartDisNeigh
+                            price2:standardPricing
+                       directions2:directions
+                         disNeigh2:startDisNeighbor]) {
+            self.lyftBestDirections = directions;
+            self.lyftBestPrice = standardPricing;
+            self.lyftBestLat = lat;
+            self.lyftBestLon = lon;
+            self.lyftBestStartDisNeigh = startDisNeighbor;
+        }
+        
+        [self optimizeForEnd];
+    } failureBlock:^{
+        [self optimizeForEnd];
+    }];
+    
+    
 }
 
 - (void)optimizeForEnd {
@@ -422,7 +503,7 @@
             NSDictionary *startMarker = [self markerForLatitude:startLat longitude:startLon];
             NSDictionary *endMarker = [self markerForLatitude:lat longitude:lon];
             
-            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions) {
+            [self getInfoForMarker:startMarker andDestMarker:endMarker successBlock:^(float dollars, BOOL isLyftLineValid, NSDictionary *standardPricing, NSDictionary *directions, NSArray *hotspots) {
                 
                 self.numEndRequests++;
                 

@@ -35,10 +35,6 @@
 
 + (NSString *)deepLinkUrl;
 
-- (void)getInfoForMarker:(NSDictionary *)marker
-           andDestMarker:(NSDictionary *)destMarker
-            successBlock:(void (^)(float, BOOL, NSDictionary *, NSDictionary *))successBlock
-            failureBlock:(void (^)())failureBlock;
 - (void)optimizeForStart:(CLLocationCoordinate2D)start
                      end:(CLLocationCoordinate2D)end
         startDisNeighbor:(float)startDisNeighbor

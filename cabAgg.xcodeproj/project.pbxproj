@@ -67,6 +67,7 @@
 		4A780FD41AB6F3F300E9898C /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD21AB6F3F300E9898C /* OnboardingViewController.m */; };
 		4A780FD61AB82E0B00E9898C /* onboarding1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FD51AB82E0B00E9898C /* onboarding1.png */; };
 		4A780FD91ABC0AE500E9898C /* UIView+LoadingSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */; };
+		4A80E4C61AD662EC007E0D07 /* LyftHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */; };
 		4ACD61761AA048E8009DD5D6 /* RequestBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */; };
 		4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61771AA050D2009DD5D6 /* Check@2x.png */; };
 		4ACD617A1AA050D2009DD5D6 /* Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61781AA050D2009DD5D6 /* Circle@2x.png */; };
@@ -241,6 +242,8 @@
 		4A780FD51AB82E0B00E9898C /* onboarding1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onboarding1.png; sourceTree = "<group>"; };
 		4A780FD71ABC0AE500E9898C /* UIView+LoadingSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LoadingSpinner.h"; sourceTree = "<group>"; };
 		4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LoadingSpinner.m"; sourceTree = "<group>"; };
+		4A80E4C41AD662EC007E0D07 /* LyftHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyftHttpClient.h; sourceTree = "<group>"; };
+		4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyftHttpClient.m; sourceTree = "<group>"; };
 		4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBox@2x.png"; sourceTree = "<group>"; };
 		4ACD61771AA050D2009DD5D6 /* Check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check@2x.png"; sourceTree = "<group>"; };
 		4ACD61781AA050D2009DD5D6 /* Circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle@2x.png"; sourceTree = "<group>"; };
@@ -559,6 +562,8 @@
 				4A6482AD1A667F5400746A16 /* LocationSearchViewController.xib */,
 				4A6482B01A6681E800746A16 /* HTTPClient.h */,
 				4A6482B11A6681E800746A16 /* HTTPClient.m */,
+				4A80E4C41AD662EC007E0D07 /* LyftHttpClient.h */,
+				4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */,
 				4ACD61871AA4532F009DD5D6 /* ExtraViewController.h */,
 				4ACD61881AA4532F009DD5D6 /* ExtraViewController.m */,
 				4ACD61891AA4532F009DD5D6 /* ExtraViewController.xib */,
@@ -823,6 +828,7 @@
 				4A6483141A7322D700746A16 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				4A6483131A7322D700746A16 /* NSObject+MagicalDataImport.m in Sources */,
 				4A6483231A7322D700746A16 /* MagicalRecord+Actions.m in Sources */,
+				4A80E4C61AD662EC007E0D07 /* LyftHttpClient.m in Sources */,
 				4A6483181A7322D700746A16 /* NSManagedObject+MagicalFinders.m in Sources */,
 				4A6482A31A665BBC00746A16 /* MainViewController.m in Sources */,
 				4A6482C51A67B99F00746A16 /* ResultCollectionViewCell.m in Sources */,
