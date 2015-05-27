@@ -129,7 +129,9 @@
 }
 
 - (void)startApp {
-    NSDictionary *params = @{@"udid": [[[UIDevice currentDevice] identifierForVendor] UUIDString]};
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSDictionary *params = @{@"udid": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
+                             @"version" : version};
     [self POST:@"api/v1/start" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject[@"error"]) {
             NSString *errorString = responseObject[@"error"][@"string"];

@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "AFNetworking.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 #import <GoogleMaps/GoogleMaps.h>
 #define MR_SHORTHAND
@@ -36,6 +39,8 @@
     // Override point for customization after application launch.
     //[[UILabel appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:8.0]];
     [GMSServices provideAPIKey:@"AIzaSyBpBOn34TqmbnLTRCpVnB1ELbIXbxLOGLg"];
+    [Fabric with:@[CrashlyticsKit]];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     MainViewController *mainVC = [[MainViewController alloc] init];

@@ -118,6 +118,8 @@
 		4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE6D2CD1A5A201F008B9221 /* SystemConfiguration.framework */; };
 		4AE6D2D11A5A2385008B9221 /* CabAggHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */; };
 		4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D71A5A7F89008B9221 /* newLocation.png */; };
+		4AE7AD851B15B47E00BE8DED /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD831B15B47E00BE8DED /* Fabric.framework */; };
+		4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */; };
 		4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */; };
 /* End PBXBuildFile section */
 
@@ -312,6 +314,8 @@
 		4AE6D2CF1A5A2385008B9221 /* CabAggHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CabAggHttpClient.h; sourceTree = "<group>"; };
 		4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CabAggHttpClient.m; sourceTree = "<group>"; };
 		4AE6D2D71A5A7F89008B9221 /* newLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newLocation.png; path = ../../../kanav/newLocation.png; sourceTree = "<group>"; };
+		4AE7AD831B15B47E00BE8DED /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "stock-photo.jpeg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -321,12 +325,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */,
+				4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */,
 				4AE6D2CC1A5A2014008B9221 /* QuartzCore.framework in Frameworks */,
 				4AE6D2CA1A5A2009008B9221 /* OpenGLES.framework in Frameworks */,
 				4AE6D2C81A5A2001008B9221 /* libz.dylib in Frameworks */,
 				4AE6D2C61A5A1FF6008B9221 /* libicucore.dylib in Frameworks */,
 				4AE6D2C41A5A1FE7008B9221 /* libc++.dylib in Frameworks */,
 				4AE6D2C21A5A1FDB008B9221 /* ImageIO.framework in Frameworks */,
+				4AE7AD851B15B47E00BE8DED /* Fabric.framework in Frameworks */,
 				4AE6D2C01A5A1FCF008B9221 /* GLKit.framework in Frameworks */,
 				4AE6D2BE1A5A1FCA008B9221 /* CoreText.framework in Frameworks */,
 				4AE6D2BC1A5A1FB5008B9221 /* CoreData.framework in Frameworks */,
@@ -517,6 +523,8 @@
 		4AE6D2631A59ECD2008B9221 = {
 			isa = PBXGroup;
 			children = (
+				4AE7AD831B15B47E00BE8DED /* Fabric.framework */,
+				4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */,
 				4A6483301A73247500746A16 /* CoreData */,
 				4A6482A81A667DA000746A16 /* Resources */,
 				4A6482A51A666CA400746A16 /* SetDestinationView.h */,
@@ -679,6 +687,7 @@
 				4AE6D2681A59ECD2008B9221 /* Sources */,
 				4AE6D2691A59ECD2008B9221 /* Frameworks */,
 				4AE6D26A1A59ECD2008B9221 /* Resources */,
+				4AE7AD821B15B42100BE8DED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -797,6 +806,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4AE7AD821B15B42100BE8DED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 3903988965876b29bebea44588b376cb2d353e35 b5dcd1d47d9dbd631f161bb9c873da318cf444f066a2035849403e5486727349";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4AE6D2681A59ECD2008B9221 /* Sources */ = {
