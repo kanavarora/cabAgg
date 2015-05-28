@@ -21,6 +21,7 @@
 - (void)clearDestinationLocation;
 - (BOOL)centerOnPickup; // returns whether there is any need to center anywhere
 - (BOOL)centerOnDestination;
+- (CLLocationCoordinate2D)centerOfMap;
 - (void)centerMapOnLocation:(CLLocationCoordinate2D)loc;
 - (void)updatePickupLocation:(CLLocationCoordinate2D)pickupLocation
                      address:(NSString *)address

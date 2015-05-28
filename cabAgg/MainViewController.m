@@ -188,10 +188,19 @@
     // 3
     [_mapView setRegion:viewRegion animated:YES];
      */
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:@"startLat"] && [userDefaults objectForKey:@"startLng"]) {
+        [self centerMapOnLocation:CLLocationCoordinate2DMake([userDefaults floatForKey:@"startLat"], [userDefaults floatForKey:@"startLng"])];
+    }
+
     if (hasOnboarded) {
         [self enableMyLocation];
         [self listenForMyLocationChangedProperty];
     }
+}
+
+- (CLLocationCoordinate2D)centerOfMap {
+    return self.mapView.centerCoordinate;
 }
 
 - (void)showExtraView {

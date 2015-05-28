@@ -143,6 +143,7 @@
                               end:(CLLocationCoordinate2D)end
                  startDisNeighbor:(double)startDisNeighbor {
     self.isRouteInvalid = NO;
+    self.isPoolRouteInvalid = NO;
     self.startDisNeigh = startDisNeighbor;
     self.actualEnd = end;
     self.actualStart = start;

@@ -78,6 +78,15 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    CLLocationCoordinate2D center = [globalStateInterface.mainVC centerOfMap];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    float lat = center.latitude;
+    float lng = center.longitude;
+    if (lat !=0 && lng != 0) {
+        [userDefaults setFloat:lat forKey:@"startLat"];
+        [userDefaults setFloat:lng forKey:@"startLng"];
+        [userDefaults synchronize];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

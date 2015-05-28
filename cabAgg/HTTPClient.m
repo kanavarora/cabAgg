@@ -13,6 +13,14 @@
 
 #import "MainViewController.h"
 
+
+@interface HTTPClient ()
+
+@property (nonatomic, readwrite, assign) BOOL force;
+@property (nonatomic, readwrite, strong) NSString *message;
+
+@end
+
 @implementation HTTPClient
 
 + (HTTPClient *)sharedInstance {
@@ -43,6 +51,11 @@
         [acceptableContentTypes addObject:@"text/html"];
         self.responseSerializer.acceptableContentTypes = [NSSet setWithSet:acceptableContentTypes];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(checkForUpdate)
+                                                         name:UIApplicationWillEnterForegroundNotification
+                                                       object:nil];
     }
     
     return self;
@@ -155,7 +168,14 @@
             [alertController addAction:ok]; // add action to uialertcontroller
             
             [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
-            
+        }
+        if (responseObject[@"upgradeAvailable"]) {
+            NSDictionary *data = responseObject[@"upgradeAvailable"];
+            NSString *msg = data[@"message"];
+            BOOL force = [data[@"force"] boolValue];
+            self.force = force;
+            self.message = msg;
+            [self showUpdataDialog:msg force:force];
         }
         if (responseObject[@"optimizeDestination"]) {
             globalStateInterface.shouldOptimizeDestination = [responseObject[@"optimizeDestination"] boolValue];
@@ -164,6 +184,32 @@
         // mhmmmm
     }];
     
+}
+
+- (void)checkForUpdate {
+    if (self.force) {
+        [self showUpdataDialog:self.message force:self.force];
+    }
+}
+
+- (void)showUpdataDialog:(NSString *)message force:(BOOL)force {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Update available" message:message?message:@"Please download new update" preferredStyle:UIAlertControllerStyleAlert];
+    if (!force) {
+        UIAlertAction *nextTime = [UIAlertAction actionWithTitle:@"Next time" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        }];
+        [alertController addAction:nextTime];
+    }
+    UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kAppId];
+        NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
+        [[UIApplication sharedApplication] openURL:iTunesURL];
+
+    }];
+    [alertController addAction:updateAction];
+    [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
+
 }
 
 @end

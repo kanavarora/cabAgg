@@ -30,4 +30,6 @@ alpha:1.0]
 
 #define USE_DEV_SERVER 1
 
+#define kAppId @"976028424"
+
 extern GlobalStateInterface *globalStateInterface;
