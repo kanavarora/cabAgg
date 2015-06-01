@@ -18,5 +18,6 @@
 - (void)setupCollectionView;
 - (ResultInfo *)selectedResultInfo;
 - (void)updateResults;
+- (void)startCalculatingResults;
 
 @end

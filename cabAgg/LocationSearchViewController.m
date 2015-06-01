@@ -17,6 +17,7 @@
 #import "GlobalStateInterface.h"
 #import "MainViewController.h"
 #import "LocationSearchTableViewCell.h"
+#import "EventLogger.h"
 
 @interface LocationSearchViewController ()
 
@@ -97,6 +98,7 @@
     [self.tableView showConstrainedSpinner];
     NSString *searchText =  searchBar.text;
     if (searchText.length) {
+        [globalStateInterface.eventLogger trackEventName:@"search-tapped" properties:@{@"searchTerm":searchText}];
         [[HTTPClient sharedInstance] getGeoCodeFor:searchText startLocation:globalStateInterface.mainVC.currentMapLocation  success:^(NSArray * results) {
             self.data = results;
             self.isShowingSavedResults = NO;
@@ -163,6 +165,7 @@
     clickedEntity.times = @([clickedEntity.times intValue] + 1);
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
     
+    [globalStateInterface.eventLogger trackEventName:@"search-result-tapped" properties:@{@"address": addressDict[@"formattedAddress"]}];
     [self dismissViewControllerAnimated:YES completion:^{
         CLLocationCoordinate2D loc = CLLocationCoordinate2DMake([addressDict[@"latitude"] floatValue], [addressDict[@"longitude"] floatValue]);
         if (self.isPickup) {

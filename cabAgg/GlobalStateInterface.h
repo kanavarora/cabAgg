@@ -10,10 +10,12 @@
 #import <MapKit/MapKit.h>
 
 @class  MainViewController;
+@class EventLogger;
 @interface GlobalStateInterface : NSObject
 
 @property (nonatomic, readwrite, weak) MainViewController *mainVC;
 @property (nonatomic, readwrite, assign) BOOL shouldOptimizeDestination;
+@property (nonatomic, readwrite, strong) EventLogger *eventLogger;
 
 + (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1
                   andloc2:(CLLocationCoordinate2D)loc2;

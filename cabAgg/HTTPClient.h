@@ -21,4 +21,6 @@
                        success:(void (^)(NSDictionary *))successBlock
                        failure:(void (^)())failureBlock;
 - (void)startApp;
+- (void)trackWithEventName:(NSString *)eventName
+           eventProperties:(NSDictionary *)eventProperties;
 @end

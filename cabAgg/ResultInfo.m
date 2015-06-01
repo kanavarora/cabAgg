@@ -12,9 +12,15 @@
 #import "CabAggHttpClient.h"
 #import "UberHTTPClient.h"
 #import "MainViewController.h"
+#import "EventLogger.h"
+
+@interface ResultInfo ()
+
+@property (nonatomic, readwrite, assign) BOOL hasLogged;
+
+@end
 
 @implementation ResultInfo
-
 
 +(UIColor *)backgroundColorForCabType:(CabType)cabType {
     switch (cabType) {
@@ -94,6 +100,26 @@
     }
     return nil;
 }
+
+
+- (void)logResultInfoIfNeeded {
+    if ([self isDone] && !self.hasLogged) {
+        NSMutableDictionary *props = [NSMutableDictionary dictionary];
+        props[@"cabType"] = @(self.cabType);
+        props[@"low"] = @(self.actLowEstimate);
+        props[@"high"] = @(self.actHighEstimate);
+        props[@"surge"] = @(self.actSurgeMultiplier);
+        props[@"bestLow"] = @(self.lowEstimate);
+        props[@"bestHigh"] = @(self.highEstimate);
+        props[@"bestSurge"] = @(self.surgeMultiplier);
+        props[@"diff"] = @(self.actLowEstimate - self.lowEstimate);
+        props[@"diffSurge"] = @(self.actSurgeMultiplier - self.surgeMultiplier);
+        props[@"invalid?"] = @(self.isRouteInvalid);
+        [globalStateInterface.eventLogger trackEventName:@"result-calculated" properties:props];
+        self.hasLogged = YES;
+    }
+}
+
 static BOOL isTesting = NO;
 
 - (void)update {
@@ -183,6 +209,7 @@ static BOOL isTesting = NO;
             break;
         }
     }
+    [self logResultInfoIfNeeded];
 }
 
 - (float)differenceSurgePricing {

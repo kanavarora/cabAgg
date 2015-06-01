@@ -12,6 +12,7 @@
 #import "ResultInfo.h"
 #import "GlobalStateInterface.h"
 #import "MainViewController.h"
+#import "EventLogger.h"
 
 @interface ResultsView ()
 
@@ -95,6 +96,8 @@
 }
 
 - (void)didTapBookButton {
+    [globalStateInterface.eventLogger trackEventName:@"book-tapped"
+                                          properties:@{@"cabType":@(self.selectedResultInfo.cabType)}];
     if ([GlobalStateInterface areEqualLocations:self.selectedResultInfo.start
                                         andloc2:globalStateInterface.mainVC.pickupLocation]) {
         [self openDeepUrl:YES];
@@ -120,7 +123,7 @@
                              
                          }];
     UIAlertAction* altOption = [UIAlertAction
-                             actionWithTitle:@"I don't want to walk. Book with original pickoff"
+                             actionWithTitle:@"Feeling lazy! Book with original pickup location"
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
@@ -131,6 +134,11 @@
     [alert addAction:optOption];
     [alert addAction:altOption];
     [globalStateInterface.mainVC presentViewController:alert animated:YES completion:nil];
+}
+
+
+- (void)startCalculatingResults {
+    [self.resultsCollectionView setupResults];
 }
 
 @end

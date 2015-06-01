@@ -51,7 +51,8 @@
         [acceptableContentTypes addObject:@"text/html"];
         self.responseSerializer.acceptableContentTypes = [NSSet setWithSet:acceptableContentTypes];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
-        
+        NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+        [self.requestSerializer setValue:version forHTTPHeaderField:@"apiversion"];
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(checkForUpdate)
                                                          name:UIApplicationWillEnterForegroundNotification
@@ -161,8 +162,7 @@
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * action)
                                  {
-                                     //Do some thing here
-                                     [alertController dismissViewControllerAnimated:YES completion:nil];
+                                
                                      
                                  }];
             [alertController addAction:ok]; // add action to uialertcontroller
@@ -210,6 +210,17 @@
     [alertController addAction:updateAction];
     [globalStateInterface.mainVC presentViewController:alertController animated:YES completion:nil];
 
+}
+
+- (void)trackWithEventName:(NSString *)eventName
+           eventProperties:(NSDictionary *)eventProperties {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSDictionary *params = @{@"udid":udid,
+                             @"version":version,
+                             @"eventName":eventName,
+                             @"eventProperties":eventProperties?eventProperties:@{}};
+    [self POST:@"api/v1/track" parameters:params success:nil failure:nil];
 }
 
 @end

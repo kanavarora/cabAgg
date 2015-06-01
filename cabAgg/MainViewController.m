@@ -22,6 +22,7 @@
 #import "OnboardingContentViewController.h"
 #import "OnboardingViewController.h"
 #import "PaddingLabel.h"
+#import "EventLogger.h"
 
 
 #define kZoomFactor 2.5f
@@ -342,7 +343,16 @@
                                 address:nil
                              moveRegion:NO];
     } else {
+        NSDictionary *properties = @{@"startLat": @(self.pickupLocation.latitude),
+                                     @"startLon": @(self.pickupLocation.longitude),
+                                     @"endLat" : @(self.destinationLocation.latitude),
+                                     @"endLon" : @(self.destinationLocation.longitude),
+                                     @"dis" : @([self startRadialInMeters])};
+        NSMutableDictionary *exProps = [NSMutableDictionary dictionaryWithDictionary:properties];
+        exProps[@"pickupType"] = @(self.pickupView.state);
+        exProps[@"destinationType"] = @(self.destinationView.state);
         
+        [globalStateInterface.eventLogger trackEventName:@"optimize-tapped" properties:exProps];
         // optimize Lyft
         CabAggHttpClient *client = [[CabAggHttpClient alloc] init];
         [client optimizeForStart:self.pickupLocation
@@ -359,6 +369,7 @@
         
         self.bottomBarView.hidden = YES;
         self.resultsView.hidden = NO;
+        [self.resultsView startCalculatingResults];
         [self startUpdatingDisplayResults];
         self.navigationItem.rightBarButtonItem =  self.redoButton;
         self.navigationItem.leftBarButtonItem = nil;

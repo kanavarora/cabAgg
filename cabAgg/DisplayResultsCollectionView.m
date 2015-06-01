@@ -67,6 +67,7 @@
     ResultInfo *info4 = [[ResultInfo alloc] init];
     info4.cabType = CabTypeUberX;
     [_resultData addObject:info4];
+    [self reloadData];
 
 }
 
@@ -81,8 +82,6 @@
     [self setCollectionViewLayout:self.flowLayout];
     self.delegate = self;
     self.dataSource = self;
-    [self setupResults];
-    [self reloadData];
     [self selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self.resultsView didChangeSelectionOfResult];
 }

@@ -17,6 +17,8 @@ typedef enum {
 @class MainViewController;
 @interface SetDestinationView : UIView
 
+@property (nonatomic, readonly, assign) DestinationViewState state;
+
 - (void)setupIsPickup:(BOOL)isPickup
              parentVC:(MainViewController *)mainVC;
 - (void)setWithAddress:(NSString *)address;

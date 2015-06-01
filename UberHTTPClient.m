@@ -57,6 +57,8 @@
         [acceptableContentTypes addObject:@"text/html"];
         self.responseSerializer.acceptableContentTypes = [NSSet setWithSet:acceptableContentTypes];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
+        NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+        [self.requestSerializer setValue:version forHTTPHeaderField:@"apiversion"];
     }
     
     return self;

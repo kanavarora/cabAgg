@@ -120,6 +120,7 @@
 		4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D71A5A7F89008B9221 /* newLocation.png */; };
 		4AE7AD851B15B47E00BE8DED /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD831B15B47E00BE8DED /* Fabric.framework */; };
 		4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */; };
+		4AE7AD891B1C0FD000BE8DED /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7AD881B1C0FD000BE8DED /* EventLogger.m */; };
 		4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */; };
 /* End PBXBuildFile section */
 
@@ -316,6 +317,8 @@
 		4AE6D2D71A5A7F89008B9221 /* newLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newLocation.png; path = ../../../kanav/newLocation.png; sourceTree = "<group>"; };
 		4AE7AD831B15B47E00BE8DED /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		4AE7AD871B1C0FD000BE8DED /* EventLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLogger.h; path = ../EventLogger.h; sourceTree = "<group>"; };
+		4AE7AD881B1C0FD000BE8DED /* EventLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLogger.m; path = ../EventLogger.m; sourceTree = "<group>"; };
 		4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "stock-photo.jpeg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -572,6 +575,8 @@
 				4A6482B11A6681E800746A16 /* HTTPClient.m */,
 				4A80E4C41AD662EC007E0D07 /* LyftHttpClient.h */,
 				4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */,
+				4AE7AD871B1C0FD000BE8DED /* EventLogger.h */,
+				4AE7AD881B1C0FD000BE8DED /* EventLogger.m */,
 				4ACD61871AA4532F009DD5D6 /* ExtraViewController.h */,
 				4ACD61881AA4532F009DD5D6 /* ExtraViewController.m */,
 				4ACD61891AA4532F009DD5D6 /* ExtraViewController.xib */,
@@ -866,6 +871,7 @@
 				4A64831F1A7322D700746A16 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				4A6483121A7322D700746A16 /* NSNumber+MagicalDataImport.m in Sources */,
 				4A64829F1A5E78F000746A16 /* SidecarHttpClient.m in Sources */,
+				4AE7AD891B1C0FD000BE8DED /* EventLogger.m in Sources */,
 				4A64831D1A7322D700746A16 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				4A6483261A7322D700746A16 /* MagicalRecord+Options.m in Sources */,
 				4A64831B1A7322D700746A16 /* NSManagedObjectContext+MagicalChainSave.m in Sources */,

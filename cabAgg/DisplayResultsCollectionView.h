@@ -15,6 +15,7 @@
 
 @property (nonatomic, readwrite, weak) ResultsView *resultsView;
 
+- (void)setupResults;
 - (ResultInfo *)selectedResultInfo;
 - (void)setupCollectionView;
 - (void)updateResults;

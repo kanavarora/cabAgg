@@ -10,12 +10,15 @@
 
 #import <MapKit/MapKit.h>
 
+#import "EventLogger.h"
+
 GlobalStateInterface *globalStateInterface;
 
 @implementation GlobalStateInterface
 
 - (id)init {
     if (self = [super init]) {
+        _eventLogger = [[EventLogger alloc] init];
     }
     return self;
 }

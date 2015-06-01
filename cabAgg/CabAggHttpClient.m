@@ -11,6 +11,7 @@
 #import "GlobalStateInterface.h"
 #import "HTTPClient.h"
 #import "MainViewController.h"
+#import "EventLogger.h"
 
 @interface CabAggHttpClient ()
 
@@ -45,6 +46,8 @@
     if (self = [super init]) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+        [manager.requestSerializer setValue:version forHTTPHeaderField:@"apiversion"];
         
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         self.manager = manager;
