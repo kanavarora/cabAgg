@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class LocationSearchViewController;
+@class SPGooglePlacesAutocompletePlace;
 @interface LocationSearchTableViewCell : UITableViewCell
 
 - (void)clearData;
 - (void)setupWithAddress:(NSDictionary *)addressDict
                 parentVC:(LocationSearchViewController *)parentVC;
+- (void)setupWithPlace:(SPGooglePlacesAutocompletePlace *)place
+              parentVC:(LocationSearchViewController *)parentVC;
 
 @end

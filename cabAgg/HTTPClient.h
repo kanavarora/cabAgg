@@ -16,6 +16,9 @@
 - (void)getGeoCodeFor:(NSString *)address
         startLocation:(CLLocationCoordinate2D) startLocation
               success:(void (^)(NSArray *))successBlock;
+- (void)getGeoCodeFor2:(NSString *)address
+        startLocation:(CLLocationCoordinate2D) startLocation
+              success:(void (^)(NSArray *))successBlock;
 - (void)getDirectionsFromStart:(CLLocationCoordinate2D)startLocation
                            end:(CLLocationCoordinate2D)endLocation
                        success:(void (^)(NSDictionary *))successBlock

@@ -9,12 +9,14 @@
 #import "LocationSearchTableViewCell.h"
 
 #import "LocationSearchViewController.h"
+#import "SPGooglePlacesAutocompletePlace.h"
 
 @interface LocationSearchTableViewCell ()
 
 @property (nonatomic, readwrite, strong) IBOutlet UILabel *address;
 
 @property (nonatomic, readwrite, strong) NSDictionary *addressDict;
+@property (nonatomic, readwrite, strong) SPGooglePlacesAutocompletePlace *place;
 @property (nonatomic, readwrite, weak) UITapGestureRecognizer *tapRecog;
 @property (nonatomic, readwrite, weak) LocationSearchViewController *parentVC;
 
@@ -48,6 +50,21 @@
 
 - (void)clearData {
     self.address.text = @"";
+    self.addressDict = nil;
+    self.place = nil;
+}
+
+- (void)setupWithPlace:(SPGooglePlacesAutocompletePlace *)place
+              parentVC:(LocationSearchViewController *)parentVC {
+    [self clearData];
+    self.parentVC = parentVC;
+    self.place = place;
+    self.address.text = place.name;
+    if (!self.tapRecog) {
+        UITapGestureRecognizer *tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped)];
+        [self addGestureRecognizer:tapRecog];
+        self.tapRecog = tapRecog;
+    }
 }
 
 - (void)setupWithAddress:(NSDictionary *)addressDict
@@ -64,7 +81,11 @@
 }
 
 - (void)cellTapped {
-    [self.parentVC locationSelectedWith:self.addressDict];
+    if (self.place) {
+        [self.parentVC locationSelectedWithPlace:self.place];
+    } else {
+        [self.parentVC locationSelectedWith:self.addressDict];
+    }
 }
 
 @end

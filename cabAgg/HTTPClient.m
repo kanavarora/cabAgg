@@ -11,8 +11,12 @@
 #import "HTTPClient.h"
 #import "GlobalStateInterface.h"
 
+#import <GoogleMaps/GoogleMaps.h>
 #import "MainViewController.h"
-
+#import "SPGooglePlacesPlaceDetailQuery.h"
+#import "SPGooglePlacesAutocompleteUtilities.h"
+#import "SPGooglePlacesAutocompleteQuery.h"
+#import "SPGooglePlacesAutocompletePlace.h"
 
 @interface HTTPClient ()
 
@@ -74,6 +78,52 @@
 }
 
 - (void)getGeoCodeFor:(NSString *)address
+        startLocation:(CLLocationCoordinate2D)startLocation
+              success:(void (^)(NSArray *))successBlock {
+    SPGooglePlacesAutocompleteQuery *query = [SPGooglePlacesAutocompleteQuery query];
+    query.input = address;
+    query.radius = 2000.0;
+    query.language = @"en";
+    //query.types = SPPlaceTypeGeocode; // Only return geocoding (address) results.
+    query.location = startLocation;
+    [query fetchPlaces:^(NSArray *places, NSError *error) {
+        //for (SPGooglePlacesAutocompletePlace *place in places) {
+         //   NSLog(@"%@", place.name);
+        //}
+        successBlock(places);
+    }];
+}
+
+- (void)getGeoCodeFor3:(NSString *)address
+        startLocation:(CLLocationCoordinate2D) startLocation
+              success:(void (^)(NSArray *))successBlock {
+    float swLat = startLocation.latitude - 1;
+    float swLon = startLocation.longitude - 1;
+    float neLat = startLocation.latitude + 1;
+    float neLon = startLocation.longitude + 1;
+    CLLocationCoordinate2D ne = CLLocationCoordinate2DMake(neLat, neLon);
+    CLLocationCoordinate2D sw = CLLocationCoordinate2DMake(swLat, swLon);
+    
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:ne
+                                                                       coordinate:sw];
+    /*
+    [_placesClient autocompleteQuery:@"Sydney Oper"
+                              bounds:bounds
+                              filter:nil
+                            callback:^(NSArray *results, NSError *error) {
+                                if (error != nil) {
+                                    NSLog(@"Autocomplete error %@", [error localizedDescription]);
+                                    return;
+                                }
+                                
+                                for (GMSAutocompletePrediction* result in results) {
+                                    NSLog(@"Result '%@' with placeID %@", result.attributedFullText.string, result.placeID);
+                                }
+                            }];
+     */
+}
+
+- (void)getGeoCodeFor2:(NSString *)address
         startLocation:(CLLocationCoordinate2D) startLocation
               success:(void (^)(NSArray *))successBlock {
     float swLat = startLocation.latitude - 1;

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SPGooglePlacesAutocompletePlace.h"
+
 @interface LocationSearchViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 - (id)initWithIsPickup:(BOOL)isPickup;
 - (void)locationSelectedWith:(NSDictionary *)addressDict;
+- (void)locationSelectedWithPlace:(SPGooglePlacesAutocompletePlace *)place;
 
 @end

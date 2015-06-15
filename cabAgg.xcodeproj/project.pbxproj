@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		4A08EF411B2C3B430012EBD6 /* TestingHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF401B2C3B430012EBD6 /* TestingHttpClient.m */; };
+		4A08EF4B1B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF441B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4A08EF4C1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF461B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4A08EF4D1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF481B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4A08EF4E1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF4A1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4A08EF561B2EBDC40012EBD6 /* powered-by-google-on-non-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF501B2EBDC40012EBD6 /* powered-by-google-on-non-white.png */; };
+		4A08EF571B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF511B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png */; };
+		4A08EF581B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF521B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png */; };
+		4A08EF591B2EBDC40012EBD6 /* powered-by-google-on-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF531B2EBDC40012EBD6 /* powered-by-google-on-white.png */; };
+		4A08EF5A1B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF541B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png */; };
+		4A08EF5B1B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF551B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png */; };
+		4A08EF611B2EC4C40012EBD6 /* CabaggAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF601B2EC4C40012EBD6 /* CabaggAlertController.m */; };
 		4A64829C1A5D291B00746A16 /* UberHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A64829B1A5D291B00746A16 /* UberHTTPClient.m */; };
 		4A64829F1A5E78F000746A16 /* SidecarHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A64829E1A5E78F000746A16 /* SidecarHttpClient.m */; };
 		4A6482A31A665BBC00746A16 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482A11A665BBC00746A16 /* MainViewController.m */; };
@@ -138,6 +149,22 @@
 /* Begin PBXFileReference section */
 		4A08EF3F1B2C3B430012EBD6 /* TestingHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingHttpClient.h; sourceTree = "<group>"; };
 		4A08EF401B2C3B430012EBD6 /* TestingHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingHttpClient.m; sourceTree = "<group>"; };
+		4A08EF431B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
+		4A08EF441B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
+		4A08EF451B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
+		4A08EF461B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteQuery.m; sourceTree = "<group>"; };
+		4A08EF471B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteUtilities.h; sourceTree = "<group>"; };
+		4A08EF481B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteUtilities.m; sourceTree = "<group>"; };
+		4A08EF491B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesPlaceDetailQuery.h; sourceTree = "<group>"; };
+		4A08EF4A1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesPlaceDetailQuery.m; sourceTree = "<group>"; };
+		4A08EF501B2EBDC40012EBD6 /* powered-by-google-on-non-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-non-white.png"; sourceTree = "<group>"; };
+		4A08EF511B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-non-white@2x.png"; sourceTree = "<group>"; };
+		4A08EF521B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-non-white@3x.png"; sourceTree = "<group>"; };
+		4A08EF531B2EBDC40012EBD6 /* powered-by-google-on-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-white.png"; sourceTree = "<group>"; };
+		4A08EF541B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-white@2x.png"; sourceTree = "<group>"; };
+		4A08EF551B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powered-by-google-on-white@3x.png"; sourceTree = "<group>"; };
+		4A08EF5F1B2EC4C40012EBD6 /* CabaggAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CabaggAlertController.h; sourceTree = "<group>"; };
+		4A08EF601B2EC4C40012EBD6 /* CabaggAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CabaggAlertController.m; sourceTree = "<group>"; };
 		4A64829A1A5D291B00746A16 /* UberHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberHTTPClient.h; path = ../UberHTTPClient.h; sourceTree = "<group>"; };
 		4A64829B1A5D291B00746A16 /* UberHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberHTTPClient.m; path = ../UberHTTPClient.m; sourceTree = "<group>"; };
 		4A64829D1A5E78F000746A16 /* SidecarHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidecarHttpClient.h; sourceTree = "<group>"; };
@@ -358,9 +385,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A08EF421B2CF3D00012EBD6 /* GoogleAutoComplete */ = {
+			isa = PBXGroup;
+			children = (
+				4A08EF431B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.h */,
+				4A08EF441B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m */,
+				4A08EF451B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.h */,
+				4A08EF461B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m */,
+				4A08EF471B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.h */,
+				4A08EF481B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.m */,
+				4A08EF491B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.h */,
+				4A08EF4A1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m */,
+			);
+			name = GoogleAutoComplete;
+			sourceTree = "<group>";
+		};
+		4A08EF4F1B2EBDB20012EBD6 /* google attribution */ = {
+			isa = PBXGroup;
+			children = (
+				4A08EF501B2EBDC40012EBD6 /* powered-by-google-on-non-white.png */,
+				4A08EF511B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png */,
+				4A08EF521B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png */,
+				4A08EF531B2EBDC40012EBD6 /* powered-by-google-on-white.png */,
+				4A08EF541B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png */,
+				4A08EF551B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png */,
+			);
+			name = "google attribution";
+			sourceTree = "<group>";
+		};
 		4A6482A81A667DA000746A16 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A08EF4F1B2EBDB20012EBD6 /* google attribution */,
 				4A780FD51AB82E0B00E9898C /* onboarding1.png */,
 				4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */,
 				4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */,
@@ -529,6 +585,8 @@
 		4AE6D2631A59ECD2008B9221 = {
 			isa = PBXGroup;
 			children = (
+				4A08EF5F1B2EC4C40012EBD6 /* CabaggAlertController.h */,
+				4A08EF601B2EC4C40012EBD6 /* CabaggAlertController.m */,
 				4AE7AD831B15B47E00BE8DED /* Fabric.framework */,
 				4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */,
 				4A6483301A73247500746A16 /* CoreData */,
@@ -653,6 +711,7 @@
 		4AE6D2951A59ED25008B9221 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A08EF421B2CF3D00012EBD6 /* GoogleAutoComplete */,
 				4A780FCE1AB6F3E000E9898C /* onboard */,
 				4ACD617B1AA337CE009DD5D6 /* iRate */,
 				4A6482CF1A7322D700746A16 /* MagicalRecord */,
@@ -774,15 +833,19 @@
 				4ACD61A01AA9D689009DD5D6 /* greenMapIcon@2x.png in Resources */,
 				4ACD61921AA8497D009DD5D6 /* uber-pin@3x.png in Resources */,
 				4ACD619D1AA9D19D009DD5D6 /* logo-big@3x.png in Resources */,
+				4A08EF5B1B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png in Resources */,
+				4A08EF5A1B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png in Resources */,
 				4A6482AA1A667DB100746A16 /* goMyLocation.png in Resources */,
 				4ACD61A41AA9D690009DD5D6 /* redMapIcon@2x.png in Resources */,
 				4A64833E1A93437600746A16 /* PinkMustacheLyft.png in Resources */,
 				4A6482CE1A67D69A00746A16 /* blackCircle.png in Resources */,
+				4A08EF591B2EBDC40012EBD6 /* powered-by-google-on-white.png in Resources */,
 				4ACD61A51AA9D690009DD5D6 /* redMapIcon@3x.png in Resources */,
 				4A6483411A9364B500746A16 /* cabalot.png in Resources */,
 				4ACD61A11AA9D689009DD5D6 /* greenMapIcon@3x.png in Resources */,
 				4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */,
 				4A6482AF1A667F5400746A16 /* LocationSearchViewController.xib in Resources */,
+				4A08EF571B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png in Resources */,
 				4ACD61941AA8497D009DD5D6 /* lyft-pin@3x.png in Resources */,
 				4A6482BA1A67182B00746A16 /* LocationSearchTableViewCell.xib in Resources */,
 				4ACD619C1AA9D19D009DD5D6 /* logo-big@2x.png in Resources */,
@@ -803,6 +866,8 @@
 				4A780FCC1AB6BE9500E9898C /* myLocation@2x.png in Resources */,
 				4AE6D27D1A59ECD2008B9221 /* Images.xcassets in Resources */,
 				4A6482C61A67B99F00746A16 /* ResultCollectionViewCell.xib in Resources */,
+				4A08EF561B2EBDC40012EBD6 /* powered-by-google-on-non-white.png in Resources */,
+				4A08EF581B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png in Resources */,
 				4ACD61991AA9CE4C009DD5D6 /* logo@3x.png in Resources */,
 				4AE6D2B61A5A1F78008B9221 /* GoogleMaps.bundle in Resources */,
 			);
@@ -847,6 +912,7 @@
 				4A6482C91A67BE2900746A16 /* ResultInfo.m in Sources */,
 				4A64831C1A7322D700746A16 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				4AE6D2AB1A59ED31008B9221 /* AFHTTPRequestOperationManager.m in Sources */,
+				4A08EF4B1B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				4AE6D2AD1A59ED31008B9221 /* AFNetworkReachabilityManager.m in Sources */,
 				4A6483191A7322D700746A16 /* NSManagedObject+MagicalRecord.m in Sources */,
 				4A08EF411B2C3B430012EBD6 /* TestingHttpClient.m in Sources */,
@@ -855,6 +921,7 @@
 				4A64830F1A7322D700746A16 /* MagicalImportFunctions.m in Sources */,
 				4A64829C1A5D291B00746A16 /* UberHTTPClient.m in Sources */,
 				4A64831A1A7322D700746A16 /* NSManagedObject+MagicalRequests.m in Sources */,
+				4A08EF4D1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
 				4ACD618A1AA4532F009DD5D6 /* ExtraViewController.m in Sources */,
 				4A780FD31AB6F3F300E9898C /* OnboardingContentViewController.m in Sources */,
 				4A6483161A7322D700746A16 /* NSManagedObject+MagicalAggregation.m in Sources */,
@@ -863,8 +930,10 @@
 				4A6482B51A668C5600746A16 /* GlobalStateInterface.m in Sources */,
 				4A6483141A7322D700746A16 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				4A6483131A7322D700746A16 /* NSObject+MagicalDataImport.m in Sources */,
+				4A08EF4C1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
 				4A6483231A7322D700746A16 /* MagicalRecord+Actions.m in Sources */,
 				4A80E4C61AD662EC007E0D07 /* LyftHttpClient.m in Sources */,
+				4A08EF4E1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				4A6483181A7322D700746A16 /* NSManagedObject+MagicalFinders.m in Sources */,
 				4A6482A31A665BBC00746A16 /* MainViewController.m in Sources */,
 				4A6482C51A67B99F00746A16 /* ResultCollectionViewCell.m in Sources */,
@@ -894,6 +963,7 @@
 				4AE6D2B01A59ED31008B9221 /* AFURLRequestSerialization.m in Sources */,
 				4A6483371A7B7DAA00746A16 /* MoreInfoViewController.m in Sources */,
 				4AE6D2B21A59ED31008B9221 /* AFURLSessionManager.m in Sources */,
+				4A08EF611B2EC4C40012EBD6 /* CabaggAlertController.m in Sources */,
 				4A64832F1A73246400746A16 /* Search.m in Sources */,
 				4A6483151A7322D700746A16 /* NSString+MagicalDataImport.m in Sources */,
 				4AE6D2751A59ECD2008B9221 /* AppDelegate.m in Sources */,
@@ -1026,6 +1096,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";
@@ -1043,6 +1114,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";

@@ -69,6 +69,14 @@
     [_resultData addObject:info4];
     [self reloadData];
 
+    [self performSelector:@selector(selectDefault) withObject:nil afterDelay:0.0];
+
+}
+
+- (void)selectDefault {
+    [self selectItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]
+                       animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]];
 }
 
 - (void)setupCollectionView {
@@ -78,12 +86,9 @@
     [self.flowLayout setMinimumInteritemSpacing:0.0f];
     [self.flowLayout setMinimumLineSpacing:0.0f];
     self.showsHorizontalScrollIndicator = NO;
-    //[self setPagingEnabled:YES];
     [self setCollectionViewLayout:self.flowLayout];
     self.delegate = self;
     self.dataSource = self;
-    [self selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    [self.resultsView didChangeSelectionOfResult];
 }
 
 - (void)updateResults {
@@ -127,9 +132,6 @@
     ResultCollectionViewCell * cell = (ResultCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"resultCell" forIndexPath:indexPath];
     
     [cell setupWithResultInfo:self.resultData[indexPath.row]];
-    if (indexPath.row == self.selectedIndex) {
-        [cell selectCell];
-    }
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
