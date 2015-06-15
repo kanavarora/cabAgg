@@ -97,6 +97,7 @@
 - (void)getGeoCodeFor3:(NSString *)address
         startLocation:(CLLocationCoordinate2D) startLocation
               success:(void (^)(NSArray *))successBlock {
+    /*
     float swLat = startLocation.latitude - 1;
     float swLon = startLocation.longitude - 1;
     float neLat = startLocation.latitude + 1;
@@ -106,7 +107,6 @@
     
     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:ne
                                                                        coordinate:sw];
-    /*
     [_placesClient autocompleteQuery:@"Sydney Oper"
                               bounds:bounds
                               filter:nil
