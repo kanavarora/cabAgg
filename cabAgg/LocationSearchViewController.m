@@ -38,6 +38,8 @@
 
 @implementation LocationSearchViewController
 
+#define kMaxSearchesToShow 10
+
 - (id)initWithIsPickup:(BOOL)isPickup {
     self = [super initWithNibName:@"LocationSearchViewController" bundle:nil];
     if (self) {
@@ -45,12 +47,17 @@
         _isShowingSavedResults = YES;
         NSArray *searchEntities = [Search MR_findAllSortedBy:@"times" ascending:NO];
         _savedSearches = [NSMutableArray array];
+        int i = 0;
         for (Search *search in searchEntities) {
+            if (i==kMaxSearchesToShow) {
+                break;
+            }
             NSMutableDictionary *searchDict = [NSMutableDictionary dictionary];
             searchDict[@"formattedAddress"] = search.address;
             searchDict[@"latitude"] = search.lat;
             searchDict[@"longitude"] = search.lon;
             [_savedSearches addObject:searchDict];
+            i++;
         }
     }
     return self;
@@ -194,24 +201,6 @@
     
     return cell;
 }
-
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footerView = [[UIView alloc] init];
-    //footerView.backgroundColor = [UIColor blackColor];
-    float screenWidth = [UIScreen mainScreen].bounds.size.width;
-    footerView.frame = CGRectMake(0, 0, screenWidth, 40);
-    UIImageView *googleAttrib = [[UIImageView alloc] init];
-    UIImage *img = [UIImage imageNamed:@"powered-by-google-on-white.png"];
-    googleAttrib.image = img;
-    googleAttrib.frame = CGRectMake((screenWidth-img.size.width)/2.0, 0, img.size.width, img.size.height);
-    [footerView addSubview:googleAttrib];
-    return footerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 40.0f;
-}*/
 
 - (void)locationSelectedWith:(NSDictionary *)addressDict {
     NSArray *results = [Search MR_findByAttribute:@"address" withValue:addressDict[@"formattedAddress"]];
