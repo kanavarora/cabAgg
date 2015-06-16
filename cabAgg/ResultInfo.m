@@ -145,6 +145,7 @@ static BOOL isTesting = NO;
             self.actSurgeMultiplier = [lyftClient getActDyncPricing];
             
             self.start = CLLocationCoordinate2DMake(lyftClient.lyftBestLat, lyftClient.lyftBestLon);
+            self.isRouteInvalid = !lyftClient.isLyftLRouteValid;
             
             if (isTesting) {
                 self.lowEstimate = self.highEstimate = 13.78f;

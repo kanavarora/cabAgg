@@ -244,6 +244,7 @@
     
     self.lyftActDirections = self.lyftBestDirections = nil;
     self.isLyftLineRouteValid = YES;
+    self.isLyftLRouteValid = YES;
     self.hasShownError = NO;
     
     [self getActual];
@@ -258,6 +259,7 @@
                              NSDictionary *directions,
                              NSArray *hotspots) {
                   self.isLyftLineRouteValid = isLyftLineValid;
+                  self.isLyftLRouteValid = ([standardPricing[@"lyftPrice"] floatValue] > 0);
                   self.actPrice = price;
                   self.bestPrice = price;
                   self.lyftActDirections = directions;
@@ -266,7 +268,11 @@
                   self.lyftBestPrice = standardPricing;
                   self.lyftBestStartDisNeigh = 0.0f;
                   self.hotspotLocations = hotspots;
-                  [self optimizeForStart];
+                  if (!self.isLyftLRouteValid  && !self.isLyftLineRouteValid) {
+                      self.isDone = YES;
+                  } else {
+                      [self optimizeForStart];
+                  }
               }
               failureBlock:^{
                   self.isDone = YES;

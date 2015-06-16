@@ -29,7 +29,7 @@
 @property (nonatomic, readwrite, strong) NSDictionary *lyftActDirections;
 @property (nonatomic, readwrite, strong) NSDictionary *lyftBestDirections;
 @property (nonatomic, readwrite, assign) BOOL isLyftLineRouteValid;
-
+@property (nonatomic, readwrite, assign) BOOL isLyftLRouteValid;
 
 @property (nonatomic, readonly, assign) BOOL isDone;
 
