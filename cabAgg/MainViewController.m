@@ -23,6 +23,7 @@
 #import "OnboardingViewController.h"
 #import "PaddingLabel.h"
 #import "EventLogger.h"
+#import "AboutViewController.h"
 
 
 #define kZoomFactor 2.5f
@@ -66,7 +67,7 @@
 @property (nonatomic, readwrite, strong) MKCircle *startRadial;
 @property (nonatomic, readwrite, strong) MKCircle *endRadial;
 
-@property (nonatomic, readwrite, strong) UIBarButtonItem *faqButton;
+@property (nonatomic, readwrite, strong) UIBarButtonItem *aboutButton;
 
 @end
 
@@ -204,9 +205,9 @@
     return self.mapView.centerCoordinate;
 }
 
-- (void)showExtraView {
-    ExtraViewController *extraVC = [[ExtraViewController alloc] initWithNibName:@"ExtraViewController" bundle:nil];
-    [self.navigationController pushViewController:extraVC animated:YES];
+- (void)showAboutView {
+    AboutViewController *aboutVC = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+    [self.navigationController pushViewController:aboutVC animated:YES];
     //[self presentViewController:extraVC animated:YES completion:nil];
 }
 
@@ -217,9 +218,10 @@
     self.navigationItem.titleView = v;
     UIBarButtonItem *redoButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(reoptimize)];
     self.redoButton = redoButton;
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"FAQ" style:UIBarButtonItemStylePlain target:self action:@selector(showExtraView)];
-    self.faqButton = leftButton;
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(showAboutView)];
+    self.aboutButton = leftButton;
     self.navigationItem.leftBarButtonItem = leftButton;
+    
     
 }
 
@@ -380,7 +382,7 @@
 
 - (void)reoptimize {
     self.navigationItem.rightBarButtonItem = nil;
-    self.navigationItem.leftBarButtonItem = self.faqButton;
+    self.navigationItem.leftBarButtonItem = self.aboutButton;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startUpdatingDisplayResults) object:nil];
     self.resultsView.hidden = YES;
     self.bottomBarView.hidden = NO;
