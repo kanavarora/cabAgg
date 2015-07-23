@@ -29,7 +29,6 @@
 		4A6482A31A665BBC00746A16 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482A11A665BBC00746A16 /* MainViewController.m */; };
 		4A6482A41A665BBC00746A16 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A6482A21A665BBC00746A16 /* MainViewController.xib */; };
 		4A6482A71A666CA400746A16 /* SetDestinationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482A61A666CA400746A16 /* SetDestinationView.m */; };
-		4A6482AA1A667DB100746A16 /* goMyLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6482A91A667DB100746A16 /* goMyLocation.png */; };
 		4A6482AE1A667F5400746A16 /* LocationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482AC1A667F5400746A16 /* LocationSearchViewController.m */; };
 		4A6482AF1A667F5400746A16 /* LocationSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A6482AD1A667F5400746A16 /* LocationSearchViewController.xib */; };
 		4A6482B21A6681E800746A16 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482B11A6681E800746A16 /* HTTPClient.m */; };
@@ -75,9 +74,6 @@
 		4A6483371A7B7DAA00746A16 /* MoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6483351A7B7DAA00746A16 /* MoreInfoViewController.m */; };
 		4A6483381A7B7DAA00746A16 /* MoreInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A6483361A7B7DAA00746A16 /* MoreInfoViewController.xib */; };
 		4A64833B1A92FCA800746A16 /* ResultsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A64833A1A92FCA800746A16 /* ResultsView.m */; };
-		4A64833E1A93437600746A16 /* PinkMustacheLyft.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A64833C1A93437600746A16 /* PinkMustacheLyft.png */; };
-		4A64833F1A93437600746A16 /* UberPinDropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A64833D1A93437600746A16 /* UberPinDropShadow.png */; };
-		4A6483411A9364B500746A16 /* cabalot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6483401A9364B500746A16 /* cabalot.png */; };
 		4A780FCC1AB6BE9500E9898C /* myLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */; };
 		4A780FCD1AB6BE9500E9898C /* myLocation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */; };
 		4A780FD31AB6F3F300E9898C /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD01AB6F3F300E9898C /* OnboardingContentViewController.m */; };
@@ -92,7 +88,6 @@
 		4ACD61801AA337CE009DD5D6 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACD617E1AA337CE009DD5D6 /* iRate.m */; };
 		4ACD618A1AA4532F009DD5D6 /* ExtraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACD61881AA4532F009DD5D6 /* ExtraViewController.m */; };
 		4ACD618B1AA4532F009DD5D6 /* ExtraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61891AA4532F009DD5D6 /* ExtraViewController.xib */; };
-		4ACD618D1AA45C44009DD5D6 /* close-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD618C1AA45C44009DD5D6 /* close-icon.png */; };
 		4ACD61921AA8497D009DD5D6 /* uber-pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD618E1AA8497D009DD5D6 /* uber-pin@3x.png */; };
 		4ACD61931AA8497D009DD5D6 /* uber-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD618F1AA8497D009DD5D6 /* uber-pin@2x.png */; };
 		4ACD61941AA8497D009DD5D6 /* lyft-pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61901AA8497D009DD5D6 /* lyft-pin@3x.png */; };
@@ -186,7 +181,6 @@
 		4A6482A21A665BBC00746A16 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		4A6482A51A666CA400746A16 /* SetDestinationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetDestinationView.h; sourceTree = "<group>"; };
 		4A6482A61A666CA400746A16 /* SetDestinationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetDestinationView.m; sourceTree = "<group>"; };
-		4A6482A91A667DB100746A16 /* goMyLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goMyLocation.png; sourceTree = "<group>"; };
 		4A6482AB1A667F5400746A16 /* LocationSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSearchViewController.h; sourceTree = "<group>"; };
 		4A6482AC1A667F5400746A16 /* LocationSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSearchViewController.m; sourceTree = "<group>"; };
 		4A6482AD1A667F5400746A16 /* LocationSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSearchViewController.xib; sourceTree = "<group>"; };
@@ -275,9 +269,6 @@
 		4A6483361A7B7DAA00746A16 /* MoreInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreInfoViewController.xib; sourceTree = "<group>"; };
 		4A6483391A92FCA800746A16 /* ResultsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsView.h; sourceTree = "<group>"; };
 		4A64833A1A92FCA800746A16 /* ResultsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsView.m; sourceTree = "<group>"; };
-		4A64833C1A93437600746A16 /* PinkMustacheLyft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinkMustacheLyft.png; sourceTree = "<group>"; };
-		4A64833D1A93437600746A16 /* UberPinDropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UberPinDropShadow.png; sourceTree = "<group>"; };
-		4A6483401A9364B500746A16 /* cabalot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cabalot.png; sourceTree = "<group>"; };
 		4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myLocation@2x.png"; sourceTree = "<group>"; };
 		4A780FCB1AB6BE9500E9898C /* myLocation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myLocation@3x.png"; sourceTree = "<group>"; };
 		4A780FCF1AB6F3F300E9898C /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
@@ -298,7 +289,6 @@
 		4ACD61871AA4532F009DD5D6 /* ExtraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtraViewController.h; sourceTree = "<group>"; };
 		4ACD61881AA4532F009DD5D6 /* ExtraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtraViewController.m; sourceTree = "<group>"; };
 		4ACD61891AA4532F009DD5D6 /* ExtraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExtraViewController.xib; sourceTree = "<group>"; };
-		4ACD618C1AA45C44009DD5D6 /* close-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-icon.png"; sourceTree = "<group>"; };
 		4ACD618E1AA8497D009DD5D6 /* uber-pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uber-pin@3x.png"; sourceTree = "<group>"; };
 		4ACD618F1AA8497D009DD5D6 /* uber-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uber-pin@2x.png"; sourceTree = "<group>"; };
 		4ACD61901AA8497D009DD5D6 /* lyft-pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lyft-pin@3x.png"; sourceTree = "<group>"; };
@@ -447,14 +437,9 @@
 				4ACD618F1AA8497D009DD5D6 /* uber-pin@2x.png */,
 				4ACD61901AA8497D009DD5D6 /* lyft-pin@3x.png */,
 				4ACD61911AA8497D009DD5D6 /* lyft-pin@2x.png */,
-				4ACD618C1AA45C44009DD5D6 /* close-icon.png */,
 				4ACD61771AA050D2009DD5D6 /* Check@2x.png */,
 				4ACD61781AA050D2009DD5D6 /* Circle@2x.png */,
 				4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */,
-				4A64833C1A93437600746A16 /* PinkMustacheLyft.png */,
-				4A6483401A9364B500746A16 /* cabalot.png */,
-				4A64833D1A93437600746A16 /* UberPinDropShadow.png */,
-				4A6482A91A667DB100746A16 /* goMyLocation.png */,
 				4A6482CD1A67D69A00746A16 /* blackCircle.png */,
 			);
 			name = Resources;
@@ -854,14 +839,11 @@
 				4ACD619D1AA9D19D009DD5D6 /* logo-big@3x.png in Resources */,
 				4A08EF5B1B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png in Resources */,
 				4A08EF5A1B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png in Resources */,
-				4A6482AA1A667DB100746A16 /* goMyLocation.png in Resources */,
 				4ACD61A41AA9D690009DD5D6 /* redMapIcon@2x.png in Resources */,
-				4A64833E1A93437600746A16 /* PinkMustacheLyft.png in Resources */,
 				4A6482CE1A67D69A00746A16 /* blackCircle.png in Resources */,
 				4A08EF591B2EBDC40012EBD6 /* powered-by-google-on-white.png in Resources */,
 				4ACD61A51AA9D690009DD5D6 /* redMapIcon@3x.png in Resources */,
 				4A08EF661B30398D0012EBD6 /* AboutViewController.xib in Resources */,
-				4A6483411A9364B500746A16 /* cabalot.png in Resources */,
 				4ACD61A11AA9D689009DD5D6 /* greenMapIcon@3x.png in Resources */,
 				4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */,
 				4A6482AF1A667F5400746A16 /* LocationSearchViewController.xib in Resources */,
@@ -872,11 +854,9 @@
 				4A08EF6A1B303DAE0012EBD6 /* settings-arrow@2x.png in Resources */,
 				4A6482A41A665BBC00746A16 /* MainViewController.xib in Resources */,
 				4ACD61761AA048E8009DD5D6 /* RequestBox@2x.png in Resources */,
-				4A64833F1A93437600746A16 /* UberPinDropShadow.png in Resources */,
 				4ACD61931AA8497D009DD5D6 /* uber-pin@2x.png in Resources */,
 				4ACD61981AA9CE4C009DD5D6 /* logo@2x.png in Resources */,
 				4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */,
-				4ACD618D1AA45C44009DD5D6 /* close-icon.png in Resources */,
 				4ACD61951AA8497D009DD5D6 /* lyft-pin@2x.png in Resources */,
 				4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */,
 				4ACD617F1AA337CE009DD5D6 /* iRate.bundle in Resources */,
