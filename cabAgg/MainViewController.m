@@ -29,6 +29,12 @@
 #define kZoomFactor 2.5f
 #define METERS_PER_MILE 1609.344
 
+typedef enum {
+    MainViewStepSetPickup = 0,
+    MainViewStepSetDest,
+    MainViewStepOptimize,
+} MainViewStep;
+
 @interface MainViewController ()
 
 @property (nonatomic, readwrite, weak) IBOutlet MKMapView *mapView;
@@ -47,8 +53,7 @@
 @property (nonatomic, readwrite, strong) UIImageView *locatioSetterImageView;
 
 @property (nonatomic, readwrite, strong) CLLocationManager *locationAuthorizationManager;
-@property (nonatomic, readwrite, assign) BOOL isPickupSet;
-@property (nonatomic, readwrite, assign) BOOL isDestinationSet;
+@property (nonatomic, readwrite, assign) MainViewStep step;
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D pickupLocation;
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D destinationLocation;
 @property (nonatomic, readwrite, strong) MKPointAnnotation *pickupAnno;
@@ -77,8 +82,7 @@
     if (self.locatioSetterImageView) {
         return;
     }
-    UIImage *image = [UIImage imageNamed:@"newLocation.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    UIImageView *imageView = [[UIImageView alloc] init];
     imageView.clipsToBounds = YES;
     //imageView.layer.borderColor = [[UIColor blackColor] CGColor];
     //imageView.layer.borderWidth = 1.0f;
@@ -87,6 +91,9 @@
                                  screenRect.size.height/2.0f - 1, 32, 39);
     self.locatioSetterImageView = imageView;
     [self.mapView addSubview:imageView];
+    
+    [self setupActionButton];
+    //[self setupLocationMarker];
     
     // do this only once too
     [self.pickupView setupIsPickup:YES parentVC:self];
@@ -177,6 +184,26 @@
     self.locatioSetterImageView.hidden = YES;
 }
 
+- (void)updateLocationMarker {
+    switch (self.step) {
+        case MainViewStepSetPickup:
+        {
+            [self setupLocationMarkerForPickup];
+            break;
+        }
+        case MainViewStepSetDest:
+        {
+            [self setupLocationMarkerForDestination];
+            break;
+        }
+        case MainViewStepOptimize:
+        {
+            [self clearLocationMarker];
+            break;
+        }
+    }
+}
+
 - (void)setupMapView:(BOOL)hasOnboarded {
     self.mapView.delegate = self;
     /*
@@ -232,10 +259,9 @@
     BOOL hasOnboarded = [[[NSUserDefaults standardUserDefaults] objectForKey:@"hasOnboarded"] boolValue];
     [[HTTPClient sharedInstance] startApp];
     [self setupNavBar];
-    [self setupActionButton];
-    [self setupLocationMarker];
     [self setupMapView:hasOnboarded];
     [self startSliderValueChanged:self.startSlider];
+    [self hideRadialSettings];
     if (!hasOnboarded) {
         [self showOnboarding];
     }
@@ -281,17 +307,6 @@
     
 }
 
-- (void)setupLocationMarker {
-    if (!self.isPickupSet) {
-        //self.mapView.hidden = YES;
-        self.locatioSetterImageView.hidden = NO;
-    } else if (!self.isDestinationSet) {
-        self.locatioSetterImageView.hidden = NO;
-    } else {
-        self.locatioSetterImageView.hidden = YES;
-    }
-}
-
 - (void)hideRadialSettings {
     self.myLocationConstraint.constant = 6;
     self.sliderParentView.hidden = YES;
@@ -301,6 +316,8 @@
 }
 
 - (void)showRadialSettings {
+    [self.mapView removeOverlay:self.startRadial];
+    [self.mapView removeOverlay:self.endRadial];
     self.myLocationConstraint.constant = 6 + self.sliderParentView.frame.size.height;
     self.sliderParentView.hidden = NO;
     self.startRadial = [MKCircle circleWithCenterCoordinate:self.pickupLocation radius:[self startRadialInMeters]];
@@ -313,70 +330,96 @@
 }
 
 - (void)setupActionButton {
-    if (!self.isPickupSet) {
-        [self.actionButton setBackgroundColor:UIColorFromRGB(0x7ED321)];
-        [self.actionButton setTitle:@"Set Pickup" forState:UIControlStateNormal];
-        [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self setupLocationMarkerForPickup];
-        [self hideRadialSettings];
-        
-    } else if (!self.isDestinationSet) {
-        [self.actionButton setBackgroundColor:UIColorFromRGB(0xDD4658)];
-        [self.actionButton setTitle:@"Set Destination" forState:UIControlStateNormal];
-        [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self setupLocationMarkerForDestination];
-        [self hideRadialSettings];
+    BOOL updateLocationImmediately = YES;
+    switch (self.step) {
+        case MainViewStepSetPickup: {
+            [self.actionButton setBackgroundColor:UIColorFromRGB(0x7ED321)];
+            [self.actionButton setTitle:@"Set Pickup" forState:UIControlStateNormal];
+            [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self hideRadialSettings];
+            if (self.pickupView.isSetOnce) {
+                [self centerMapOnLocation:self.pickupView.pinLocation];
+                updateLocationImmediately = NO;
+            }
+            break;
+        }
+        case MainViewStepSetDest: {
+            [self.actionButton setBackgroundColor:UIColorFromRGB(0xDD4658)];
+            [self.actionButton setTitle:@"Set Destination" forState:UIControlStateNormal];
+            [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self hideRadialSettings];
+            if (self.destinationView.isSetOnce) {
+                [self centerMapOnLocation:self.destinationView.pinLocation];
+                updateLocationImmediately = NO;
+            }
+            break;
+        }
+        case MainViewStepOptimize: {
+            [self.actionButton setBackgroundColor:UIColorFromRGB(0x0066FF)];
+            [self.actionButton setTitle:@"Optimize" forState:UIControlStateNormal];
+            [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self showRadialSettings];
+            break;
+        }
+    }
+    if (updateLocationImmediately) {
+        [self updatePickupAnnotation];
+        [self updateDestAnnotation];
+        [self updateLocationMarker];
     } else {
-        [self.actionButton setBackgroundColor:UIColorFromRGB(0x0066FF)];
-        [self.actionButton setTitle:@"Optimize" forState:UIControlStateNormal];
-        [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self clearLocationMarker];
-        [self showRadialSettings];
     }
 }
 
 - (IBAction)actionButtonTapped:(id)sender {
-    if (!self.isPickupSet) {
-        [self updatePickupLocation:self.mapView.centerCoordinate
-                           address:nil
-                        moveRegion:NO];
-    } else if (!self.isDestinationSet) {
-        [self updateDestinationLocation:self.mapView.centerCoordinate
-                                address:nil
-                             moveRegion:NO];
-    } else {
-        NSDictionary *properties = @{@"startLat": @(self.pickupLocation.latitude),
-                                     @"startLon": @(self.pickupLocation.longitude),
-                                     @"endLat" : @(self.destinationLocation.latitude),
-                                     @"endLon" : @(self.destinationLocation.longitude),
-                                     @"dis" : @([self startRadialInMeters])};
-        NSMutableDictionary *exProps = [NSMutableDictionary dictionaryWithDictionary:properties];
-        exProps[@"pickupType"] = @(self.pickupView.state);
-        exProps[@"destinationType"] = @(self.destinationView.state);
-        
-        [globalStateInterface.eventLogger trackEventName:@"optimize-tapped" properties:exProps];
-        // optimize Lyft
-        CabAggHttpClient *client = [[CabAggHttpClient alloc] init];
-        [client optimizeForStart:self.pickupLocation
-                             end:self.destinationLocation
-                startDisNeighbor:[self startRadialInMeters]
-                  endDisNeighbor:[self endRadialInMeters]];
-        self.lyftClient = client;
-        
-        // optimize uber
-        [[UberHTTPClient sharedInstance] getPriceEstimatesForStart:self.pickupLocation
-                                                               end:self.destinationLocation
-                                                  startDisNeighbor:[self startRadialInMeters]];
-        
-        
-        self.bottomBarView.hidden = YES;
-        self.resultsView.hidden = NO;
-        [self.resultsView startCalculatingResults];
-        [self startUpdatingDisplayResults];
-        self.navigationItem.rightBarButtonItem =  self.redoButton;
-        self.navigationItem.leftBarButtonItem = nil;
-        [self hideRadialSettings];
-        self.myLocationConstraint.constant = 20;
+    switch (self.step) {
+        case MainViewStepSetPickup: {
+            [self updatePickupLocation:self.mapView.centerCoordinate
+                               address:nil
+                            moveRegion:NO];
+            break;
+        }
+        case MainViewStepSetDest: {
+            [self updateDestinationLocation:self.mapView.centerCoordinate
+                                    address:nil
+                                 moveRegion:NO];
+            break;
+        }
+        case MainViewStepOptimize: {
+            NSDictionary *properties = @{@"startLat": @(self.pickupLocation.latitude),
+                                         @"startLon": @(self.pickupLocation.longitude),
+                                         @"endLat" : @(self.destinationLocation.latitude),
+                                         @"endLon" : @(self.destinationLocation.longitude),
+                                         @"dis" : @([self startRadialInMeters])};
+            NSMutableDictionary *exProps = [NSMutableDictionary dictionaryWithDictionary:properties];
+            exProps[@"pickupType"] = @(self.pickupView.state);
+            exProps[@"destinationType"] = @(self.destinationView.state);
+            
+            [globalStateInterface.eventLogger trackEventName:@"optimize-tapped" properties:exProps];
+            // optimize Lyft
+            CabAggHttpClient *client = [[CabAggHttpClient alloc] init];
+            [client optimizeForStart:self.pickupLocation
+                                 end:self.destinationLocation
+                    startDisNeighbor:[self startRadialInMeters]
+                      endDisNeighbor:[self endRadialInMeters]];
+            self.lyftClient = client;
+            
+            // optimize uber
+            [[UberHTTPClient sharedInstance] getPriceEstimatesForStart:self.pickupLocation
+                                                                   end:self.destinationLocation
+                                                      startDisNeighbor:[self startRadialInMeters]];
+            
+            
+            self.bottomBarView.hidden = YES;
+            self.resultsView.hidden = NO;
+            [self.resultsView startCalculatingResults];
+            [self startUpdatingDisplayResults];
+            self.navigationItem.rightBarButtonItem =  self.redoButton;
+            self.navigationItem.leftBarButtonItem = nil;
+            [self hideRadialSettings];
+            self.myLocationConstraint.constant = 20;
+            break;
+        }
     }
 }
 
@@ -404,19 +447,19 @@
 }
 
 - (void)clearPickupLocation {
-    self.isPickupSet = NO;
-    [self updatePickupAnnotation];
+    self.step = MainViewStepSetPickup;
+    //[self updatePickupAnnotation];
     [self setupActionButton];
 }
 
 - (void)clearDestinationLocation {
-    self.isDestinationSet = NO;
-    [self updateDestAnnotation];
+    self.step = MainViewStepSetDest;
+    //[self updateDestAnnotation];
     [self setupActionButton];
 }
 
 - (BOOL)centerOnPickup {
-    if (self.isPickupSet) {
+    if (self.step == MainViewStepSetPickup) {
         [self centerMapOnLocation:self.pickupLocation];
         return YES;
     }
@@ -424,7 +467,7 @@
 }
 
 - (BOOL)centerOnDestination {
-    if (self.isDestinationSet) {
+    if (self.step == MainViewStepSetDest) {
         [self centerMapOnLocation:self.destinationLocation];
         return YES;
     }
@@ -435,14 +478,14 @@
                      address:(NSString *)address
                   moveRegion:(BOOL)moveRegion {
     self.pickupLocation =  pickupLocation;
-    self.isPickupSet = YES;
+    self.step = MainViewStepSetDest;
     if (moveRegion) {
         [self centerMapOnLocation:pickupLocation];
     }
     if (address) {
-        [self.pickupView setWithAddress:address];
+        [self.pickupView setWithAddress:address location:pickupLocation];
     } else {
-        [self.pickupView setWithPin];
+        [self.pickupView setWithPin:pickupLocation];
     }
     [self updatePickupAnnotation];
     [self setupActionButton];
@@ -452,14 +495,14 @@
                           address:(NSString *)address
                        moveRegion:(BOOL)moveRegion {
     self.destinationLocation = destinationLocation;
-    self.isDestinationSet = YES;
+    self.step = MainViewStepOptimize;
     if (moveRegion) {
         [self centerMapOnLocation:destinationLocation];
     }
     if (address) {
-        [self.destinationView setWithAddress:address];
+        [self.destinationView setWithAddress:address location:destinationLocation];
     } else {
-        [self.destinationView setWithPin];
+        [self.destinationView setWithPin:destinationLocation];
     }
     [self updateDestAnnotation];
     [self setupActionButton];
@@ -471,7 +514,7 @@
         [self.mapView removeAnnotation:self.pickupAnno];
         self.pickupAnno = nil;
     }
-    if (self.isPickupSet) {
+    if (self.step != MainViewStepSetPickup) {
         MKPointAnnotation *pickupAnno = [[MKPointAnnotation alloc] init];
         pickupAnno.coordinate = self.pickupLocation;
         [self.mapView addAnnotation:pickupAnno];
@@ -484,7 +527,7 @@
         [self.mapView removeAnnotation:self.destAnno];
         self.destAnno = nil;
     }
-    if (self.isDestinationSet) {
+    if (self.step == MainViewStepOptimize) {
         MKPointAnnotation *destAnno = [[MKPointAnnotation alloc] init];
         destAnno.coordinate = self.destinationLocation;
         [self.mapView addAnnotation:destAnno];
@@ -682,6 +725,25 @@
         return lineView;
     }
     return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    if (self.step == MainViewStepSetPickup) {
+        [self.pickupView setWithPin:self.mapView.centerCoordinate];
+    } else if (self.step == MainViewStepSetDest) {
+        [self.destinationView setWithPin:self.mapView.centerCoordinate];
+    }
+    [self updatePickupAnnotation];
+    [self updateDestAnnotation];
+    [self updateLocationMarker];
+}
+
+- (void)canceledLocationSearch:(BOOL)isPickup {
+    if (isPickup) {
+        [self.pickupView setWithPin:self.mapView.centerCoordinate];
+    } else {
+        [self.destinationView setWithPin:self.mapView.centerCoordinate];
+    }
 }
 
 #pragma mark- Location

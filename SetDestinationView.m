@@ -10,6 +10,7 @@
 
 #import "LocationSearchViewController.h"
 #import "MainViewController.h"
+#import "GlobalStateInterface.h"
 
 @interface SetDestinationView ()
 
@@ -17,10 +18,16 @@
 @property (nonatomic, readwrite, weak) UILabel *locationLabel;
 @property (nonatomic, readwrite, weak) UIImageView *pinView;
 
+@property (nonatomic, readwrite, assign) CLLocationCoordinate2D pinLocation;
+
 @property (nonatomic, readwrite, weak) UITapGestureRecognizer *tapRecog;
 
 @property (nonatomic, readwrite, weak) MainViewController *mainVC;
 @property (nonatomic, readwrite, assign) DestinationViewState state;
+
+@property (nonatomic, readwrite, strong) CLGeocoder *geocoder;
+@property (nonatomic, readwrite, assign) int count; // this is to take care of multiple geocode requests that might create a problem
+@property (nonatomic, readwrite, assign) BOOL isSetOnce;
 
 @end
 
@@ -34,12 +41,11 @@
 }
 */
 
-
-
 - (void)setupIsPickup:(BOOL)isPickup
              parentVC:(MainViewController *)mainVC {
     self.isPickup = isPickup;
     self.mainVC = mainVC;
+    self.geocoder = [[CLGeocoder alloc] init];
     CGRect frame = self.frame;
     CGSize size = frame.size;
     
@@ -72,7 +78,13 @@
     self.locationLabel = locationLabel;
     self.pinView = imageView;
     
-    [self clearOutDestination];
+    // only for the start
+    self.state = DestinationViewStateEmpty;
+    if (self.isPickup) {
+        self.locationLabel.text = @"Add Pickup";
+    } else {
+        self.locationLabel.text = @"Add Destination";
+    }
 }
 
 - (void)centerOnLocationAndClearOutDestination {
@@ -90,53 +102,59 @@
 }
 
 - (void)clearOutDestination {
-    self.state = DestinationViewStateEmpty;
     if (self.isPickup) {
-        self.locationLabel.text = @"Add Pickup";
+        //self.locationLabel.text = @"Add Pickup";
         [self.mainVC clearPickupLocation];
     } else {
-        self.locationLabel.text = @"Add Destination";
+        //self.locationLabel.text = @"Add Destination";
         [self.mainVC clearDestinationLocation];
     }
     
 }
 
-- (void)setWithAddress:(NSString *)address {
+- (void)setWithAddress:(NSString *)address location:(CLLocationCoordinate2D)location{
     self.state = DestinationViewStateAddress;
     self.locationLabel.text = address;
+    self.pinLocation = location;
+    self.isSetOnce = YES;
+    
 }
 
-- (void)setWithPin {
+- (void)setWithPin:(CLLocationCoordinate2D)location {
+    if (self.state == DestinationViewStatePin  && [GlobalStateInterface areEqualLocations:location andloc2:self.pinLocation]) {
+        return; // dont need to do anything
+    }
     self.state = DestinationViewStatePin;
-    self.locationLabel.text = @"Pin Location";
+    self.locationLabel.text = @"Updating Location...";
+    self.pinLocation = location;
+    self.isSetOnce = YES;
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+    self.count ++;
+    int current = self.count;
+    [self.geocoder reverseGeocodeLocation:loc completionHandler:
+     
+     //Getting Human readable Address from Lat long,,,
+     
+     ^(NSArray *placemarks, NSError *error) {
+         //Get nearby address
+         CLPlacemark *placemark = [placemarks objectAtIndex:0];
+         //String to hold address
+         NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+         //Print the location to console
+         if (self.state == DestinationViewStatePin && current == self.count) {
+             self.locationLabel.text = locatedAt?locatedAt:@"";
+         } else {
+             self.locationLabel.text = @"";
+         }
+     }];
 }
 
 - (void)buttonTapped {
-    switch (self.state) {
-        case DestinationViewStateEmpty:
-        {
-            LocationSearchViewController *vc = [[LocationSearchViewController alloc] initWithIsPickup:self.isPickup];
-            [self.mainVC presentViewController:vc animated:YES completion:^{
-                
-            }];
-            break;
-        }
-        case DestinationViewStatePin:
-        {
-            [self centerOnLocationAndClearOutDestination];
-            break;
-        }
-            
-        case DestinationViewStateAddress:
-        {
-            [self centerOnLocationAndClearOutDestination];
-            break;
-        }
-            
-        default:
-            break;
-    }
-    
+    LocationSearchViewController *vc = [[LocationSearchViewController alloc] initWithIsPickup:self.isPickup];
+    [self.mainVC presentViewController:vc animated:YES completion:^{
+        
+    }];
+    [self centerOnLocationAndClearOutDestination];    
 }
 
 @end

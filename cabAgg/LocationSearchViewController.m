@@ -107,7 +107,7 @@
 
 - (IBAction)cancelButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        
+        [globalStateInterface.mainVC canceledLocationSearch:self.isPickup];
     }];
 }
 

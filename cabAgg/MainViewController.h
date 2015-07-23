@@ -30,5 +30,6 @@
                           address:(NSString *)address
                        moveRegion:(BOOL)moveRegion;
 - (void)reoptimize;
+- (void)canceledLocationSearch:(BOOL)isPickup; // called from location search, so that we know to update the location
 
 @end

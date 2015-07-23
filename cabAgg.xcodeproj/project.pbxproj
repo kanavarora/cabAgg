@@ -129,7 +129,6 @@
 		4AE6D2CC1A5A2014008B9221 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE6D2CB1A5A2014008B9221 /* QuartzCore.framework */; };
 		4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE6D2CD1A5A201F008B9221 /* SystemConfiguration.framework */; };
 		4AE6D2D11A5A2385008B9221 /* CabAggHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */; };
-		4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE6D2D71A5A7F89008B9221 /* newLocation.png */; };
 		4AE7AD851B15B47E00BE8DED /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD831B15B47E00BE8DED /* Fabric.framework */; };
 		4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */; };
 		4AE7AD891B1C0FD000BE8DED /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7AD881B1C0FD000BE8DED /* EventLogger.m */; };
@@ -346,7 +345,6 @@
 		4AE6D2CD1A5A201F008B9221 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AE6D2CF1A5A2385008B9221 /* CabAggHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CabAggHttpClient.h; sourceTree = "<group>"; };
 		4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CabAggHttpClient.m; sourceTree = "<group>"; };
-		4AE6D2D71A5A7F89008B9221 /* newLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newLocation.png; path = ../../../kanav/newLocation.png; sourceTree = "<group>"; };
 		4AE7AD831B15B47E00BE8DED /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4AE7AD871B1C0FD000BE8DED /* EventLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLogger.h; path = ../EventLogger.h; sourceTree = "<group>"; };
@@ -624,7 +622,6 @@
 		4AE6D26E1A59ECD2008B9221 /* cabAgg */ = {
 			isa = PBXGroup;
 			children = (
-				4AE6D2D71A5A7F89008B9221 /* newLocation.png */,
 				4AE6D2951A59ED25008B9221 /* utils */,
 				4AE6D2731A59ECD2008B9221 /* AppDelegate.h */,
 				4AE6D2741A59ECD2008B9221 /* AppDelegate.m */,
@@ -858,7 +855,6 @@
 				4ACD61981AA9CE4C009DD5D6 /* logo@2x.png in Resources */,
 				4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */,
 				4ACD61951AA8497D009DD5D6 /* lyft-pin@2x.png in Resources */,
-				4AE6D2D81A5A7F89008B9221 /* newLocation.png in Resources */,
 				4ACD617F1AA337CE009DD5D6 /* iRate.bundle in Resources */,
 				4A08EF681B303DA80012EBD6 /* settings-arrow@3x.png in Resources */,
 				4AE6D2801A59ECD2008B9221 /* LaunchScreen.xib in Resources */,

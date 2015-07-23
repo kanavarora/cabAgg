@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 typedef enum {
     DestinationViewStateEmpty = 0,
@@ -21,7 +22,9 @@ typedef enum {
 
 - (void)setupIsPickup:(BOOL)isPickup
              parentVC:(MainViewController *)mainVC;
-- (void)setWithAddress:(NSString *)address;
-- (void)setWithPin;
+- (void)setWithAddress:(NSString *)address location:(CLLocationCoordinate2D)location;
+- (void)setWithPin:(CLLocationCoordinate2D)location;
+@property (nonatomic, readonly, assign) BOOL isSetOnce;
+@property (nonatomic, readonly, assign) CLLocationCoordinate2D pinLocation;
 
 @end
