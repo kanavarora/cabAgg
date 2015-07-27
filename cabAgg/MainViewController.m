@@ -256,8 +256,6 @@ typedef enum {
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(showAboutView)];
     self.aboutButton = leftButton;
     self.navigationItem.leftBarButtonItem = leftButton;
-    
-    
 }
 
 - (void)viewDidLoad {
