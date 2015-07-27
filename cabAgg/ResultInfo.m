@@ -120,7 +120,7 @@
     }
 }
 
-static BOOL isTesting = YES;
+static BOOL isTesting = NO;
 
 - (void)update {
     CabAggHttpClient *lyftClient = globalStateInterface.mainVC.lyftClient;

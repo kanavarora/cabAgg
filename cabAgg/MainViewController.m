@@ -55,8 +55,6 @@ typedef enum {
 
 @property (nonatomic, readwrite, strong) CLLocationManager *locationAuthorizationManager;
 @property (nonatomic, readwrite, assign) MainViewStep step;
-@property (nonatomic, readwrite, assign) CLLocationCoordinate2D pickupLocation;
-@property (nonatomic, readwrite, assign) CLLocationCoordinate2D destinationLocation;
 @property (nonatomic, readwrite, strong) MKPointAnnotation *pickupAnno;
 @property (nonatomic, readwrite, strong) MKPointAnnotation *destAnno;
 @property (nonatomic, readwrite, strong) UIBarButtonItem *redoButton;
@@ -78,6 +76,14 @@ typedef enum {
 @end
 
 @implementation MainViewController
+
+- (CLLocationCoordinate2D)pickupLocation {
+    return self.pickupView.pinLocation;
+}
+
+- (CLLocationCoordinate2D)destinationLocation {
+    return self.destinationView.pinLocation;
+}
 
 - (void)createLocationSetter {
     if (self.locatioSetterImageView) {
@@ -483,7 +489,6 @@ typedef enum {
 - (void)updatePickupLocation:(CLLocationCoordinate2D)pickupLocation
                      address:(NSString *)address
                   moveRegion:(BOOL)moveRegion {
-    self.pickupLocation =  pickupLocation;
     self.step = MainViewStepSetDest;
     if (moveRegion) {
         [self centerMapOnLocation:pickupLocation];
@@ -500,7 +505,6 @@ typedef enum {
 - (void)updateDestinationLocation:(CLLocationCoordinate2D)destinationLocation
                           address:(NSString *)address
                        moveRegion:(BOOL)moveRegion {
-    self.destinationLocation = destinationLocation;
     self.step = MainViewStepOptimize;
     if (moveRegion) {
         [self centerMapOnLocation:destinationLocation];
@@ -761,10 +765,8 @@ typedef enum {
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     if (self.step == MainViewStepSetPickup) {
         [self.pickupView setWithPin:self.mapView.centerCoordinate];
-        self.pickupLocation = self.mapView.centerCoordinate;
     } else if (self.step == MainViewStepSetDest) {
         [self.destinationView setWithPin:self.mapView.centerCoordinate];
-        self.destinationLocation = self.mapView.centerCoordinate;
     }
     [self updatePickupAnnotation];
     [self updateDestAnnotation];
