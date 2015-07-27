@@ -24,6 +24,7 @@
 #import "PaddingLabel.h"
 #import "EventLogger.h"
 #import "AboutViewController.h"
+#import "FbManager.h"
 
 
 #define kZoomFactor 2.5f

@@ -24,6 +24,8 @@
 		4A08EF681B303DA80012EBD6 /* settings-arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF671B303DA80012EBD6 /* settings-arrow@3x.png */; };
 		4A08EF6A1B303DAE0012EBD6 /* settings-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A08EF691B303DAE0012EBD6 /* settings-arrow@2x.png */; };
 		4A08EF6D1B303E280012EBD6 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A08EF6C1B303E280012EBD6 /* UIView+Border.m */; };
+		4A3FFD3F1B6654FD0095907E /* FbManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3FFD3E1B6654FD0095907E /* FbManager.m */; };
+		4A3FFD411B6655240095907E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3FFD401B6655240095907E /* Social.framework */; };
 		4A64829C1A5D291B00746A16 /* UberHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A64829B1A5D291B00746A16 /* UberHTTPClient.m */; };
 		4A64829F1A5E78F000746A16 /* SidecarHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A64829E1A5E78F000746A16 /* SidecarHttpClient.m */; };
 		4A6482A31A665BBC00746A16 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6482A11A665BBC00746A16 /* MainViewController.m */; };
@@ -171,6 +173,9 @@
 		4A08EF691B303DAE0012EBD6 /* settings-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-arrow@2x.png"; sourceTree = "<group>"; };
 		4A08EF6B1B303E280012EBD6 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		4A08EF6C1B303E280012EBD6 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
+		4A3FFD3D1B6654FD0095907E /* FbManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FbManager.h; sourceTree = "<group>"; };
+		4A3FFD3E1B6654FD0095907E /* FbManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FbManager.m; sourceTree = "<group>"; };
+		4A3FFD401B6655240095907E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		4A64829A1A5D291B00746A16 /* UberHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UberHTTPClient.h; path = ../UberHTTPClient.h; sourceTree = "<group>"; };
 		4A64829B1A5D291B00746A16 /* UberHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UberHTTPClient.m; path = ../UberHTTPClient.m; sourceTree = "<group>"; };
 		4A64829D1A5E78F000746A16 /* SidecarHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidecarHttpClient.h; sourceTree = "<group>"; };
@@ -357,6 +362,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A3FFD411B6655240095907E /* Social.framework in Frameworks */,
 				4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */,
 				4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */,
 				4AE6D2CC1A5A2014008B9221 /* QuartzCore.framework in Frameworks */,
@@ -582,6 +588,7 @@
 		4AE6D2631A59ECD2008B9221 = {
 			isa = PBXGroup;
 			children = (
+				4A3FFD401B6655240095907E /* Social.framework */,
 				4A08EF5F1B2EC4C40012EBD6 /* CabaggAlertController.h */,
 				4A08EF601B2EC4C40012EBD6 /* CabaggAlertController.m */,
 				4AE7AD831B15B47E00BE8DED /* Fabric.framework */,
@@ -664,6 +671,8 @@
 				4A6483321A7A579A00746A16 /* CachedPolyline.m */,
 				4A6483341A7B7DAA00746A16 /* MoreInfoViewController.h */,
 				4A6483351A7B7DAA00746A16 /* MoreInfoViewController.m */,
+				4A3FFD3D1B6654FD0095907E /* FbManager.h */,
+				4A3FFD3E1B6654FD0095907E /* FbManager.m */,
 				4A6483361A7B7DAA00746A16 /* MoreInfoViewController.xib */,
 				4A6482A01A665BBC00746A16 /* MainViewController.h */,
 				4A6482A11A665BBC00746A16 /* MainViewController.m */,
@@ -942,6 +951,7 @@
 				4A6483271A7322D700746A16 /* MagicalRecord+Setup.m in Sources */,
 				4A64833B1A92FCA800746A16 /* ResultsView.m in Sources */,
 				4A6482CC1A67CC6600746A16 /* PaddingLabel.m in Sources */,
+				4A3FFD3F1B6654FD0095907E /* FbManager.m in Sources */,
 				4A64831F1A7322D700746A16 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				4A6483121A7322D700746A16 /* NSNumber+MagicalDataImport.m in Sources */,
 				4A64829F1A5E78F000746A16 /* SidecarHttpClient.m in Sources */,
