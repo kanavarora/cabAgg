@@ -49,6 +49,7 @@ typedef enum {
 @property (nonatomic, readwrite, weak) IBOutlet UILabel *startDistanceLabel;
 @property (nonatomic, readwrite, weak) IBOutlet NSLayoutConstraint *myLocationConstraint;
 @property (nonatomic, readwrite, weak) IBOutlet PaddingLabel *surgePricingLabel;
+@property (nonatomic, readwrite, weak) IBOutlet NSLayoutConstraint *pickupWidthConstraint;
 
 @property (nonatomic, readwrite, strong) UIImageView *locatioSetterImageView;
 
@@ -112,7 +113,7 @@ typedef enum {
     self.surgePricingLabel.layer.masksToBounds = YES;
     self.surgePricingLabel.hidden = YES;
     self.surgePricingLabel.textColor = [UIColor whiteColor];
-    self.surgePricingLabel.backgroundColor = UIColorFromRGB(0x7ED321);
+    self.surgePricingLabel.backgroundColor = UIColorFromRGB(0x000000);
     self.surgePricingLabel.insets = UIEdgeInsetsMake(5, 10, 5, 10);
 }
 
@@ -341,6 +342,8 @@ typedef enum {
                 [self centerMapOnLocation:self.pickupView.pinLocation];
                 updateLocationImmediately = NO;
             }
+            [self.pickupView unlockIt];
+            [self.destinationView lockIt];
             break;
         }
         case MainViewStepSetDest: {
@@ -352,6 +355,8 @@ typedef enum {
                 [self centerMapOnLocation:self.destinationView.pinLocation];
                 updateLocationImmediately = NO;
             }
+            [self.pickupView lockIt];
+            [self.destinationView unlockIt];
             break;
         }
         case MainViewStepOptimize: {
@@ -359,6 +364,8 @@ typedef enum {
             [self.actionButton setTitle:@"Optimize" forState:UIControlStateNormal];
             [self.actionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self showRadialSettings];
+            [self.pickupView lockIt];
+            [self.destinationView lockIt];
             break;
         }
     }
@@ -369,6 +376,7 @@ typedef enum {
     } else {
         [self clearLocationMarker];
     }
+    [self updateSetPickupViews];
 }
 
 - (IBAction)actionButtonTapped:(id)sender {
@@ -392,8 +400,6 @@ typedef enum {
                                          @"endLon" : @(self.destinationLocation.longitude),
                                          @"dis" : @([self startRadialInMeters])};
             NSMutableDictionary *exProps = [NSMutableDictionary dictionaryWithDictionary:properties];
-            exProps[@"pickupType"] = @(self.pickupView.state);
-            exProps[@"destinationType"] = @(self.destinationView.state);
             
             [globalStateInterface.eventLogger trackEventName:@"optimize-tapped" properties:exProps];
             // optimize Lyft
@@ -533,6 +539,31 @@ typedef enum {
         [self.mapView addAnnotation:destAnno];
         self.destAnno = destAnno;
     }
+}
+
+- (void)updateSetPickupViews {
+    float screenWidth = [UIScreen mainScreen].bounds.size.width;
+    switch (self.step) {
+        case MainViewStepSetPickup:
+        {
+            self.pickupWidthConstraint.constant = (screenWidth * 0.67f);
+            break;
+        }
+        case MainViewStepSetDest:
+        {
+            self.pickupWidthConstraint.constant = (screenWidth * 0.33f);
+            break;
+        }
+        case MainViewStepOptimize:
+        {
+            self.pickupWidthConstraint.constant = (screenWidth * 0.50f);
+            break;
+        }
+    }
+    [UIView animateWithDuration:.3 animations:^{
+        [self.bottomBarView setNeedsLayout];
+        [self.bottomBarView layoutIfNeeded];
+    }];
 }
 
 - (void)updateAnnoForResults {
@@ -730,8 +761,10 @@ typedef enum {
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     if (self.step == MainViewStepSetPickup) {
         [self.pickupView setWithPin:self.mapView.centerCoordinate];
+        self.pickupLocation = self.mapView.centerCoordinate;
     } else if (self.step == MainViewStepSetDest) {
         [self.destinationView setWithPin:self.mapView.centerCoordinate];
+        self.destinationLocation = self.mapView.centerCoordinate;
     }
     [self updatePickupAnnotation];
     [self updateDestAnnotation];
@@ -743,6 +776,39 @@ typedef enum {
         [self.pickupView setWithPin:self.mapView.centerCoordinate];
     } else {
         [self.destinationView setWithPin:self.mapView.centerCoordinate];
+    }
+}
+
+- (void)unlockedLocation:(BOOL)isPickup {
+    switch (self.step) {
+        case MainViewStepSetPickup:
+        {
+            if (isPickup) {
+                // assert should never happen
+            } else {
+                [self clearDestinationLocation];
+            }
+            break;
+        }
+        case MainViewStepSetDest:
+        {
+            if (isPickup) {
+                [self clearPickupLocation];
+            } else {
+                // assert should never happen
+            }
+            break;
+        }
+        case MainViewStepOptimize:
+        {
+            if (isPickup) {
+                [self clearPickupLocation];
+            } else {
+                [self clearDestinationLocation];
+            }
+            break;
+        }
+        
     }
 }
 

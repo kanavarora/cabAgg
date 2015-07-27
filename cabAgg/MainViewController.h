@@ -31,5 +31,6 @@
                        moveRegion:(BOOL)moveRegion;
 - (void)reoptimize;
 - (void)canceledLocationSearch:(BOOL)isPickup; // called from location search, so that we know to update the location
+- (void)unlockedLocation:(BOOL)isPickup; // called from when we unlock the set Destination View
 
 @end

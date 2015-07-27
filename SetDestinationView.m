@@ -11,6 +11,13 @@
 #import "LocationSearchViewController.h"
 #import "MainViewController.h"
 #import "GlobalStateInterface.h"
+#import "UIView+Border.h"
+
+typedef enum {
+    DestinationViewStateEmpty = 0,
+    DestinationViewStateFilled,
+    DestinationViewStateLocked,
+} DestinationViewState;
 
 @interface SetDestinationView ()
 
@@ -66,6 +73,7 @@
     locationLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped)];
     [locationLabel addGestureRecognizer:tapRecog];
+    locationLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -75,6 +83,9 @@
     
     [self addSubview:locationLabel];
     [self addSubview:imageView];
+    [UIView constraintView:locationLabel
+               toSuperView:self
+                    insets:UIEdgeInsetsMake(0, image.size.width, 0, 2)];
     self.locationLabel = locationLabel;
     self.pinView = imageView;
     
@@ -113,7 +124,7 @@
 }
 
 - (void)setWithAddress:(NSString *)address location:(CLLocationCoordinate2D)location{
-    self.state = DestinationViewStateAddress;
+    self.state = DestinationViewStateFilled;
     self.locationLabel.text = address;
     self.pinLocation = location;
     self.isSetOnce = YES;
@@ -121,10 +132,10 @@
 }
 
 - (void)setWithPin:(CLLocationCoordinate2D)location {
-    if (self.state == DestinationViewStatePin  && [GlobalStateInterface areEqualLocations:location andloc2:self.pinLocation]) {
+    if (self.state == DestinationViewStateFilled  && [GlobalStateInterface areEqualLocations:location andloc2:self.pinLocation]) {
         return; // dont need to do anything
     }
-    self.state = DestinationViewStatePin;
+    self.state = DestinationViewStateFilled;
     self.locationLabel.text = @"Updating Location...";
     self.pinLocation = location;
     self.isSetOnce = YES;
@@ -141,20 +152,32 @@
          //String to hold address
          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
          //Print the location to console
-         if (self.state == DestinationViewStatePin && current == self.count) {
+         if (self.state == DestinationViewStateFilled && current == self.count) {
              self.locationLabel.text = locatedAt?locatedAt:@"";
          } else {
-             self.locationLabel.text = @"";
          }
      }];
 }
 
+- (void)lockIt {
+    self.state = DestinationViewStateLocked;
+}
+
+- (void)unlockIt {
+    self.state = DestinationViewStateFilled;
+}
+
 - (void)buttonTapped {
+    if (self.state != DestinationViewStateLocked) {
     LocationSearchViewController *vc = [[LocationSearchViewController alloc] initWithIsPickup:self.isPickup];
     [self.mainVC presentViewController:vc animated:YES completion:^{
         
     }];
-    [self centerOnLocationAndClearOutDestination];    
+    [self centerOnLocationAndClearOutDestination];
+    } else {
+        self.state = DestinationViewStateFilled;
+        [globalStateInterface.mainVC unlockedLocation:self.isPickup];
+    }
 }
 
 @end

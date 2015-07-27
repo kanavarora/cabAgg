@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
@@ -14,6 +13,7 @@
                 <outlet property="myLocationButton" destination="s0E-ht-zb2" id="inR-mk-tT6"/>
                 <outlet property="myLocationConstraint" destination="Zxk-nn-B9R" id="F3r-zf-hba"/>
                 <outlet property="pickupView" destination="hgS-lh-MOM" id="dI3-vX-GAf"/>
+                <outlet property="pickupWidthConstraint" destination="MFz-l5-lm4" id="2an-UJ-7PN"/>
                 <outlet property="sliderParentView" destination="R9m-M4-90e" id="r0E-0H-VvG"/>
                 <outlet property="startDistanceLabel" destination="qu2-DI-FNQ" id="aIL-bW-WVj"/>
                 <outlet property="startSlider" destination="3Lu-t4-Hfs" id="wMa-YB-dzT"/>
@@ -41,6 +41,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgS-lh-MOM" userLabel="Set Pickup view" customClass="SetDestinationView">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="300" id="MFz-l5-lm4"/>
+                            </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLP-AK-Lpv" userLabel="Set Destination view" customClass="SetDestinationView">
                             <rect key="frame" x="300" y="0.0" width="300" height="50"/>
@@ -60,12 +63,11 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="QLP-AK-Lpv" firstAttribute="leading" secondItem="hgS-lh-MOM" secondAttribute="trailing" id="5Aa-HM-PEf"/>
                         <constraint firstItem="hgS-lh-MOM" firstAttribute="leading" secondItem="E1C-v2-dVK" secondAttribute="leading" id="ALK-Pw-bWa"/>
-                        <constraint firstItem="QLP-AK-Lpv" firstAttribute="width" secondItem="8Ps-2Y-hPU" secondAttribute="width" multiplier="0.5" id="FWr-ka-hmd"/>
                         <constraint firstAttribute="trailing" secondItem="QLP-AK-Lpv" secondAttribute="trailing" id="Glh-cC-hKp"/>
                         <constraint firstAttribute="height" constant="110" id="OaJ-Rg-5nE"/>
                         <constraint firstItem="8Ps-2Y-hPU" firstAttribute="top" secondItem="hgS-lh-MOM" secondAttribute="bottom" id="TNE-M7-Fuh"/>
-                        <constraint firstItem="hgS-lh-MOM" firstAttribute="width" secondItem="8Ps-2Y-hPU" secondAttribute="width" multiplier="0.5" id="Ul8-Mv-pdu"/>
                         <constraint firstItem="8Ps-2Y-hPU" firstAttribute="top" secondItem="QLP-AK-Lpv" secondAttribute="bottom" id="gaF-8J-xiS">
                             <variation key="widthClass=compact" constant="0.0"/>
                         </constraint>
@@ -104,7 +106,7 @@
                         <constraint firstAttribute="centerX" secondItem="3Lu-t4-Hfs" secondAttribute="centerX" id="uST-6l-xK3"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0E-ht-zb2">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0E-ht-zb2">
                     <rect key="frame" x="568" y="458" width="26" height="26"/>
                     <state key="normal" image="myLocation.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,6 +136,6 @@
         </view>
     </objects>
     <resources>
-        <image name="myLocation.png" width="26" height="26"/>
+        <image name="myLocation.png" width="52" height="52"/>
     </resources>
 </document>

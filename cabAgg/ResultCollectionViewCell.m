@@ -72,7 +72,7 @@
         self.saveTextLabel.hidden = YES;
     } else {
         self.saveTextLabel.hidden = NO;
-        self.saveTextLabel.text = [NSString stringWithFormat:@"Savings: $%.2f", discount];
+        self.saveTextLabel.text = [NSString stringWithFormat:@"You save: $%.2f", discount];
     }
     
     // spinner

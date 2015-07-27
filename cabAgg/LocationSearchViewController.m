@@ -224,6 +224,7 @@
             [globalStateInterface.mainVC updatePickupLocation:loc
                                                       address:addressDict[@"formattedAddress"]
                                                    moveRegion:YES];
+            
         } else {
             [globalStateInterface.mainVC updateDestinationLocation:loc
                                                            address:addressDict[@"formattedAddress"]
