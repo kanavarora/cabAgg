@@ -226,6 +226,8 @@
             self.force = force;
             self.message = msg;
             [self showUpdataDialog:msg force:force];
+        } else {
+            [self checkForShareDialog];
         }
         if (responseObject[@"optimizeDestination"]) {
             globalStateInterface.shouldOptimizeDestination = [responseObject[@"optimizeDestination"] boolValue];
@@ -271,6 +273,10 @@
                              @"eventName":eventName,
                              @"eventProperties":eventProperties?eventProperties:@{}};
     [self POST:@"api/v1/track" parameters:params success:nil failure:nil];
+}
+
+- (void)checkForShareDialog {
+    
 }
 
 @end

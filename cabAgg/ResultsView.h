@@ -11,7 +11,7 @@
 @class ResultInfo;
 
 #define kHeightOfBookButton 52
-#define kWidthofBookButton 248
+#define kWidthofBookButton 210
 @interface ResultsView : UIView
 
 - (void)didChangeSelectionOfResult;

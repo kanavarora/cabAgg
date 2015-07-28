@@ -12,6 +12,7 @@
 #import "UIView+Border.h"
 #import "ExtraViewController.h"
 #import "EventLogger.h"
+#import "FbManager.h"
 
 @interface SettingsViewCell : UICollectionViewCell
 
@@ -23,8 +24,8 @@
 typedef enum {
     AboutViewRowAppStore =0,
     AboutViewRowInvite,
-    AboutViewRowWebsite,
     AboutViewRowFb,
+    AboutViewRowTwitter,
     AboutViewRowFaq,
 } AboutViewRow;
 
@@ -166,10 +167,10 @@ typedef enum {
             title = @"Rate in the App Store";
             break;
         case AboutViewRowFb:
-            title = @"Like us on Facebook";
+            title = @"Share on Facebook";
             break;
-        case AboutViewRowWebsite:
-            title = @"cabalotapp.com";
+        case AboutViewRowTwitter:
+            title = @"Share on Twitter";
             break;
         case AboutViewRowFaq:
             title =  @"FAQ";
@@ -202,13 +203,19 @@ typedef enum {
         }
         case AboutViewRowFb:
         {
+            /*
             NSString *fbPage = [NSString stringWithFormat:@"fb://profile/692002980944969"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:fbPage]];
+             */
+            [FbManager shareToFb];
             break;
         }
-        case AboutViewRowWebsite:
+        case AboutViewRowTwitter:
         {
+            /*
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.cabalotapp.com"]];
+             */
+            [FbManager shareToTwitter];
             break;
         }
         case AboutViewRowFaq:

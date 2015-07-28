@@ -20,6 +20,9 @@
 + (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1
                   andloc2:(CLLocationCoordinate2D)loc2;
 
+- (void)increaseNumOptimize;
+- (int)numOptimizeTapped;
+
 @end
 
 #define UIColorFromRGB(rgbValue) \

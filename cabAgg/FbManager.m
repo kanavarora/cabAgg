@@ -21,8 +21,9 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        [controller setInitialText:@"Just used cabalot to find myself a cheaper ride. @cabalotapp"];
+        [controller setInitialText:@"Try using Cabalot to help you find cheaper cab rides!"];
         [controller addURL:[NSURL URLWithString:@"http://www.cabalotapp.com"]];
+        //[controller addImage:[UIImage imageNamed:@"512.png"]];
         [globalStateInterface.mainVC presentViewController:controller animated:YES completion:nil];
         [globalStateInterface.eventLogger trackEventName:@"sharedToFb" properties:@{@"enabled" :@(YES)}];
     } else {
@@ -35,7 +36,7 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [tweetSheet setInitialText:@"Just used cabalot to find myself a cheaper ride. @cabalotapp"];
+        [tweetSheet setInitialText:@"Use @cabalotapp to find cheaper cab rides. Download it at www.cabalotapp.com"];
         [globalStateInterface.mainVC presentViewController:tweetSheet animated:YES completion:nil];
         [globalStateInterface.eventLogger trackEventName:@"shareToTwitterAttempt" properties:@{@"enabled" :@(YES)}];
     } else {

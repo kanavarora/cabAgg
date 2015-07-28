@@ -113,7 +113,7 @@ typedef enum {
     dr.hidden = YES;
     dr.backgroundColor = [UIColor clearColor];
     [dr setupCollectionView];
-    [self.view addSubview:dr];
+    [self.view insertSubview:dr belowSubview:self.myLocationButton];
     self.resultsView = dr;
     
     self.surgePricingLabel.layer.cornerRadius = self.surgePricingLabel.frame.size.height/2.0f;
@@ -253,7 +253,8 @@ typedef enum {
     self.navigationItem.titleView = v;
     UIBarButtonItem *redoButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(reoptimize)];
     self.redoButton = redoButton;
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(showAboutView)];
+    //UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(showAboutView)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showAboutView)];
     self.aboutButton = leftButton;
     self.navigationItem.leftBarButtonItem = leftButton;
 }
@@ -426,9 +427,11 @@ typedef enum {
             [self.resultsView startCalculatingResults];
             [self startUpdatingDisplayResults];
             self.navigationItem.rightBarButtonItem =  self.redoButton;
-            self.navigationItem.leftBarButtonItem = nil;
+            //self.navigationItem.leftBarButtonItem = nil;
             [self hideRadialSettings];
             self.myLocationConstraint.constant = -self.bottomBarView.frame.size.height + kHeightOfCell - 1;
+            
+            [globalStateInterface increaseNumOptimize];
             break;
         }
     }
@@ -436,7 +439,7 @@ typedef enum {
 
 - (void)reoptimize {
     self.navigationItem.rightBarButtonItem = nil;
-    self.navigationItem.leftBarButtonItem = self.aboutButton;
+    //self.navigationItem.leftBarButtonItem = self.aboutButton;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startUpdatingDisplayResults) object:nil];
     self.resultsView.hidden = YES;
     self.bottomBarView.hidden = NO;
