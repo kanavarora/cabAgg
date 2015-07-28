@@ -314,7 +314,7 @@ typedef enum {
 }
 
 - (void)hideRadialSettings {
-    self.myLocationConstraint.constant = 6;
+    self.myLocationConstraint.constant = 1;
     self.sliderParentView.hidden = YES;
     [self.mapView removeOverlay:self.startRadial];
     [self.mapView removeOverlay:self.endRadial];
@@ -324,7 +324,7 @@ typedef enum {
 - (void)showRadialSettings {
     [self.mapView removeOverlay:self.startRadial];
     [self.mapView removeOverlay:self.endRadial];
-    self.myLocationConstraint.constant = 6 + self.sliderParentView.frame.size.height;
+    self.myLocationConstraint.constant = 1 + self.sliderParentView.frame.size.height;
     self.sliderParentView.hidden = NO;
     self.startRadial = [MKCircle circleWithCenterCoordinate:self.pickupLocation radius:[self startRadialInMeters]];
     self.endRadial = [MKCircle circleWithCenterCoordinate:self.destinationLocation radius:[self endRadialInMeters]];
@@ -428,7 +428,7 @@ typedef enum {
             self.navigationItem.rightBarButtonItem =  self.redoButton;
             self.navigationItem.leftBarButtonItem = nil;
             [self hideRadialSettings];
-            self.myLocationConstraint.constant = 20;
+            self.myLocationConstraint.constant = -self.bottomBarView.frame.size.height + kHeightOfCell - 1;
             break;
         }
     }
