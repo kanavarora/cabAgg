@@ -106,6 +106,18 @@
     }
 }
 
+static double timeOfLastSave;
+
+- (void)recordSavings {
+    // record num savings
+    float savings = self.selectedResultInfo.actHighEstimate - self.selectedResultInfo.highEstimate;
+    double currentTime = [[NSDate date] timeIntervalSince1970];
+    if (savings > 0 && ((currentTime - timeOfLastSave) > (60 *10))) { // > 10minutes
+        timeOfLastSave = currentTime;
+        [globalStateInterface increasingSavingsBy:savings];
+    }
+}
+
 - (void)presentAlertViewWithOptions {
     UIAlertController *alert = [UIAlertController
                                 alertControllerWithTitle:@"Booking options"
@@ -120,6 +132,8 @@
                              //Do some thing here
                              [alert dismissViewControllerAnimated:YES completion:nil];
                              [self openDeepUrl:YES];
+                             
+                             [self recordSavings];
                              
                          }];
     UIAlertAction* altOption = [UIAlertAction

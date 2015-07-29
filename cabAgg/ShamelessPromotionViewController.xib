@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShamelessPromotionViewController">
+            <connections>
+                <outlet property="emailButton" destination="S1Y-Xm-sTC" id="W4s-Qb-pSl"/>
+                <outlet property="fbButton" destination="dkS-W8-BHz" id="2Ix-dp-epR"/>
+                <outlet property="textButton" destination="Apf-NW-Y7l" id="t4m-Sb-a9b"/>
+                <outlet property="textLabel" destination="sOn-YU-mEn" id="yES-N3-q3w"/>
+                <outlet property="twitterButton" destination="3uT-uk-wuh" id="HPc-U0-XIP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
+                    <rect key="frame" x="40" y="146" width="520" height="309"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
+                            <rect key="frame" x="126" y="0.0" width="268" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
+                            <rect key="frame" x="160" y="81" width="200" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="enF-tF-lr1"/>
+                                <constraint firstAttribute="height" constant="42" id="rNQ-Ve-d8f"/>
+                            </constraints>
+                            <state key="normal" title="Facebook">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="ehc-A9-ogb"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
+                            <rect key="frame" x="160" y="143" width="200" height="42"/>
+                            <state key="normal" title="Twitter">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="bCV-jH-TWP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
+                            <rect key="frame" x="160" y="205" width="200" height="42"/>
+                            <state key="normal" title="Text">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="eun-NA-3IW"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
+                            <rect key="frame" x="160" y="267" width="200" height="42"/>
+                            <state key="normal" title="Email">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="nqv-2l-nFu"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="S1Y-Xm-sTC" firstAttribute="height" secondItem="dkS-W8-BHz" secondAttribute="height" id="57S-4x-iy2"/>
+                        <constraint firstAttribute="centerX" secondItem="3uT-uk-wuh" secondAttribute="centerX" id="7EL-XG-jnP"/>
+                        <constraint firstItem="sOn-YU-mEn" firstAttribute="top" secondItem="Zp7-Gx-lLt" secondAttribute="top" id="8Pk-hq-sk5"/>
+                        <constraint firstItem="dkS-W8-BHz" firstAttribute="top" secondItem="sOn-YU-mEn" secondAttribute="bottom" constant="40" id="AXH-bc-OYG"/>
+                        <constraint firstAttribute="centerX" secondItem="dkS-W8-BHz" secondAttribute="centerX" id="BMb-X7-r33"/>
+                        <constraint firstItem="3uT-uk-wuh" firstAttribute="top" secondItem="dkS-W8-BHz" secondAttribute="bottom" constant="20" id="GeS-gP-uZi"/>
+                        <constraint firstAttribute="centerX" secondItem="S1Y-Xm-sTC" secondAttribute="centerX" id="Had-wa-bRP"/>
+                        <constraint firstItem="3uT-uk-wuh" firstAttribute="width" secondItem="Apf-NW-Y7l" secondAttribute="width" id="SEa-AC-8ls"/>
+                        <constraint firstItem="3uT-uk-wuh" firstAttribute="width" secondItem="dkS-W8-BHz" secondAttribute="width" id="SsU-db-I5k"/>
+                        <constraint firstItem="3uT-uk-wuh" firstAttribute="height" secondItem="dkS-W8-BHz" secondAttribute="height" id="Vyx-3j-E1s"/>
+                        <constraint firstAttribute="centerX" secondItem="sOn-YU-mEn" secondAttribute="centerX" id="XtC-wD-ezi"/>
+                        <constraint firstItem="S1Y-Xm-sTC" firstAttribute="top" secondItem="Apf-NW-Y7l" secondAttribute="bottom" constant="20" id="Zzi-Vu-haU"/>
+                        <constraint firstItem="Apf-NW-Y7l" firstAttribute="top" secondItem="3uT-uk-wuh" secondAttribute="bottom" constant="20" id="aVT-67-U4e"/>
+                        <constraint firstAttribute="bottom" secondItem="S1Y-Xm-sTC" secondAttribute="bottom" id="dhA-Eg-fxb"/>
+                        <constraint firstAttribute="centerX" secondItem="Apf-NW-Y7l" secondAttribute="centerX" id="kkz-OB-dHi"/>
+                        <constraint firstItem="Apf-NW-Y7l" firstAttribute="height" secondItem="dkS-W8-BHz" secondAttribute="height" id="mou-jK-WGD"/>
+                        <constraint firstItem="Apf-NW-Y7l" firstAttribute="width" secondItem="S1Y-Xm-sTC" secondAttribute="width" id="oNF-vB-8lq"/>
+                        <constraint firstItem="3uT-uk-wuh" firstAttribute="width" secondItem="Apf-NW-Y7l" secondAttribute="width" id="vhs-ox-FCL"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJR-aP-BvM" userLabel="close button">
+                    <rect key="frame" x="285" y="524" width="30" height="36"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                    <state key="normal" title="X">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didPressCloseButton:" destination="-1" eventType="touchUpInside" id="y00-i5-UcP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="pJR-aP-BvM" secondAttribute="centerX" id="5jL-g5-ZSs"/>
+                <constraint firstAttribute="bottom" secondItem="pJR-aP-BvM" secondAttribute="bottom" constant="40" id="8WP-NR-dCk"/>
+                <constraint firstAttribute="trailing" secondItem="Zp7-Gx-lLt" secondAttribute="trailing" constant="40" id="INy-ws-5Xr"/>
+                <constraint firstItem="Zp7-Gx-lLt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="K6L-MX-G7i"/>
+                <constraint firstAttribute="centerY" secondItem="Zp7-Gx-lLt" secondAttribute="centerY" id="Wa1-Sz-3LS"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

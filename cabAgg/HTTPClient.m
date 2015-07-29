@@ -17,6 +17,7 @@
 #import "SPGooglePlacesAutocompleteUtilities.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocompletePlace.h"
+#import "ShamelessPromotionViewController.h"
 
 @interface HTTPClient ()
 
@@ -275,8 +276,48 @@
     [self POST:@"api/v1/track" parameters:params success:nil failure:nil];
 }
 
+- (void)showShamelessDialog:(int)level type:(ShamelessDialogType)type{
+    ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:type andLevel:level];
+    spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [globalStateInterface.mainVC presentViewController:spVC animated:YES completion:nil];
+}
+
+#define kNumForShamelessLevel1 3
+#define kNumForShamelessLevel2 8
+#define kNumForShamelessLevel3 22
+
+
+#define kSavingsLevel1 5
+#define kSavingsLevel2 20
+#define kSavingsLevel3 50
 - (void)checkForShareDialog {
+    NSInteger total = [globalStateInterface numOptimizeTapped];
+    NSInteger level = [globalStateInterface shamelessLevel];
     
+    NSInteger savingsLevel = [globalStateInterface getSavingsLevel];
+    float savings = globalStateInterface.savingsTillNow;
+    if (savings > kSavingsLevel3 && savingsLevel < 3) {
+        [self showShamelessDialog:2 type:ShamelessDialogTypeSavings];
+        [globalStateInterface setSavingsLevel:3];
+    } else if (savings > kSavingsLevel2 && savingsLevel < 2) {
+        [self showShamelessDialog:1 type:ShamelessDialogTypeSavings];
+        [globalStateInterface setSavingsLevel:2];
+    } else if (savings > kSavingsLevel1 && savingsLevel < 1) {
+        [self showShamelessDialog:0 type:ShamelessDialogTypeSavings];
+        [globalStateInterface setSavingsLevel:1];
+    }
+    
+    else if (total > kNumForShamelessLevel3 && level < 3) {
+        [self showShamelessDialog:2 type:ShamelessDialogTypeUsage];
+        [globalStateInterface increaseLevelShameless];
+    } else if (total > kNumForShamelessLevel2 && level < 2) {
+        [self showShamelessDialog:1 type:ShamelessDialogTypeUsage];
+        [globalStateInterface increaseLevelShameless];
+    } else if (total > kNumForShamelessLevel1 && level < 1) {
+        [self showShamelessDialog:0 type:ShamelessDialogTypeUsage];
+        [globalStateInterface increaseLevelShameless];
+    }
+
 }
 
 @end

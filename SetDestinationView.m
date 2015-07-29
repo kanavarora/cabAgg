@@ -129,6 +129,7 @@ typedef enum {
 }
 
 - (void)setWithAddress:(NSString *)address location:(CLLocationCoordinate2D)location{
+    self.count++;
     self.state = DestinationViewStateFilled;
     self.locationLabel.text = address;
     self.pinLocation = location;
@@ -157,9 +158,10 @@ typedef enum {
          //String to hold address
          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
          //Print the location to console
-         if (self.state == DestinationViewStateFilled && current == self.count) {
+         if (current == self.count) {
              self.locationLabel.text = locatedAt?locatedAt:@"";
          } else {
+             NSLog(@"Did not update location");
          }
      }];
 }

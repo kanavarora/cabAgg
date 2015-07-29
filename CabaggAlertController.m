@@ -52,7 +52,12 @@
 }
 
 - (void)show {
-    [globalStateInterface.mainVC presentViewController:self animated:YES completion:nil];
+    UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([activeController isKindOfClass:[UINavigationController class]]) {
+        activeController = [(UINavigationController*) activeController visibleViewController];
+    }
+    [activeController presentViewController:self animated:YES completion:nil];
+    //[globalStateInterface.mainVC presentViewController:self animated:YES completion:nil];
 }
 
 @end

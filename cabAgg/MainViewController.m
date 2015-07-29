@@ -25,6 +25,7 @@
 #import "EventLogger.h"
 #import "AboutViewController.h"
 #import "FbManager.h"
+#import "ShamelessPromotionViewController.h"
 
 
 #define kZoomFactor 2.5f
@@ -243,7 +244,6 @@ typedef enum {
 - (void)showAboutView {
     AboutViewController *aboutVC = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
     [self.navigationController pushViewController:aboutVC animated:YES];
-    //[self presentViewController:extraVC animated:YES completion:nil];
 }
 
 - (void)setupNavBar {

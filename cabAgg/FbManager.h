@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MessageUI/MessageUI.h>
 
 @interface FbManager : NSObject
 
 + (void)shareToFb;
-+ (void)shareToTwitter;
++ (void)shareToTwitter:(NSString *)tweet;
++ (MFMessageComposeViewController *)shareToText;
+
 @end

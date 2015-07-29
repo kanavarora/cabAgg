@@ -83,7 +83,9 @@
 		4A780FD61AB82E0B00E9898C /* onboarding1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A780FD51AB82E0B00E9898C /* onboarding1.png */; };
 		4A780FD91ABC0AE500E9898C /* UIView+LoadingSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */; };
 		4A80E4C61AD662EC007E0D07 /* LyftHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */; };
-		4ABBF1401B679F69002DB1E9 /* 512.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ABBF13F1B679F69002DB1E9 /* 512.png */; };
+		4ABBF1441B68AE00002DB1E9 /* ShamelessPromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABBF1421B68AE00002DB1E9 /* ShamelessPromotionViewController.m */; };
+		4ABBF1451B68AE00002DB1E9 /* ShamelessPromotionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ABBF1431B68AE00002DB1E9 /* ShamelessPromotionViewController.xib */; };
+		4ABBF1471B68C99B002DB1E9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */; };
 		4ACD61761AA048E8009DD5D6 /* RequestBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */; };
 		4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61771AA050D2009DD5D6 /* Check@2x.png */; };
 		4ACD617A1AA050D2009DD5D6 /* Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61781AA050D2009DD5D6 /* Circle@2x.png */; };
@@ -285,7 +287,10 @@
 		4A780FD81ABC0AE500E9898C /* UIView+LoadingSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LoadingSpinner.m"; sourceTree = "<group>"; };
 		4A80E4C41AD662EC007E0D07 /* LyftHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyftHttpClient.h; sourceTree = "<group>"; };
 		4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyftHttpClient.m; sourceTree = "<group>"; };
-		4ABBF13F1B679F69002DB1E9 /* 512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512.png; sourceTree = "<group>"; };
+		4ABBF1411B68AE00002DB1E9 /* ShamelessPromotionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShamelessPromotionViewController.h; sourceTree = "<group>"; };
+		4ABBF1421B68AE00002DB1E9 /* ShamelessPromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShamelessPromotionViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
+		4ABBF1431B68AE00002DB1E9 /* ShamelessPromotionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShamelessPromotionViewController.xib; sourceTree = "<group>"; };
+		4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBox@2x.png"; sourceTree = "<group>"; };
 		4ACD61771AA050D2009DD5D6 /* Check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check@2x.png"; sourceTree = "<group>"; };
 		4ACD61781AA050D2009DD5D6 /* Circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle@2x.png"; sourceTree = "<group>"; };
@@ -364,6 +369,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ABBF1471B68C99B002DB1E9 /* MessageUI.framework in Frameworks */,
 				4A3FFD411B6655240095907E /* Social.framework in Frameworks */,
 				4AE6D2CE1A5A201F008B9221 /* SystemConfiguration.framework in Frameworks */,
 				4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */,
@@ -426,7 +432,6 @@
 			children = (
 				4A08EF4F1B2EBDB20012EBD6 /* google attribution */,
 				4A780FD51AB82E0B00E9898C /* onboarding1.png */,
-				4ABBF13F1B679F69002DB1E9 /* 512.png */,
 				4A08EF691B303DAE0012EBD6 /* settings-arrow@2x.png */,
 				4A08EF671B303DA80012EBD6 /* settings-arrow@3x.png */,
 				4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */,
@@ -591,6 +596,7 @@
 		4AE6D2631A59ECD2008B9221 = {
 			isa = PBXGroup;
 			children = (
+				4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */,
 				4A3FFD401B6655240095907E /* Social.framework */,
 				4A08EF5F1B2EC4C40012EBD6 /* CabaggAlertController.h */,
 				4A08EF601B2EC4C40012EBD6 /* CabaggAlertController.m */,
@@ -662,6 +668,9 @@
 				4A6482CA1A67CC6600746A16 /* PaddingLabel.h */,
 				4A6482CB1A67CC6600746A16 /* PaddingLabel.m */,
 				4A6482C21A67B99F00746A16 /* ResultCollectionViewCell.h */,
+				4ABBF1411B68AE00002DB1E9 /* ShamelessPromotionViewController.h */,
+				4ABBF1421B68AE00002DB1E9 /* ShamelessPromotionViewController.m */,
+				4ABBF1431B68AE00002DB1E9 /* ShamelessPromotionViewController.xib */,
 				4A6482C31A67B99F00746A16 /* ResultCollectionViewCell.m */,
 				4A6482C41A67B99F00746A16 /* ResultCollectionViewCell.xib */,
 				4A08EF6B1B303E280012EBD6 /* UIView+Border.h */,
@@ -867,7 +876,6 @@
 				4ACD61981AA9CE4C009DD5D6 /* logo@2x.png in Resources */,
 				4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */,
 				4ACD61951AA8497D009DD5D6 /* lyft-pin@2x.png in Resources */,
-				4ABBF1401B679F69002DB1E9 /* 512.png in Resources */,
 				4ACD617F1AA337CE009DD5D6 /* iRate.bundle in Resources */,
 				4A08EF681B303DA80012EBD6 /* settings-arrow@3x.png in Resources */,
 				4AE6D2801A59ECD2008B9221 /* LaunchScreen.xib in Resources */,
@@ -877,6 +885,7 @@
 				4A780FCC1AB6BE9500E9898C /* myLocation@2x.png in Resources */,
 				4AE6D27D1A59ECD2008B9221 /* Images.xcassets in Resources */,
 				4A6482C61A67B99F00746A16 /* ResultCollectionViewCell.xib in Resources */,
+				4ABBF1451B68AE00002DB1E9 /* ShamelessPromotionViewController.xib in Resources */,
 				4A08EF561B2EBDC40012EBD6 /* powered-by-google-on-non-white.png in Resources */,
 				4A08EF581B2EBDC40012EBD6 /* powered-by-google-on-non-white@3x.png in Resources */,
 				4ACD61991AA9CE4C009DD5D6 /* logo@3x.png in Resources */,
@@ -940,6 +949,7 @@
 				4AE6D2B11A59ED31008B9221 /* AFURLResponseSerialization.m in Sources */,
 				4A64832C1A73237800746A16 /* CabAgg.xcdatamodeld in Sources */,
 				4A6482B51A668C5600746A16 /* GlobalStateInterface.m in Sources */,
+				4ABBF1441B68AE00002DB1E9 /* ShamelessPromotionViewController.m in Sources */,
 				4A6483141A7322D700746A16 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				4A6483131A7322D700746A16 /* NSObject+MagicalDataImport.m in Sources */,
 				4A08EF4C1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
@@ -1111,7 +1121,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";
@@ -1131,7 +1141,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cabAgg/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cabalot;
 				PROVISIONING_PROFILE = "";

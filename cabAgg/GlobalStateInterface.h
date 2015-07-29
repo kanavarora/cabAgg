@@ -21,7 +21,14 @@
                   andloc2:(CLLocationCoordinate2D)loc2;
 
 - (void)increaseNumOptimize;
-- (int)numOptimizeTapped;
+- (NSInteger)numOptimizeTapped;
+- (NSInteger)shamelessLevel;
+- (void)increaseLevelShameless;
+- (void)increasingSavingsBy:(float)savings;
+- (float)savingsTillNow;
+- (void)setSavingsLevel:(NSInteger)level;
+- (NSInteger)getSavingsLevel;
+- (UIViewController *)topController;
 
 @end
 
@@ -36,5 +43,16 @@ alpha:1.0]
 #define USE_DEV_SERVER 1
 
 #define kAppId @"976028424"
+
+/*
+ *  System Versioning Preprocessor Macros
+ */
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
 
 extern GlobalStateInterface *globalStateInterface;

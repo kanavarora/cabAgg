@@ -13,6 +13,7 @@
 #import "ExtraViewController.h"
 #import "EventLogger.h"
 #import "FbManager.h"
+#import "ShamelessPromotionViewController.h"
 
 @interface SettingsViewCell : UICollectionViewCell
 
@@ -24,9 +25,10 @@
 typedef enum {
     AboutViewRowAppStore =0,
     AboutViewRowInvite,
-    AboutViewRowFb,
-    AboutViewRowTwitter,
     AboutViewRowFaq,
+    AboutViewRowSavings,
+    AboutViewRowFb,
+    AboutViewRowWebsite,
 } AboutViewRow;
 
 #define kLeftIndent 20
@@ -135,20 +137,16 @@ typedef enum {
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[SettingsViewCell class] forCellWithReuseIdentifier:@"cell"];
-    /*[self.settingsCollectionView registerClass:[SettingsBioCell class] forCellWithReuseIdentifier:@"settingsBio"];
-    [self.settingsCollectionView registerClass:[SettingsHeaderView class]
-                    forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                           withReuseIdentifier:@"headerCell"];
-    [self.settingsCollectionView registerClass:[UICollectionReusableView class]
-                    forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                           withReuseIdentifier:@"footerCell"];*/
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    if (globalStateInterface.savingsTillNow > 1.00f) {
+        return 4;
+    }
+    return 3; // ignoring last 2
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -167,16 +165,19 @@ typedef enum {
             title = @"Rate in the App Store";
             break;
         case AboutViewRowFb:
-            title = @"Share on Facebook";
+            title = @"Like us on Facebook";
             break;
-        case AboutViewRowTwitter:
-            title = @"Share on Twitter";
+        case AboutViewRowWebsite:
+            title = @"cabalotapp.com";
             break;
         case AboutViewRowFaq:
             title =  @"FAQ";
             break;
         case AboutViewRowInvite:
-            title = @"Tell your friends";
+            title = @"Share some Cabalot love!";
+            break;
+        case AboutViewRowSavings:
+            title = [NSString stringWithFormat:@"Savings by walking till now: $%.2f", globalStateInterface.savingsTillNow];
             break;
     }
     [cell configureWithTitle:title isActionable:YES];
@@ -203,19 +204,14 @@ typedef enum {
         }
         case AboutViewRowFb:
         {
-            /*
             NSString *fbPage = [NSString stringWithFormat:@"fb://profile/692002980944969"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:fbPage]];
-             */
-            [FbManager shareToFb];
             break;
         }
-        case AboutViewRowTwitter:
+        case AboutViewRowWebsite:
         {
-            /*
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.cabalotapp.com"]];
-             */
-            [FbManager shareToTwitter];
+
             break;
         }
         case AboutViewRowFaq:
@@ -226,10 +222,16 @@ typedef enum {
         }
         case AboutViewRowInvite:
         {
-            NSString *message = @"Download cabalot for iOS and find the cheapest ride";
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/app/cabalot/id%@", kAppId]];
-            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[message, url] applicationActivities:nil];
-            [self presentViewController:controller animated:YES completion:nil];
+            ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:ShamelessDialogTypeAbout andLevel:0];
+            spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self presentViewController:spVC animated:YES completion:nil];
+            break;
+        }
+        case AboutViewRowSavings:
+        {
+            ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:ShamelessDialogTypeSavings andLevel:0];
+            spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self presentViewController:spVC animated:YES completion:nil];
             break;
         }
     }
