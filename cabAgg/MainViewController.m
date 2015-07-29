@@ -473,7 +473,7 @@ typedef enum {
 }
 
 - (BOOL)centerOnPickup {
-    if (self.step == MainViewStepSetPickup) {
+    if (self.step == MainViewStepSetPickup && ![GlobalStateInterface areEqualLocations:self.pickupLocation andloc2:CLLocationCoordinate2DMake(0, 0)]) {
         [self centerMapOnLocation:self.pickupLocation];
         return YES;
     }
@@ -481,7 +481,7 @@ typedef enum {
 }
 
 - (BOOL)centerOnDestination {
-    if (self.step == MainViewStepSetDest) {
+    if (self.step == MainViewStepSetDest && ![GlobalStateInterface areEqualLocations:self.destinationLocation andloc2:CLLocationCoordinate2DMake(0, 0)]) {
         [self centerMapOnLocation:self.destinationLocation];
         return YES;
     }

@@ -91,6 +91,9 @@ typedef enum {
     
     // only for the start
     self.state = DestinationViewStateEmpty;
+    if (!isPickup) {
+        self.state = DestinationViewStateLocked;
+    }
     if (self.isPickup) {
         self.locationLabel.text = @"Add Pickup";
     } else {
@@ -105,11 +108,13 @@ typedef enum {
     }else {
         isAnimated = [self.mainVC centerOnDestination];
     }
+    /*
     if (isAnimated) {
         [self performSelector:@selector(clearOutDestination) withObject:nil afterDelay:0.5f];
     } else {
         [self clearOutDestination];
     }
+     */
 }
 
 - (void)clearOutDestination {
