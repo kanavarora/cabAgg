@@ -177,7 +177,7 @@ typedef enum {
             title = @"Share some Cabalot love!";
             break;
         case AboutViewRowSavings:
-            title = [NSString stringWithFormat:@"Savings: $%.2f", globalStateInterface.savingsTillNow];
+            title = [NSString stringWithFormat:@"Find your savings"];
             break;
     }
     [cell configureWithTitle:title isActionable:YES];

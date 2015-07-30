@@ -21,17 +21,24 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
-                    <rect key="frame" x="40" y="146" width="520" height="309"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="512.png" translatesAutoresizingMaskIntoConstraints="NO" id="coa-2C-s2d">
+                    <rect key="frame" x="271" y="79" width="58" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="58" id="DoB-TH-bPu"/>
+                        <constraint firstAttribute="width" constant="58" id="zFs-cz-dHA"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
+                    <rect key="frame" x="40" y="147" width="520" height="307"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
-                            <rect key="frame" x="116" y="0.0" width="288" height="41"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
+                            <rect key="frame" x="106" y="0.0" width="309" height="39"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
-                            <rect key="frame" x="160" y="81" width="200" height="42"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
+                            <rect key="frame" x="160" y="79" width="200" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="enF-tF-lr1"/>
                                 <constraint firstAttribute="height" constant="42" id="rNQ-Ve-d8f"/>
@@ -43,8 +50,8 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="ehc-A9-ogb"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
-                            <rect key="frame" x="160" y="143" width="200" height="42"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
+                            <rect key="frame" x="160" y="141" width="200" height="42"/>
                             <state key="normal" title="Twitter">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -52,8 +59,8 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="bCV-jH-TWP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
-                            <rect key="frame" x="160" y="205" width="200" height="42"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
+                            <rect key="frame" x="160" y="203" width="200" height="42"/>
                             <state key="normal" title="Text">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -61,8 +68,8 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="eun-NA-3IW"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
-                            <rect key="frame" x="160" y="267" width="200" height="42"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
+                            <rect key="frame" x="160" y="265" width="200" height="42"/>
                             <state key="normal" title="Email">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -109,10 +116,19 @@
                 <constraint firstAttribute="trailing" secondItem="Zp7-Gx-lLt" secondAttribute="trailing" constant="40" id="INy-ws-5Xr"/>
                 <constraint firstItem="Zp7-Gx-lLt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="K6L-MX-G7i"/>
                 <constraint firstAttribute="centerY" secondItem="Zp7-Gx-lLt" secondAttribute="centerY" id="Wa1-Sz-3LS"/>
+                <constraint firstAttribute="centerX" secondItem="coa-2C-s2d" secondAttribute="centerX" id="cLt-cF-0pK"/>
+                <constraint firstItem="Zp7-Gx-lLt" firstAttribute="top" secondItem="coa-2C-s2d" secondAttribute="bottom" constant="10" id="vHc-cB-vwm"/>
+                <constraint firstItem="coa-2C-s2d" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="z9k-3H-USN"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="z9k-3H-USN"/>
+                </mask>
+            </variation>
         </view>
     </objects>
     <resources>
+        <image name="512.png" width="512" height="512"/>
         <image name="close-promotion.png" width="11" height="11"/>
     </resources>
 </document>

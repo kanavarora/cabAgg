@@ -52,16 +52,16 @@
     switch (self.type) {
         case ShamelessDialogTypeAbout:
         {
-            self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
+            self.textLabel.text = @"You like us! Don't you?\nShare with friends.";
             break;
         }
         case ShamelessDialogTypeSavings:
         {
             float savings = [globalStateInterface savingsTillNow];
             if (savings > 0.0) {
-                self.textLabel.text = [NSString stringWithFormat:@"Cabalot has saved $%.2f till now.\nPlease help share Cabalot with your friends!", savings];
+                self.textLabel.text = [NSString stringWithFormat:@"You saved $%.2f!\nStop being selfish! Share the love.", savings];
             } else {
-                self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
+                self.textLabel.text = @"You like us! Don't you?\nShare with friends.";
             }
             break;
         }
@@ -69,16 +69,16 @@
         {
             switch (self.level) {
                 case 0:
-                    self.textLabel.text = @"It seems you like Cabalot.\nPlease help share Cabalot with your friends!";
+                    self.textLabel.text = @"You like us! Don't you?\nShare with friends.";
                     break;
                 case 1:
-                    self.textLabel.text = @"It seems you love Cabalot.\nPlease help share this love with your friends!";
+                    self.textLabel.text = @"You love us! Don't you?\nShare with friends.!";
                     break;
                 case 2:
-                    self.textLabel.text = @"You find Cabalot amazing!\nPlease help share this with your friends!";
+                    self.textLabel.text = @"You like us! Don't you?\nShare with friends.";
                     break;
                 default:
-                    self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
+                    self.textLabel.text = @"You like us! Don't you?\nShare with friends.";
                     break;
             }
 
