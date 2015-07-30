@@ -8,9 +8,15 @@
 
 #import "ExtraViewController.h"
 
+#import "ModifiedHitAreaButton.h"
+
 @interface ExtraViewController ()
 
+@property (nonatomic, readwrite, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *adminButton;
+@property (nonatomic, readwrite, weak) IBOutlet UITextView *textView;
+@property (nonatomic, readwrite, weak) IBOutlet ModifiedHitAreaButton *closeButton;
+
 @end
 
 @implementation ExtraViewController
@@ -20,6 +26,10 @@
     // Do any additional setup after loading the view from its nib.
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.title = @"FAQ";
+    self.textView.textColor = [UIColor whiteColor];
+    self.textView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.9f];
+    self.closeButton.hitAreaSize = CGSizeMake(50, 50);
     if ([[[[UIDevice currentDevice] identifierForVendor] UUIDString] isEqualToString:@"AFC344C3-7DFF-4C1D-A69F-7066BA4A83D5"]) {
         self.adminButton.hidden = NO;
     }
@@ -41,6 +51,7 @@
 */
 
 - (IBAction)closeButtonTapped:(id)sender {
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self dismissViewControllerAnimated:YES
                              completion:^{
                                  //[[UIApplication sharedApplication] setStatusBarHidden:NO];

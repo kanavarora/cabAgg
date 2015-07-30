@@ -14,6 +14,7 @@
 #import <MessageUI/MessageUI.h>
 #import "CabaggAlertController.h"
 #import "EventLogger.h"
+#import "ModifiedHitAreaButton.h"
 
 @interface ShamelessPromotionViewController ()
 
@@ -23,6 +24,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *twitterButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *textButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *emailButton;
+@property (nonatomic, readwrite, weak) IBOutlet ModifiedHitAreaButton *closeButton;
 
 @property (nonatomic, readwrite, assign) int level;
 @property (nonatomic, readwrite, assign) ShamelessDialogType type;
@@ -50,16 +52,16 @@
     switch (self.type) {
         case ShamelessDialogTypeAbout:
         {
-            self.textLabel.text = @"We hope you find Cabalot amazing. Please help share Cabalot with your friends!";
+            self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
             break;
         }
         case ShamelessDialogTypeSavings:
         {
             float savings = [globalStateInterface savingsTillNow];
             if (savings > 0.0) {
-                self.textLabel.text = [NSString stringWithFormat:@"Cabalot has saved you $%.2f till now. Please help share Cabalot with your friends!", savings];
+                self.textLabel.text = [NSString stringWithFormat:@"Cabalot has saved $%.2f till now.\nPlease help share Cabalot with your friends!", savings];
             } else {
-                self.textLabel.text = @"We hope you find Cabalot amazing. Please help share Cabalot with your friends!";
+                self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
             }
             break;
         }
@@ -67,21 +69,26 @@
         {
             switch (self.level) {
                 case 0:
-                    self.textLabel.text = @"It seems you like Cabalot. Please help share Cabalot with your friends!";
+                    self.textLabel.text = @"It seems you like Cabalot.\nPlease help share Cabalot with your friends!";
                     break;
                 case 1:
-                    self.textLabel.text = @"It seems you love Cabalot. Please help share this love with your friends!";
+                    self.textLabel.text = @"It seems you love Cabalot.\nPlease help share this love with your friends!";
                     break;
                 case 2:
-                    self.textLabel.text = @"You find Cabalot amazing! Please help share this with your friends!";
+                    self.textLabel.text = @"You find Cabalot amazing!\nPlease help share this with your friends!";
                     break;
                 default:
-                    self.textLabel.text = @"We hope you find Cabalot amazing. Please help share Cabalot with your friends!";
+                    self.textLabel.text = @"We hope you find Cabalot amazing.\nPlease help share Cabalot with your friends!";
                     break;
             }
 
         }
     }
+}
+
+- (NSMutableDictionary *)extProperties {
+    return [NSMutableDictionary dictionaryWithDictionary:@{@"level" : @(self.level),
+                                                           @"type" : @(self.type)}];
 }
 
 - (void)viewDidLoad {
@@ -94,13 +101,13 @@
     [self configureButton:self.textButton withColor:UIColorFromRGB(0x4CD964)];
     [self configureButton:self.emailButton withColor:UIColorFromRGB(0xFF9500)];
     
-    self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+    self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:16];
     self.textLabel.textColor = [UIColor whiteColor];
     
+    self.closeButton.hitAreaSize = CGSizeMake(50,50);
     [self setupText];
     
-    [globalStateInterface.eventLogger trackEventName:@"shameless-promotion" properties:@{@"level" : @(self.level),
-                                                                                         @"type" : @(self.type)}];
+    [globalStateInterface.eventLogger trackEventName:@"open-shameless" properties:[self extProperties]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,22 +117,23 @@
 
 
 - (IBAction)didPressCloseButton:(id)sender {
+    [globalStateInterface.eventLogger trackEventName:@"close-shameless" properties:[self extProperties]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didPressButton:(id)sender {
     if (sender == self.fbButton) {
-        [globalStateInterface.eventLogger trackEventName:@"attemptShareFb" properties:nil];
+        [globalStateInterface.eventLogger trackEventName:@"attemptShareFb" properties:[self extProperties]];
         [FbManager shareToFb];
     } else if (sender == self.twitterButton) {
-        [globalStateInterface.eventLogger trackEventName:@"attemptShareTwitter" properties:nil];
+        [globalStateInterface.eventLogger trackEventName:@"attemptShareTwitter" properties:[self extProperties]];
         NSString *tweetText = @"Use @cabalotapp to find cheaper cab rides. Download it at www.cabalotapp.com";
         if (self.type == ShamelessDialogTypeSavings && globalStateInterface.savingsTillNow > 0.0f) {
             tweetText = [NSString stringWithFormat:@"Used @cabalotapp to save $%.2f on cab rides. Download it at www.cabalotapp.com", globalStateInterface.savingsTillNow];
         }
         [FbManager shareToTwitter:tweetText];
     } else if (sender ==  self.textButton) {
-        [globalStateInterface.eventLogger trackEventName:@"attemptShareText" properties:nil];
+        [globalStateInterface.eventLogger trackEventName:@"attemptShareText" properties:[self extProperties]];
         MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
         if([MFMessageComposeViewController canSendText])
         {
@@ -141,7 +149,7 @@
             [alert show];
         }
     } else if (sender ==  self.emailButton) {
-        [globalStateInterface.eventLogger trackEventName:@"attemptShareMail" properties:nil];
+        [globalStateInterface.eventLogger trackEventName:@"attemptShareMail" properties:[self extProperties]];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
             controller.mailComposeDelegate = self;

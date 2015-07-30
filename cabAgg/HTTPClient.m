@@ -279,6 +279,7 @@
 - (void)showShamelessDialog:(int)level type:(ShamelessDialogType)type{
     ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:type andLevel:level];
     spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    spVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [globalStateInterface.mainVC presentViewController:spVC animated:YES completion:nil];
 }
 

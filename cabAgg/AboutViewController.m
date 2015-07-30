@@ -23,8 +23,8 @@
 @end
 
 typedef enum {
-    AboutViewRowAppStore =0,
-    AboutViewRowInvite,
+    AboutViewRowInvite = 0,
+    AboutViewRowAppStore,
     AboutViewRowFaq,
     AboutViewRowSavings,
     AboutViewRowFb,
@@ -177,7 +177,7 @@ typedef enum {
             title = @"Share some Cabalot love!";
             break;
         case AboutViewRowSavings:
-            title = [NSString stringWithFormat:@"Savings by walking till now: $%.2f", globalStateInterface.savingsTillNow];
+            title = [NSString stringWithFormat:@"Savings: $%.2f", globalStateInterface.savingsTillNow];
             break;
     }
     [cell configureWithTitle:title isActionable:YES];
@@ -217,13 +217,15 @@ typedef enum {
         case AboutViewRowFaq:
         {
             ExtraViewController *extraVC = [[ExtraViewController alloc] initWithNibName:@"ExtraViewController" bundle:nil];
-            [self.navigationController pushViewController:extraVC animated:YES];
+            extraVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self presentViewController:extraVC animated:YES completion:nil];
             break;
         }
         case AboutViewRowInvite:
         {
             ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:ShamelessDialogTypeAbout andLevel:0];
             spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            spVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self presentViewController:spVC animated:YES completion:nil];
             break;
         }
@@ -231,6 +233,7 @@ typedef enum {
         {
             ShamelessPromotionViewController *spVC = [[ShamelessPromotionViewController alloc] initWithType:ShamelessDialogTypeSavings andLevel:0];
             spVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            spVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self presentViewController:spVC animated:YES completion:nil];
             break;
         }

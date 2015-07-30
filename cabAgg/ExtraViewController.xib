@@ -8,6 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExtraViewController">
             <connections>
                 <outlet property="adminButton" destination="7Mn-Ts-2eT" id="PsZ-Pc-WKK"/>
+                <outlet property="closeButton" destination="kNi-bv-Heg" id="G7a-Z1-CwP"/>
+                <outlet property="textView" destination="8gb-PA-uEG" id="2hk-wG-eIz"/>
+                <outlet property="titleLabel" destination="Q7w-Rc-A2u" id="Ak7-Aq-tsj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,13 +19,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gb-PA-uEG">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <mutableString key="text">Q. What is this app about? A. This app compares the prices for different ride sharing options (right now, UberX, UberPool, LyftLine and Lyft). If you are willing to walk a bit, it tries to figure out places where you can walk to, to find a cheaper price for your ride. It does so by trying to find surge free zones around you.  Q. How does it work? A. When you start the app, you can select pickup and dropoff locations. You can either set the pin manually or enter an address manually. After this you can set the maximum distance you are willing to walk from pickup location. Once all of this is done, press the Optimize button, and let the app do the magic.  Q. What do the results and savings mean? A. If the app manages to find a place you can walk to find cheaper fares, that will be indicated for that ride sharing option. The places for the new pickup points are marked on the map. The app shows estimated savings you are making if you were to book a cab from these new locations as opposed to the original pickup/destination.  Q. How accurate are the price estimates for different services? A. For the most part, the fares here should be either accurate (for Lyft Line), or pretty close to the estimates provided by Lyft/Uber. Furthermore, the estimates take into account any surge price, so you can easily choose the best option at that time.  Q. What does the book cab button do? A. If you have the app for Lyft or Uber installed, the app will try to launch the app, with the locations already set.   Q. I have suggestions or feedback. Where do I leave them? A. Drop me a line on cabalot.help@gmail.com or http://www.cabalotapp.com </mutableString>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FAQ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7w-Rc-A2u">
+                    <rect key="frame" x="286" y="32" width="29" height="22"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Mn-Ts-2eT">
                     <rect key="frame" x="550" y="550" width="40" height="40"/>
                     <constraints>
@@ -36,15 +38,35 @@
                         <action selector="tapAdminButton:" destination="-1" eventType="touchUpInside" id="Bko-xh-MOG"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNi-bv-Heg" userLabel="close Button" customClass="ModifiedHitAreaButton">
+                    <rect key="frame" x="295" y="568" width="11" height="22"/>
+                    <state key="normal" image="close-promotion.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="closeButtonTapped:" destination="-1" eventType="touchUpInside" id="Xfr-8V-uUz"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gb-PA-uEG">
+                    <rect key="frame" x="0.0" y="64" width="600" height="476"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <mutableString key="text">Q. What is this app about? A. This app compares the prices for different ride sharing options (right now, UberX, UberPool, LyftLine and Lyft). If you are willing to walk a bit, it tries to figure out places where you can walk to, to find a cheaper price for your ride. It does so by trying to find surge free zones around you.  Q. How does it work? A. When you start the app, you can select pickup and dropoff locations. You can either set the pin manually or enter an address manually. After this you can set the maximum distance you are willing to walk from pickup location. Once all of this is done, press the Optimize button, and let the app do the magic.  Q. What do the results and savings mean? A. If the app manages to find a place you can walk to find cheaper fares, that will be indicated for that ride sharing option. The places for the new pickup points are marked on the map. The app shows estimated savings you are making if you were to book a cab from these new locations as opposed to the original pickup/destination.  Q. How accurate are the price estimates for different services? A. For the most part, the fares here should be either accurate (for Lyft Line), or pretty close to the estimates provided by Lyft/Uber. Furthermore, the estimates take into account any surge price, so you can easily choose the best option at that time.  Q. What does the book cab button do? A. If you have the app for Lyft or Uber installed, the app will try to launch the app, with the locations already set. For Lyft, you might have to press the button twice, if the lyft app isn't already opened.   Q. I have suggestions or feedback. Where do I leave them? A. Drop me a line on cabalot.help@gmail.com or http://www.cabalotapp.com </mutableString>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="8gb-PA-uEG" secondAttribute="bottom" id="0ha-Yr-CHf"/>
-                <constraint firstItem="8gb-PA-uEG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="59b-JB-xCV"/>
+                <constraint firstAttribute="bottom" secondItem="8gb-PA-uEG" secondAttribute="bottom" constant="60" id="0ha-Yr-CHf"/>
+                <constraint firstItem="8gb-PA-uEG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="59b-JB-xCV"/>
                 <constraint firstAttribute="bottom" secondItem="7Mn-Ts-2eT" secondAttribute="bottom" constant="10" id="AZQ-D8-qG4"/>
                 <constraint firstItem="8gb-PA-uEG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Cd4-dn-eOG"/>
+                <constraint firstAttribute="centerX" secondItem="Q7w-Rc-A2u" secondAttribute="centerX" id="DeW-XC-H4Z"/>
                 <constraint firstAttribute="trailing" secondItem="8gb-PA-uEG" secondAttribute="trailing" id="Ns2-Q3-lwi"/>
                 <constraint firstAttribute="trailing" secondItem="7Mn-Ts-2eT" secondAttribute="trailing" constant="10" id="Tsf-3K-Xfn"/>
+                <constraint firstAttribute="bottom" secondItem="kNi-bv-Heg" secondAttribute="bottom" constant="10" id="XKW-oT-9GZ"/>
+                <constraint firstAttribute="centerX" secondItem="kNi-bv-Heg" secondAttribute="centerX" id="goa-l1-NUj"/>
+                <constraint firstItem="8gb-PA-uEG" firstAttribute="top" secondItem="Q7w-Rc-A2u" secondAttribute="bottom" constant="10" id="kGa-08-yFk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -52,5 +74,6 @@
     </objects>
     <resources>
         <image name="blackCircle.png" width="1000" height="1000"/>
+        <image name="close-promotion.png" width="11" height="11"/>
     </resources>
 </document>

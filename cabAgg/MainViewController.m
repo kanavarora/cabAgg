@@ -17,7 +17,6 @@
 #import "ResultsView.h"
 #import "ResultInfo.h"
 #import "CachedPolyline.h"
-#import "ExtraViewController.h"
 #import "HTTPClient.h"
 #import "OnboardingContentViewController.h"
 #import "OnboardingViewController.h"
@@ -253,10 +252,9 @@ typedef enum {
     self.navigationItem.titleView = v;
     UIBarButtonItem *redoButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(reoptimize)];
     self.redoButton = redoButton;
-    //UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(showAboutView)];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showAboutView)];
-    self.aboutButton = leftButton;
-    self.navigationItem.leftBarButtonItem = leftButton;
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showAboutView)];
+    self.aboutButton = rightButton;
+    self.navigationItem.rightBarButtonItem = rightButton;
 }
 
 - (void)viewDidLoad {
@@ -426,8 +424,8 @@ typedef enum {
             self.resultsView.hidden = NO;
             [self.resultsView startCalculatingResults];
             [self startUpdatingDisplayResults];
-            self.navigationItem.rightBarButtonItem =  self.redoButton;
-            //self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = self.redoButton;
+            //self.navigationItem.rightBarButtonItem = nil;
             [self hideRadialSettings];
             self.myLocationConstraint.constant = -self.bottomBarView.frame.size.height + kHeightOfCell - 1;
             
@@ -438,8 +436,8 @@ typedef enum {
 }
 
 - (void)reoptimize {
-    self.navigationItem.rightBarButtonItem = nil;
-    //self.navigationItem.leftBarButtonItem = self.aboutButton;
+    [globalStateInterface.eventLogger trackEventName:@"reoptimize-tapped" properties:@{}];
+    self.navigationItem.leftBarButtonItem = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startUpdatingDisplayResults) object:nil];
     self.resultsView.hidden = YES;
     self.bottomBarView.hidden = NO;

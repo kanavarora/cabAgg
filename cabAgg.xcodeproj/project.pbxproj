@@ -86,6 +86,9 @@
 		4ABBF1441B68AE00002DB1E9 /* ShamelessPromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABBF1421B68AE00002DB1E9 /* ShamelessPromotionViewController.m */; };
 		4ABBF1451B68AE00002DB1E9 /* ShamelessPromotionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ABBF1431B68AE00002DB1E9 /* ShamelessPromotionViewController.xib */; };
 		4ABBF1471B68C99B002DB1E9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */; };
+		4ABBF14A1B6A1302002DB1E9 /* close-promotion@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ABBF1481B6A1302002DB1E9 /* close-promotion@3x.png */; };
+		4ABBF14B1B6A1302002DB1E9 /* close-promotion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ABBF1491B6A1302002DB1E9 /* close-promotion@2x.png */; };
+		4ABBF14F1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABBF14E1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.m */; };
 		4ACD61761AA048E8009DD5D6 /* RequestBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */; };
 		4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61771AA050D2009DD5D6 /* Check@2x.png */; };
 		4ACD617A1AA050D2009DD5D6 /* Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ACD61781AA050D2009DD5D6 /* Circle@2x.png */; };
@@ -291,6 +294,10 @@
 		4ABBF1421B68AE00002DB1E9 /* ShamelessPromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShamelessPromotionViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		4ABBF1431B68AE00002DB1E9 /* ShamelessPromotionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShamelessPromotionViewController.xib; sourceTree = "<group>"; };
 		4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4ABBF1481B6A1302002DB1E9 /* close-promotion@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-promotion@3x.png"; sourceTree = "<group>"; };
+		4ABBF1491B6A1302002DB1E9 /* close-promotion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-promotion@2x.png"; sourceTree = "<group>"; };
+		4ABBF14D1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifiedHitAreaButton.h; sourceTree = "<group>"; };
+		4ABBF14E1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifiedHitAreaButton.m; sourceTree = "<group>"; };
 		4ACD61751AA048E7009DD5D6 /* RequestBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RequestBox@2x.png"; sourceTree = "<group>"; };
 		4ACD61771AA050D2009DD5D6 /* Check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Check@2x.png"; sourceTree = "<group>"; };
 		4ACD61781AA050D2009DD5D6 /* Circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle@2x.png"; sourceTree = "<group>"; };
@@ -432,6 +439,8 @@
 			children = (
 				4A08EF4F1B2EBDB20012EBD6 /* google attribution */,
 				4A780FD51AB82E0B00E9898C /* onboarding1.png */,
+				4ABBF1481B6A1302002DB1E9 /* close-promotion@3x.png */,
+				4ABBF1491B6A1302002DB1E9 /* close-promotion@2x.png */,
 				4A08EF691B303DAE0012EBD6 /* settings-arrow@2x.png */,
 				4A08EF671B303DA80012EBD6 /* settings-arrow@3x.png */,
 				4A780FCA1AB6BE9500E9898C /* myLocation@2x.png */,
@@ -581,6 +590,15 @@
 				4A780FD21AB6F3F300E9898C /* OnboardingViewController.m */,
 			);
 			name = onboard;
+			sourceTree = "<group>";
+		};
+		4ABBF14C1B6A1E48002DB1E9 /* ModifiedHitAreaButton */ = {
+			isa = PBXGroup;
+			children = (
+				4ABBF14D1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.h */,
+				4ABBF14E1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.m */,
+			);
+			name = ModifiedHitAreaButton;
 			sourceTree = "<group>";
 		};
 		4ACD617B1AA337CE009DD5D6 /* iRate */ = {
@@ -733,6 +751,7 @@
 		4AE6D2951A59ED25008B9221 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				4ABBF14C1B6A1E48002DB1E9 /* ModifiedHitAreaButton */,
 				4A08EF421B2CF3D00012EBD6 /* GoogleAutoComplete */,
 				4A780FCE1AB6F3E000E9898C /* onboard */,
 				4ACD617B1AA337CE009DD5D6 /* iRate */,
@@ -855,6 +874,7 @@
 				4ACD61A01AA9D689009DD5D6 /* greenMapIcon@2x.png in Resources */,
 				4ACD61921AA8497D009DD5D6 /* uber-pin@3x.png in Resources */,
 				4ACD619D1AA9D19D009DD5D6 /* logo-big@3x.png in Resources */,
+				4ABBF14A1B6A1302002DB1E9 /* close-promotion@3x.png in Resources */,
 				4A08EF5B1B2EBDC40012EBD6 /* powered-by-google-on-white@3x.png in Resources */,
 				4A08EF5A1B2EBDC40012EBD6 /* powered-by-google-on-white@2x.png in Resources */,
 				4ACD61A41AA9D690009DD5D6 /* redMapIcon@2x.png in Resources */,
@@ -864,6 +884,7 @@
 				4A08EF661B30398D0012EBD6 /* AboutViewController.xib in Resources */,
 				4ACD61A11AA9D689009DD5D6 /* greenMapIcon@3x.png in Resources */,
 				4ACD61791AA050D2009DD5D6 /* Check@2x.png in Resources */,
+				4ABBF14B1B6A1302002DB1E9 /* close-promotion@2x.png in Resources */,
 				4A6482AF1A667F5400746A16 /* LocationSearchViewController.xib in Resources */,
 				4A08EF571B2EBDC40012EBD6 /* powered-by-google-on-non-white@2x.png in Resources */,
 				4ACD61941AA8497D009DD5D6 /* lyft-pin@3x.png in Resources */,
@@ -932,6 +953,7 @@
 				4A6482C91A67BE2900746A16 /* ResultInfo.m in Sources */,
 				4A64831C1A7322D700746A16 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				4AE6D2AB1A59ED31008B9221 /* AFHTTPRequestOperationManager.m in Sources */,
+				4ABBF14F1B6A1E7A002DB1E9 /* ModifiedHitAreaButton.m in Sources */,
 				4A08EF4B1B2CF3F40012EBD6 /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				4AE6D2AD1A59ED31008B9221 /* AFNetworkReachabilityManager.m in Sources */,
 				4A6483191A7322D700746A16 /* NSManagedObject+MagicalRecord.m in Sources */,

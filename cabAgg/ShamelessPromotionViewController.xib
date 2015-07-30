@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShamelessPromotionViewController">
             <connections>
+                <outlet property="closeButton" destination="pJR-aP-BvM" id="LwG-7N-IEu"/>
                 <outlet property="emailButton" destination="S1Y-Xm-sTC" id="W4s-Qb-pSl"/>
                 <outlet property="fbButton" destination="dkS-W8-BHz" id="2Ix-dp-epR"/>
                 <outlet property="textButton" destination="Apf-NW-Y7l" id="t4m-Sb-a9b"/>
@@ -20,16 +21,16 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
                     <rect key="frame" x="40" y="146" width="520" height="309"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
-                            <rect key="frame" x="126" y="0.0" width="268" height="41"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
+                            <rect key="frame" x="116" y="0.0" width="288" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
                             <rect key="frame" x="160" y="81" width="200" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="enF-tF-lr1"/>
@@ -42,7 +43,7 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="ehc-A9-ogb"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
                             <rect key="frame" x="160" y="143" width="200" height="42"/>
                             <state key="normal" title="Twitter">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,7 +52,7 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="bCV-jH-TWP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
                             <rect key="frame" x="160" y="205" width="200" height="42"/>
                             <state key="normal" title="Text">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,7 +61,7 @@
                                 <action selector="didPressButton:" destination="-1" eventType="touchUpInside" id="eun-NA-3IW"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
                             <rect key="frame" x="160" y="267" width="200" height="42"/>
                             <state key="normal" title="Email">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,10 +92,9 @@
                         <constraint firstItem="3uT-uk-wuh" firstAttribute="width" secondItem="Apf-NW-Y7l" secondAttribute="width" id="vhs-ox-FCL"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJR-aP-BvM" userLabel="close button">
-                    <rect key="frame" x="285" y="524" width="30" height="36"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                    <state key="normal" title="X">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJR-aP-BvM" userLabel="close button" customClass="ModifiedHitAreaButton">
+                    <rect key="frame" x="295" y="538" width="11" height="22"/>
+                    <state key="normal" image="close-promotion.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -112,4 +112,7 @@
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="close-promotion.png" width="11" height="11"/>
+    </resources>
 </document>
