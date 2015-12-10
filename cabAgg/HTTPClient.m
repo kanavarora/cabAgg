@@ -235,6 +235,7 @@
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         // mhmmmm
+        NSLog(@"failure");
     }];
     
 }
