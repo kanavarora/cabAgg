@@ -713,22 +713,23 @@ typedef enum {
         pin.canShowCallout = YES;
         return pin;
     } else if (annotation == self.lyftLinePickupAnno) {
-        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:self.lyftLinePickupAnno reuseIdentifier:@"lyftPickup"];
+        MKAnnotationView *pin = [[MKAnnotationView alloc] initWithAnnotation:self.lyftLinePickupAnno reuseIdentifier:@"lyftPickup"];
         pin.image = [self lyftPin];
         pin.canShowCallout = YES;
-        pin.layer.anchorPoint = CGPointMake(0.75f, 0.5f + (1.0f/39));
+        pin.layer.anchorPoint = CGPointMake(0.5, 1.0);
         return pin;
     } else if (annotation == self.lyftLineDestAnno) {
-        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:self.lyftLineDestAnno reuseIdentifier:@"lyftDest"];
+        MKAnnotationView *pin = [[MKAnnotationView alloc] initWithAnnotation:self.lyftLineDestAnno reuseIdentifier:@"lyftDest"];
         pin.image = [self lyftPin];
         pin.canShowCallout = YES;
-        pin.layer.anchorPoint = CGPointMake(0.75f, 0.5f + (1.0f/39));
+        pin.layer.anchorPoint = CGPointMake(0.5, 1.0f);
         return pin;
     } else if (annotation == self.uberPickupAnno) {
-        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:self.uberPickupAnno reuseIdentifier:@"uber"];
+        MKAnnotationView *pin = [[MKAnnotationView alloc] initWithAnnotation:self.uberPickupAnno reuseIdentifier:@"uber"];
         pin.image = [self uberPin];
         pin.canShowCallout = YES;
-        pin.layer.anchorPoint = CGPointMake(0.75f, 0.5f + (1.0f/39));
+        pin.layer.anchorPoint = CGPointMake(0.5, 1.0);
+        //pin.layer.anchorPoint = CGPointMake(0.75f, 0.5f + (1.0f/39));
         return pin;
     }
     return nil;
