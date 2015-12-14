@@ -36,9 +36,9 @@
 #if USE_TEST_SERVER
         NSString *baseUrl = @"http://localhost:8080/";
 #elif USE_DEV_SERVER
-        NSString *baseUrl = @"http://golden-context-82.appspot.com/";
+        NSString *baseUrl = @"https://golden-context-82.appspot.com/";
 #else
-        NSString *baseUrl = @"http://golden-context-823.appspot.com/";
+        NSString *baseUrl = @"https://golden-context-823.appspot.com/";
 #endif        
         _sharedHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     });

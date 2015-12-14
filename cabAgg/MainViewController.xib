@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
@@ -29,9 +29,11 @@
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3NR-6s-FEo">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <animations/>
                 </mapView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25% less Surge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z03-1O-1yJ" customClass="PaddingLabel">
                     <rect key="frame" x="247" y="74" width="106" height="18"/>
+                    <animations/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -41,6 +43,7 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgS-lh-MOM" userLabel="Set Pickup view" customClass="SetDestinationView">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="300" id="MFz-l5-lm4"/>
@@ -48,10 +51,12 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLP-AK-Lpv" userLabel="Set Destination view" customClass="SetDestinationView">
                             <rect key="frame" x="300" y="0.0" width="300" height="50"/>
+                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ps-2Y-hPU" userLabel="Action Button">
                             <rect key="frame" x="0.0" y="50" width="600" height="60"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="AfY-lV-FoV"/>
                             </constraints>
@@ -62,6 +67,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="QLP-AK-Lpv" firstAttribute="leading" secondItem="hgS-lh-MOM" secondAttribute="trailing" id="5Aa-HM-PEf"/>
@@ -84,6 +90,7 @@
                     <subviews>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="3Lu-t4-Hfs" userLabel="startSlider">
                             <rect key="frame" x="178" y="25" width="244" height="31"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="2h7-ht-RcN"/>
                             </constraints>
@@ -93,11 +100,13 @@
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How far are you willing to walk? 0.30miles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-DI-FNQ" userLabel="startDistance">
                             <rect key="frame" x="180" y="5" width="240" height="15"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="3Lu-t4-Hfs" secondAttribute="bottom" constant="5" id="Ovr-jD-Kqi"/>
@@ -109,6 +118,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0E-ht-zb2">
                     <rect key="frame" x="547" y="437" width="52" height="52"/>
+                    <animations/>
                     <state key="normal" image="myLocation.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -117,6 +127,7 @@
                     </connections>
                 </button>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="z03-1O-1yJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="5oK-il-KKm"/>

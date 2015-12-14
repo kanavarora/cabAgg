@@ -65,7 +65,7 @@
                       dropLatitude:(double)dropLatitude
                      dropLongitude:(double)dropLongitude
                         isLyftLine:(BOOL)isLyftLine {
-    NSString *url = [NSString stringWithFormat:@"lyft://ridetype?id=%@&pickup[latitude]=%.4f&pickup[longitude]=%.4f&destination[latitude]=%.4f&destination[longitude]=%.4f", isLyftLine ? @"courier" : @"standard", pickupLatitude, pickupLongitude, dropLatitude, dropLongitude];
+    NSString *url = [NSString stringWithFormat:@"lyft://ridetype?id=%@&pickup[latitude]=%.4f&pickup[longitude]=%.4f&destination[latitude]=%.4f&destination[longitude]=%.4f", isLyftLine ? @"lyft_line" : @"lyft", pickupLatitude, pickupLongitude, dropLatitude, dropLongitude];
     return url;
 }
 
@@ -144,9 +144,9 @@
 #if USE_TEST_SERVER
     NSString *baseUrl = @"http://localhost:8080/api/v1/lyft";
 #elif USE_DEV_SERVER
-    NSString *baseUrl = @"http://golden-context-82.appspot.com/api/v1/lyft";
+    NSString *baseUrl = @"https://golden-context-82.appspot.com/api/v1/lyft";
 #else
-    NSString *baseUrl = @"http://golden-context-823.appspot.com/api/v1/lyft";
+    NSString *baseUrl = @"https://golden-context-823.appspot.com/api/v1/lyft";
 #endif
     
     [self.manager GET:baseUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

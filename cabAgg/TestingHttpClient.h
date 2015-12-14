@@ -11,5 +11,6 @@
 @interface TestingHttpClient : AFHTTPSessionManager
 + (TestingHttpClient *)sharedInstance;
 - (void)test;
+- (void)test2;
 
 @end

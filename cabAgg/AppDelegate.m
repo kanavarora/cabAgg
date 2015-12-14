@@ -11,7 +11,6 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-
 #import <GoogleMaps/GoogleMaps.h>
 #define MR_SHORTHAND
 #import "CoreData+MagicalRecord.h"

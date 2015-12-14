@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShamelessPromotionViewController">
@@ -23,6 +23,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="512.png" translatesAutoresizingMaskIntoConstraints="NO" id="coa-2C-s2d">
                     <rect key="frame" x="271" y="79" width="58" height="58"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="58" id="DoB-TH-bPu"/>
                         <constraint firstAttribute="width" constant="58" id="zFs-cz-dHA"/>
@@ -31,14 +32,16 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-Gx-lLt">
                     <rect key="frame" x="40" y="147" width="520" height="307"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="It looks like you like Cabalot. Want to help share this love?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-YU-mEn">
                             <rect key="frame" x="106" y="0.0" width="309" height="39"/>
+                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkS-W8-BHz" userLabel="facebook Button">
                             <rect key="frame" x="160" y="79" width="200" height="42"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="enF-tF-lr1"/>
                                 <constraint firstAttribute="height" constant="42" id="rNQ-Ve-d8f"/>
@@ -52,6 +55,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uT-uk-wuh" userLabel="twitter Button">
                             <rect key="frame" x="160" y="141" width="200" height="42"/>
+                            <animations/>
                             <state key="normal" title="Twitter">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -61,6 +65,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-NW-Y7l" userLabel="Text button">
                             <rect key="frame" x="160" y="203" width="200" height="42"/>
+                            <animations/>
                             <state key="normal" title="Text">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -70,6 +75,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1Y-Xm-sTC" userLabel="email button">
                             <rect key="frame" x="160" y="265" width="200" height="42"/>
+                            <animations/>
                             <state key="normal" title="Email">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -78,6 +84,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <animations/>
                     <constraints>
                         <constraint firstItem="S1Y-Xm-sTC" firstAttribute="height" secondItem="dkS-W8-BHz" secondAttribute="height" id="57S-4x-iy2"/>
                         <constraint firstAttribute="centerX" secondItem="3uT-uk-wuh" secondAttribute="centerX" id="7EL-XG-jnP"/>
@@ -101,6 +108,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJR-aP-BvM" userLabel="close button" customClass="ModifiedHitAreaButton">
                     <rect key="frame" x="295" y="538" width="11" height="22"/>
+                    <animations/>
                     <state key="normal" image="close-promotion.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,6 +118,7 @@
                     </connections>
                 </button>
             </subviews>
+            <animations/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="pJR-aP-BvM" secondAttribute="centerX" id="5jL-g5-ZSs"/>
                 <constraint firstAttribute="bottom" secondItem="pJR-aP-BvM" secondAttribute="bottom" constant="40" id="8WP-NR-dCk"/>

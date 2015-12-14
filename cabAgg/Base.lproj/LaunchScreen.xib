@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -13,11 +14,14 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stock-photo.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="7V1-FO-7hr">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <animations/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-big.png" translatesAutoresizingMaskIntoConstraints="NO" id="JP9-HU-m3q">
-                    <rect key="frame" x="140" y="84" width="200" height="64"/>
+                    <rect key="frame" x="121" y="89" width="238" height="54"/>
+                    <animations/>
                 </imageView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="JP9-HU-m3q" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="-44" id="4m8-nA-ZEp"/>
@@ -33,7 +37,7 @@
         </view>
     </objects>
     <resources>
-        <image name="logo-big.png" width="200" height="64"/>
+        <image name="logo-big.png" width="238" height="54"/>
         <image name="stock-photo.jpeg" width="2164" height="1440"/>
     </resources>
 </document>
