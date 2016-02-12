@@ -20,6 +20,7 @@
 #import "SPGooglePlacesAutocompletePlace.h"
 #import "ShamelessPromotionViewController.h"
 #import "AppConstants.h"
+#import "NotificationManager.h"
 
 @interface HTTPClient ()
 
@@ -199,7 +200,8 @@
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     NSDictionary *params = @{@"udid": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
                              @"version" : version,
-                             @"localNotif?" :@(globalStateInterface.didStartFromNotif)};
+                             @"localNotif?" :@(globalStateInterface.didStartFromNotif),
+                             @"isNotifAllowed" : @([globalStateInterface.notificationManager checkIfNotifsEnabled])};
     
     [self POST:@"api/v1/start" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject[@"error"]) {
