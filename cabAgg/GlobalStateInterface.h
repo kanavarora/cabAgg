@@ -8,14 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import "AppConstants.h"
 
 @class  MainViewController;
 @class EventLogger;
+@class NotificationManager;
+
 @interface GlobalStateInterface : NSObject
 
 @property (nonatomic, readwrite, weak) MainViewController *mainVC;
 @property (nonatomic, readwrite, assign) BOOL shouldOptimizeDestination;
 @property (nonatomic, readwrite, strong) EventLogger *eventLogger;
+@property (nonatomic, readwrite, strong) NotificationManager *notificationManager;
+@property (nonatomic, readwrite, strong) AppConstants *appConstants;
+
+@property (nonatomic, readwrite, assign) BOOL didStartFromNotif;
 
 + (BOOL)areEqualLocations:(CLLocationCoordinate2D)loc1
                   andloc2:(CLLocationCoordinate2D)loc2;

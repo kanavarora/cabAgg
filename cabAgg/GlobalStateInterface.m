@@ -11,6 +11,7 @@
 #import <MapKit/MapKit.h>
 
 #import "EventLogger.h"
+#import "NotificationManager.h"
 
 GlobalStateInterface *globalStateInterface;
 
@@ -19,6 +20,7 @@ GlobalStateInterface *globalStateInterface;
 - (id)init {
     if (self = [super init]) {
         _eventLogger = [[EventLogger alloc] init];
+        _notificationManager = [[NotificationManager alloc] init];
     }
     return self;
 }

@@ -10,6 +10,7 @@
 
 #import "HTTPClient.h"
 #import "GlobalStateInterface.h"
+#import <FBSDKCoreKit/FBSDKAppEvents.h>
 
 #import <GoogleMaps/GoogleMaps.h>
 #import "MainViewController.h"
@@ -18,6 +19,7 @@
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocompletePlace.h"
 #import "ShamelessPromotionViewController.h"
+#import "AppConstants.h"
 
 @interface HTTPClient ()
 
@@ -196,7 +198,9 @@
 - (void)startApp {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     NSDictionary *params = @{@"udid": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                             @"version" : version};
+                             @"version" : version,
+                             @"localNotif?" :@(globalStateInterface.didStartFromNotif)};
+    
     [self POST:@"api/v1/start" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject[@"error"]) {
             NSString *errorString = responseObject[@"error"][@"string"];
@@ -233,10 +237,15 @@
         if (responseObject[@"optimizeDestination"]) {
             globalStateInterface.shouldOptimizeDestination = [responseObject[@"optimizeDestination"] boolValue];
         }
+        if (responseObject[@"constants"]) {
+            globalStateInterface.appConstants = [[AppConstants alloc] initWithDict:responseObject[@"constants"]];
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         // mhmmmm
         NSLog(@"failure");
     }];
+    
+    [FBSDKAppEvents logEvent:@"startup"];
     
 }
 

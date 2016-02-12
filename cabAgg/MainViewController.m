@@ -10,6 +10,8 @@
 
 #import "SetDestinationView.h"
 
+#import "AppDelegate.h"
+#import "NotificationManager.h"
 #import "UberHTTPClient.h"
 #import "CabAggHttpClient.h"
 #import "GlobalStateInterface.h"
@@ -429,6 +431,11 @@ typedef enum {
             self.myLocationConstraint.constant = -self.bottomBarView.frame.size.height + kHeightOfCell - 1;
             
             [globalStateInterface increaseNumOptimize];
+            
+            float delay = [globalStateInterface.appConstants getFloatForKey:@"delayInNotifAsking"];
+            delay = delay > 0 ? delay : 3.0f;
+            [globalStateInterface.notificationManager performSelector:@selector(registerForNotifications)
+                                                           withObject:nil afterDelay:delay];
             break;
         }
     }

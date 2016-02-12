@@ -145,6 +145,8 @@
 		4AF5041B1C6D55ED00948CDA /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF504181C6D55ED00948CDA /* FBSDKCoreKit.framework */; };
 		4AF5041C1C6D55ED00948CDA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF504191C6D55ED00948CDA /* FBSDKLoginKit.framework */; };
 		4AF5041D1C6D55ED00948CDA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF5041A1C6D55ED00948CDA /* FBSDKShareKit.framework */; };
+		4AF504201C6E163800948CDA /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5041F1C6E163800948CDA /* NotificationManager.m */; };
+		4AF504231C6E18ED00948CDA /* AppConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF504221C6E18ED00948CDA /* AppConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +379,10 @@
 		4AF504181C6D55ED00948CDA /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		4AF504191C6D55ED00948CDA /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		4AF5041A1C6D55ED00948CDA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		4AF5041E1C6E163800948CDA /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
+		4AF5041F1C6E163800948CDA /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
+		4AF504211C6E18ED00948CDA /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
+		4AF504221C6E18ED00948CDA /* AppConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -679,6 +685,8 @@
 				4A6482AD1A667F5400746A16 /* LocationSearchViewController.xib */,
 				4A6482B01A6681E800746A16 /* HTTPClient.h */,
 				4A6482B11A6681E800746A16 /* HTTPClient.m */,
+				4AF504211C6E18ED00948CDA /* AppConstants.h */,
+				4AF504221C6E18ED00948CDA /* AppConstants.m */,
 				4A80E4C41AD662EC007E0D07 /* LyftHttpClient.h */,
 				4A80E4C51AD662EC007E0D07 /* LyftHttpClient.m */,
 				4AE7AD871B1C0FD000BE8DED /* EventLogger.h */,
@@ -727,6 +735,8 @@
 				4AE6D26F1A59ECD2008B9221 /* Supporting Files */,
 				4AE6D2CF1A5A2385008B9221 /* CabAggHttpClient.h */,
 				4AE6D2D01A5A2385008B9221 /* CabAggHttpClient.m */,
+				4AF5041E1C6E163800948CDA /* NotificationManager.h */,
+				4AF5041F1C6E163800948CDA /* NotificationManager.m */,
 				4A64829A1A5D291B00746A16 /* UberHTTPClient.h */,
 				4A64829D1A5E78F000746A16 /* SidecarHttpClient.h */,
 				4A64829E1A5E78F000746A16 /* SidecarHttpClient.m */,
@@ -991,6 +1001,7 @@
 				4A6483141A7322D700746A16 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				4A6483131A7322D700746A16 /* NSObject+MagicalDataImport.m in Sources */,
 				4A08EF4C1B2CF3F40012EBD6 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
+				4AF504231C6E18ED00948CDA /* AppConstants.m in Sources */,
 				4A6483231A7322D700746A16 /* MagicalRecord+Actions.m in Sources */,
 				4A80E4C61AD662EC007E0D07 /* LyftHttpClient.m in Sources */,
 				4A08EF4E1B2CF3F40012EBD6 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
@@ -1014,6 +1025,7 @@
 				4A6483251A7322D700746A16 /* MagicalRecord+iCloud.m in Sources */,
 				4A6483221A7322D700746A16 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				4A6482AE1A667F5400746A16 /* LocationSearchViewController.m in Sources */,
+				4AF504201C6E163800948CDA /* NotificationManager.m in Sources */,
 				4AE6D2AE1A59ED31008B9221 /* AFSecurityPolicy.m in Sources */,
 				4A6483101A7322D700746A16 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				4A780FD91ABC0AE500E9898C /* UIView+LoadingSpinner.m in Sources */,
