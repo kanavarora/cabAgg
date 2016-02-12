@@ -142,6 +142,9 @@
 		4AE7AD861B15B47E00BE8DED /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE7AD841B15B47E00BE8DED /* Crashlytics.framework */; };
 		4AE7AD891B1C0FD000BE8DED /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7AD881B1C0FD000BE8DED /* EventLogger.m */; };
 		4AE8F5F71AA9E9750024EABF /* stock-photo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */; };
+		4AF5041B1C6D55ED00948CDA /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF504181C6D55ED00948CDA /* FBSDKCoreKit.framework */; };
+		4AF5041C1C6D55ED00948CDA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF504191C6D55ED00948CDA /* FBSDKLoginKit.framework */; };
+		4AF5041D1C6D55ED00948CDA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF5041A1C6D55ED00948CDA /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,6 +374,9 @@
 		4AE7AD871B1C0FD000BE8DED /* EventLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLogger.h; path = ../EventLogger.h; sourceTree = "<group>"; };
 		4AE7AD881B1C0FD000BE8DED /* EventLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLogger.m; path = ../EventLogger.m; sourceTree = "<group>"; };
 		4AE8F5F61AA9E9750024EABF /* stock-photo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "stock-photo.jpeg"; sourceTree = "<group>"; };
+		4AF504181C6D55ED00948CDA /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		4AF504191C6D55ED00948CDA /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		4AF5041A1C6D55ED00948CDA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,11 +391,14 @@
 				4AE6D2CC1A5A2014008B9221 /* QuartzCore.framework in Frameworks */,
 				4AE6D2CA1A5A2009008B9221 /* OpenGLES.framework in Frameworks */,
 				4AE6D2C81A5A2001008B9221 /* libz.dylib in Frameworks */,
+				4AF5041B1C6D55ED00948CDA /* FBSDKCoreKit.framework in Frameworks */,
 				4AE6D2C61A5A1FF6008B9221 /* libicucore.dylib in Frameworks */,
 				4AE6D2C41A5A1FE7008B9221 /* libc++.dylib in Frameworks */,
 				4AE6D2C21A5A1FDB008B9221 /* ImageIO.framework in Frameworks */,
 				4AE7AD851B15B47E00BE8DED /* Fabric.framework in Frameworks */,
+				4AF5041D1C6D55ED00948CDA /* FBSDKShareKit.framework in Frameworks */,
 				4AE6D2C01A5A1FCF008B9221 /* GLKit.framework in Frameworks */,
+				4AF5041C1C6D55ED00948CDA /* FBSDKLoginKit.framework in Frameworks */,
 				4AE6D2BE1A5A1FCA008B9221 /* CoreText.framework in Frameworks */,
 				4AE6D2BC1A5A1FB5008B9221 /* CoreData.framework in Frameworks */,
 				4AE6D2BA1A5A1FAC008B9221 /* CoreLocation.framework in Frameworks */,
@@ -617,6 +626,9 @@
 		4AE6D2631A59ECD2008B9221 = {
 			isa = PBXGroup;
 			children = (
+				4AF504181C6D55ED00948CDA /* FBSDKCoreKit.framework */,
+				4AF504191C6D55ED00948CDA /* FBSDKLoginKit.framework */,
+				4AF5041A1C6D55ED00948CDA /* FBSDKShareKit.framework */,
 				4ABBF1461B68C99B002DB1E9 /* MessageUI.framework */,
 				4A3FFD401B6655240095907E /* Social.framework */,
 				4A08EF5F1B2EC4C40012EBD6 /* CabaggAlertController.h */,

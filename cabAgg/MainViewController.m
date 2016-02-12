@@ -26,7 +26,6 @@
 #import "FbManager.h"
 #import "ShamelessPromotionViewController.h"
 
-
 #define kZoomFactor 2.5f
 #define METERS_PER_MILE 1609.344
 
